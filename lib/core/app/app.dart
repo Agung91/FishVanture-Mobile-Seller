@@ -32,7 +32,7 @@ class _AppState extends State<App> {
         ),
       ],
       child: MaterialApp(
-        title: 'Aplikasi',
+        title: 'Aplikasi Seller',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

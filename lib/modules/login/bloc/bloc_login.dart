@@ -8,8 +8,8 @@ import 'package:sstream/sstream.dart';
 class LoginBLoc {
   LoginBLoc(this._repo) {
     if (kDebugMode) {
-      email.add('rosiandana@gmail.com');
-      password.add('rosiandana');
+      email.add('gung@gmail.com');
+      password.add('gung');
     }
   }
 

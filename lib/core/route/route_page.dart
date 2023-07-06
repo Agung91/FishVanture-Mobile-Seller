@@ -1,3 +1,4 @@
+import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,10 @@ class RouteRegister extends RoutePage {
         );
 }
 
-// class RouteDashboard extends RoutePage {
-//   RouteDashboard()
-//       : super(
-//           const MaterialPage(child: DashboardPage()),
-//           'home',
-//         );
-// }
+class RouteHome extends RoutePage {
+  RouteHome()
+      : super(
+          const MaterialPage(child: HomePage()),
+          'home',
+        );
+}

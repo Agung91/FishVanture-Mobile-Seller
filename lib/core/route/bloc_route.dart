@@ -20,7 +20,7 @@ class RouteBloc extends Authenticated {
 
   @override
   Future<void> onLogin() async {
-    // _pageController.add([RouteDashboard()]);//TODO
+    _pageController.add([RouteHome()]);
   }
 
   @override
@@ -75,7 +75,7 @@ class RouteBloc extends Authenticated {
 
   backHome() {
     final latest = _pageController.value;
-    // latest.removeWhere((element) => element is! RouteDashboard); //TODO
+    latest.removeWhere((element) => element is! RouteHome);
     _pageController.add(latest);
   }
 }
