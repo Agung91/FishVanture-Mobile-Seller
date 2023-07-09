@@ -4,6 +4,8 @@ import 'package:seller/core/auth/bloc/local_auth.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/pond/repo/repo_pond.dart';
 import 'package:seller/modules/profile/bloc/bloc_profile.dart';
 import 'package:seller/modules/profile/repo/repo_profile.dart';
 
@@ -29,6 +31,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => ProfileBloc(ProfileHttpRepo()),
+        ),
+        Provider(
+          create: (_) => PondBloc(PondHttpRepo()),
         ),
       ],
       child: MaterialApp(
