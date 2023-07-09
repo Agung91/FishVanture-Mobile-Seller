@@ -2,6 +2,7 @@ import 'package:seller/modules/chat/screen/page_chat.dart';
 import 'package:seller/modules/chat/screen/page_list_chat.dart';
 import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
+import 'package:seller/modules/order/screen/page_order.dart';
 import 'package:seller/modules/pond/screen/page_pond.dart';
 import 'package:seller/modules/profile/screen/page_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
@@ -75,5 +76,13 @@ class RouteChat extends RoutePage {
       : super(
           const MaterialPage(child: ChatPage()),
           'chat',
+        );
+}
+
+class RouteOrder extends RoutePage {
+  RouteOrder()
+      : super(
+          const MaterialPage(child: OrderPage()),
+          'order',
         );
 }

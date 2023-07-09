@@ -106,15 +106,23 @@ class _CustomButtonState extends State<CustomButton> {
         height: widget.smallButton ? 32.0 : 43.0,
         width: double.infinity,
         decoration: BoxDecoration(
+            border: widget.isPrimary
+                ? null
+                : Border.all(
+                    color: CustomColor.primary,
+                    width: 1.5,
+                  ),
             borderRadius: _bordeRadius,
-            gradient: const LinearGradient(
-              colors: [
-                CustomColor.primary,
-                CustomColor.secondary,
-              ],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            )),
+            gradient: widget.isPrimary
+                ? const LinearGradient(
+                    colors: [
+                      CustomColor.primary,
+                      CustomColor.secondary,
+                    ],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.topLeft,
+                  )
+                : null),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -149,7 +157,7 @@ class _CustomButtonState extends State<CustomButton> {
         ),
       ),
     );
-  }
+   }
 }
 
 class _DisabledButton extends StatelessWidget {

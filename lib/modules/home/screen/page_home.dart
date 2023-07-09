@@ -6,6 +6,7 @@ import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/home/widget/w_card.dart';
+import 'package:seller/modules/order/screen/page_order.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -85,7 +86,7 @@ class _WCategori extends StatelessWidget {
             text: 'Pesanan',
             subText: 'Daftar Pesanan Anda',
             iconData: IconlyBold.bag,
-            onTap: () {},
+            onTap: () => RouteBloc().push(RouteOrder()),
           ),
           _ItemCategori(
             text: 'Pesan',
