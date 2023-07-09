@@ -3,6 +3,8 @@ import 'package:iconly/iconly.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/core/route/bloc_route.dart';
+import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/home/widget/w_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -89,13 +91,13 @@ class _WCategori extends StatelessWidget {
             text: 'Pesan',
             subText: 'Pesan pelanggan Anda',
             iconData: IconlyBold.chat,
-            onTap: () {},
+            onTap: () => RouteBloc().push(RouteListChat()),
           ),
           _ItemCategori(
             text: 'Pengaturan Produk',
-            subText: 'Atur produk dan layanan klinik',
+            subText: 'Atur produk Anda',
             iconData: IconlyBold.setting,
-            onTap: () {},
+            onTap: () => RouteBloc().push(RoutePond()),
           ),
         ],
       ),
@@ -203,39 +205,44 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 101,
-      color: CustomColor.primary,
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Row(
-            children: [
-              // Icon(IconlyLight.arrow_left),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: CustomColor.grey,
-                backgroundImage: AssetImage('assets/default_profile.png'),
-              ),
-              const SizedBox(width: 12.0),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Selamat Datang,',
-                    style: CustomTextStyle.body3Regular
-                        .copyWith(color: CustomColor.white),
-                  ),
-                  const SizedBox(height: 2.0),
-                  Text(
-                    'Agung Nurcahyo Rosiandana',
-                    style: CustomTextStyle.body1Medium
-                        .copyWith(color: CustomColor.white),
-                  ),
-                ],
-              ),
-            ],
+    return InkWell(
+      onTap: () {
+        RouteBloc().push(RouteProfile());
+      },
+      child: Container(
+        height: 101,
+        color: CustomColor.primary,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Row(
+              children: [
+                // Icon(IconlyLight.arrow_left),
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: CustomColor.grey,
+                  backgroundImage: AssetImage('assets/default_profile.png'),
+                ),
+                const SizedBox(width: 12.0),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Selamat Datang,',
+                      style: CustomTextStyle.body3Regular
+                          .copyWith(color: CustomColor.white),
+                    ),
+                    const SizedBox(height: 2.0),
+                    Text(
+                      'Agung Nurcahyo Rosiandana',
+                      style: CustomTextStyle.body1Medium
+                          .copyWith(color: CustomColor.white),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

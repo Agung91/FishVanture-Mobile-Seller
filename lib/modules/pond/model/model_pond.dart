@@ -1,0 +1,280 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
+class PondModel {
+  final String name;
+  final String countryID;
+  final String provinceID;
+  final String cityID;
+  final String districtID;
+  final String detailAddress;
+  final String noteAddress;
+  final String type;
+  final double latitude;
+  final double longitude;
+  final String teamID;
+  final String image;
+  final List<PoolModel> listPool;
+  final BerkasModel berkas;
+  PondModel({
+    required this.name,
+    required this.countryID,
+    required this.provinceID,
+    required this.cityID,
+    required this.districtID,
+    required this.detailAddress,
+    required this.noteAddress,
+    required this.type,
+    required this.latitude,
+    required this.longitude,
+    required this.teamID,
+    required this.image,
+    required this.listPool,
+    required this.berkas,
+  });
+
+  PondModel copyWith({
+    String? name,
+    String? countryID,
+    String? provinceID,
+    String? cityID,
+    String? districtID,
+    String? detailAddress,
+    String? noteAddress,
+    String? type,
+    double? latitude,
+    double? longitude,
+    String? teamID,
+    String? image,
+    List<PoolModel>? listPool,
+    BerkasModel? berkas,
+  }) {
+    return PondModel(
+      name: name ?? this.name,
+      countryID: countryID ?? this.countryID,
+      provinceID: provinceID ?? this.provinceID,
+      cityID: cityID ?? this.cityID,
+      districtID: districtID ?? this.districtID,
+      detailAddress: detailAddress ?? this.detailAddress,
+      noteAddress: noteAddress ?? this.noteAddress,
+      type: type ?? this.type,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      teamID: teamID ?? this.teamID,
+      image: image ?? this.image,
+      listPool: listPool ?? this.listPool,
+      berkas: berkas ?? this.berkas,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'countryID': countryID,
+      'provinceID': provinceID,
+      'cityID': cityID,
+      'districtID': districtID,
+      'detailAddress': detailAddress,
+      'noteAddress': noteAddress,
+      'type': type,
+      'latitude': latitude,
+      'longitude': longitude,
+      'teamID': teamID,
+      'image': image,
+      'listPool': listPool.map((x) => x.toMap()).toList(),
+      'berkas': berkas.toMap(),
+    };
+  }
+
+  factory PondModel.fromMap(Map<String, dynamic> map) {
+    return PondModel(
+      name: map['name'] ?? '',
+      countryID: map['countryID'] ?? '',
+      provinceID: map['provinceID'] ?? '',
+      cityID: map['cityID'] ?? '',
+      districtID: map['districtID'] ?? '',
+      detailAddress: map['detailAddress'] ?? '',
+      noteAddress: map['noteAddress'] ?? '',
+      type: map['type'] ?? '',
+      latitude: map['latitude']?.toDouble() ?? 0.0,
+      longitude: map['longitude']?.toDouble() ?? 0.0,
+      teamID: map['teamID'] ?? '',
+      image: map['image'] ?? '',
+      listPool: List<PoolModel>.from(
+          map['listPool']?.map((x) => PoolModel.fromMap(x))),
+      berkas: BerkasModel.fromMap(map['berkas']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory PondModel.fromJson(String source) =>
+      PondModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'PondModel(name: $name, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, berkas: $berkas)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PondModel &&
+        other.name == name &&
+        other.countryID == countryID &&
+        other.provinceID == provinceID &&
+        other.cityID == cityID &&
+        other.districtID == districtID &&
+        other.detailAddress == detailAddress &&
+        other.noteAddress == noteAddress &&
+        other.type == type &&
+        other.latitude == latitude &&
+        other.longitude == longitude &&
+        other.teamID == teamID &&
+        other.image == image &&
+        listEquals(other.listPool, listPool) &&
+        other.berkas == berkas;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^
+        countryID.hashCode ^
+        provinceID.hashCode ^
+        cityID.hashCode ^
+        districtID.hashCode ^
+        detailAddress.hashCode ^
+        noteAddress.hashCode ^
+        type.hashCode ^
+        latitude.hashCode ^
+        longitude.hashCode ^
+        teamID.hashCode ^
+        image.hashCode ^
+        listPool.hashCode ^
+        berkas.hashCode;
+  }
+}
+
+class PoolModel {
+  final String name;
+  final double long;
+  final double wide;
+  final String image;
+  PoolModel({
+    required this.name,
+    required this.long,
+    required this.wide,
+    required this.image,
+  });
+
+  PoolModel copyWith({
+    String? name,
+    double? long,
+    double? wide,
+    String? image,
+  }) {
+    return PoolModel(
+      name: name ?? this.name,
+      long: long ?? this.long,
+      wide: wide ?? this.wide,
+      image: image ?? this.image,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'long': long,
+      'wide': wide,
+      'image': image,
+    };
+  }
+
+  factory PoolModel.fromMap(Map<String, dynamic> map) {
+    return PoolModel(
+      name: map['name'] ?? '',
+      long: map['long']?.toDouble() ?? 0.0,
+      wide: map['wide']?.toDouble() ?? 0.0,
+      image: map['image'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory PoolModel.fromJson(String source) =>
+      PoolModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'PoolModel(name: $name, long: $long, wide: $wide, image: $image)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PoolModel &&
+        other.name == name &&
+        other.long == long &&
+        other.wide == wide &&
+        other.image == image;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^ long.hashCode ^ wide.hashCode ^ image.hashCode;
+  }
+}
+
+class BerkasModel {
+  final String name;
+  final String file;
+  BerkasModel({
+    required this.name,
+    required this.file,
+  });
+
+  BerkasModel copyWith({
+    String? name,
+    String? file,
+  }) {
+    return BerkasModel(
+      name: name ?? this.name,
+      file: file ?? this.file,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'file': file,
+    };
+  }
+
+  factory BerkasModel.fromMap(Map<String, dynamic> map) {
+    return BerkasModel(
+      name: map['name'] ?? '',
+      file: map['file'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory BerkasModel.fromJson(String source) =>
+      BerkasModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'BerkasModel(name: $name, file: $file)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is BerkasModel && other.name == name && other.file == file;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ file.hashCode;
+}
