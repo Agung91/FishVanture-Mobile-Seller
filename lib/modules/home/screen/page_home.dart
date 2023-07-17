@@ -3,6 +3,8 @@ import 'package:iconly/iconly.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/core/auth/bloc/bloc_auth.dart';
+import 'package:seller/core/auth/bloc/event.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/home/widget/w_card.dart';
@@ -99,6 +101,7 @@ class _WCategori extends StatelessWidget {
             subText: 'Atur produk Anda',
             iconData: IconlyBold.setting,
             onTap: () => RouteBloc().push(RoutePond()),
+            // onTap: () => AuthBloc().raise(EventAuthLogout()),
           ),
         ],
       ),
