@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
@@ -9,6 +10,9 @@ import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/home/widget/w_card.dart';
 import 'package:seller/modules/order/screen/page_order.dart';
+import 'package:seller/modules/profile/bloc/bloc_profile.dart';
+import 'package:seller/modules/profile/model/model_profile.dart';
+import 'package:sstream/sstream.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,8 +26,23 @@ class HomePage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
+                color: CustomColor.yellow,
+                child: Text(
+                  'Silakan isi formulir pengajuan terlebih dahulu agar akun dapat digunakan.',
+                  textAlign: TextAlign.center,
+                  style: CustomTextStyle.body2Regular
+                      .copyWith(color: CustomColor.white),
+                ),
+              ),
+            ),
             const SizedBox(height: 8),
-            _WCategori(),
+            const _WCategori(),
+            const SizedBox(height: 12.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
@@ -101,7 +120,6 @@ class _WCategori extends StatelessWidget {
             subText: 'Atur produk Anda',
             iconData: IconlyBold.setting,
             onTap: () => RouteBloc().push(RoutePond()),
-            // onTap: () => AuthBloc().raise(EventAuthLogout()),
           ),
         ],
       ),
@@ -207,8 +225,26 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size(double.infinity, 101);
 
+  void show(BuildContext context) {
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      content: const Text('Error message text'),
+      leading: CircleAvatar(child: Icon(Icons.delete)),
+      actions: [
+        TextButton(
+          child: const Text('ACTION 1'),
+          onPressed: () {},
+        ),
+        TextButton(
+          child: const Text('ACTION 2'),
+          onPressed: () {},
+        ),
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final profileBloc = context.read<ProfileBloc>();
     return InkWell(
       onTap: () {
         RouteBloc().push(RouteProfile());
