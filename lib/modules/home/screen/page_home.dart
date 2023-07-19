@@ -121,6 +121,12 @@ class _WCategori extends StatelessWidget {
             iconData: IconlyBold.setting,
             onTap: () => RouteBloc().push(RoutePond()),
           ),
+          _ItemCategori(
+            text: 'Profile',
+            subText: 'Atur profile Anda',
+            iconData: IconlyBold.setting,
+            onTap: () => RouteBloc().push(RoutePond()),
+          ),
         ],
       ),
     );
@@ -247,7 +253,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
     final profileBloc = context.read<ProfileBloc>();
     return InkWell(
       onTap: () {
-        RouteBloc().push(RouteProfile());
+        RouteBloc().push(RouteEditProfile());
       },
       child: Container(
         height: 101,

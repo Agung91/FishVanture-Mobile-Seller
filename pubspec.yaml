@@ -39,6 +39,7 @@ dependencies:
   iconsax: ^0.0.8
   iconly: ^1.0.1
   image_picker: ^1.0.1
+  in_app_update: ^4.1.4
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 import 'package:seller/core/auth/bloc/local_auth.dart';
 import 'package:seller/core/route/bloc_route.dart';
@@ -20,6 +22,27 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  Future<void> checkForUpdate() async {
+    if (kDebugMode) {
+      return;
+    }
+    InAppUpdate.checkForUpdate().then((info) {
+      if (info.updateAvailability != 0) {
+        InAppUpdate.performImmediateUpdate();
+      }
+    }).catchError((e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
+  }
 
   @override
   Widget build(BuildContext context) {

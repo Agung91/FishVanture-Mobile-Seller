@@ -49,11 +49,11 @@ class RouteHome extends RoutePage {
         );
 }
 
-class RouteProfile extends RoutePage {
-  RouteProfile()
+class RouteEditProfile extends RoutePage {
+  RouteEditProfile()
       : super(
-          const MaterialPage(child: ProfilePage()),
-          'profile',
+          const MaterialPage(child: EditProfilePage()),
+          'edit-profile',
         );
 }
 
@@ -96,6 +96,7 @@ class RouteListPool extends RoutePage {
           'list-pool',
         );
 }
+
 class RoutePool extends RoutePage {
   RoutePool()
       : super(
