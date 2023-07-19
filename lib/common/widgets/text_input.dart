@@ -64,7 +64,7 @@ class _TextInputState extends State<TextInput> {
               keyboardType: widget.keyboardType,
               decoration: CustomBorder.border.copyWith(
                 hintText: widget.hint,
-                hintStyle: const TextStyle(color: Colors.black26),
+                hintStyle: const TextStyle(color: CustomColor.grey),
                 enabled: widget.isEnabled,
                 filled: !widget.isEnabled,
                 fillColor: const Color(0xffEEEEEE),

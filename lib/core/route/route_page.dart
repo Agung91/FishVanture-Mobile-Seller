@@ -9,6 +9,7 @@ import 'package:seller/modules/pool/screen/page_pool.dart';
 import 'package:seller/modules/profile/screen/page_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
+import 'package:seller/modules/submission/screen/page_submission.dart';
 
 abstract class RoutePage {
   final MaterialPage page;
@@ -57,11 +58,19 @@ class RouteEditProfile extends RoutePage {
         );
 }
 
-class RoutePond extends RoutePage {
-  RoutePond()
+class RouteFormSubmission extends RoutePage {
+  RouteFormSubmission()
       : super(
-          const MaterialPage(child: PondPage()),
-          'pond',
+          const MaterialPage(child: SubmissionPage()),
+          'form-submission',
+        );
+}
+
+class RouteProductSetting extends RoutePage {
+  RouteProductSetting()
+      : super(
+          const MaterialPage(child: ProductSettingPage()),
+          'product-setting',
         );
 }
 

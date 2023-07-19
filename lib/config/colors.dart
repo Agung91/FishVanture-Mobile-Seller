@@ -5,7 +5,7 @@ class CustomColor {
   static const Color background = Color(0xffE8F0F2);
   static const Color secondary = Color(0xffA2DBFA);
   static const Color focusedBorder = Color(0xff39A2DB);
-  static const Color defaultBorder = Color(0xffE0E0E0);
+  static const Color defaultBorder = Color(0xffB4B4B4);
   static const Color border = Color(0xff39A2DB);
 
   static const Color dark = Color(0xff053742); // Neutral / 90

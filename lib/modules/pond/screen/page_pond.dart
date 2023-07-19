@@ -11,14 +11,14 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/pond/model/model_pond.dart';
 
-class PondPage extends StatelessWidget {
-  const PondPage({super.key});
+class ProductSettingPage extends StatelessWidget {
+  const ProductSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final pondBloc = context.read<PondBloc>();
     return Scaffold(
-      appBar: CustomAppbar(appbarText: 'Pengaturan Produk'),
+      appBar: const CustomAppbar(appbarText: 'Pengaturan Produk'),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         color: CustomColor.white,
