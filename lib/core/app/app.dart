@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 import 'package:seller/core/auth/bloc/local_auth.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/pond/repo/repo_pond.dart';
 import 'package:seller/modules/profile/bloc/bloc_profile.dart';
 import 'package:seller/modules/profile/repo/repo_profile.dart';
 
@@ -19,6 +23,27 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
+  Future<void> checkForUpdate() async {
+    if (kDebugMode) {
+      return;
+    }
+    InAppUpdate.checkForUpdate().then((info) {
+      if (info.updateAvailability != 0) {
+        InAppUpdate.performImmediateUpdate();
+      }
+    }).catchError((e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,6 +54,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => ProfileBloc(ProfileHttpRepo()),
+        ),
+        Provider(
+          create: (_) => PondBloc(PondHttpRepo()),
         ),
       ],
       child: MaterialApp(

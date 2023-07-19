@@ -4,9 +4,12 @@ import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/order/screen/page_order.dart';
 import 'package:seller/modules/pond/screen/page_pond.dart';
+import 'package:seller/modules/pool/screen/page_list_pool.dart';
+import 'package:seller/modules/pool/screen/page_pool.dart';
 import 'package:seller/modules/profile/screen/page_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
+import 'package:seller/modules/submission/screen/page_submission.dart';
 
 abstract class RoutePage {
   final MaterialPage page;
@@ -47,19 +50,27 @@ class RouteHome extends RoutePage {
         );
 }
 
-class RouteProfile extends RoutePage {
-  RouteProfile()
+class RouteEditProfile extends RoutePage {
+  RouteEditProfile()
       : super(
-          const MaterialPage(child: ProfilePage()),
-          'profile',
+          const MaterialPage(child: EditProfilePage()),
+          'edit-profile',
         );
 }
 
-class RoutePond extends RoutePage {
-  RoutePond()
+class RouteFormSubmission extends RoutePage {
+  RouteFormSubmission()
       : super(
-          const MaterialPage(child: PondPage()),
-          'pond',
+          const MaterialPage(child: SubmissionPage()),
+          'form-submission',
+        );
+}
+
+class RouteProductSetting extends RoutePage {
+  RouteProductSetting()
+      : super(
+          const MaterialPage(child: ProductSettingPage()),
+          'product-setting',
         );
 }
 
@@ -84,5 +95,21 @@ class RouteOrder extends RoutePage {
       : super(
           const MaterialPage(child: OrderPage()),
           'order',
+        );
+}
+
+class RouteListPool extends RoutePage {
+  RouteListPool()
+      : super(
+          const MaterialPage(child: ListPoolPage()),
+          'list-pool',
+        );
+}
+
+class RoutePool extends RoutePage {
+  RoutePool()
+      : super(
+          const MaterialPage(child: PoolPage()),
+          'pool',
         );
 }

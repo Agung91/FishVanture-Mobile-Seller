@@ -3,8 +3,8 @@ import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class WCard extends StatelessWidget {
-  const WCard({
+class WHomeCard extends StatelessWidget {
+  const WHomeCard({
     super.key,
   });
 
