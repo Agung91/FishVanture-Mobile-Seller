@@ -15,19 +15,19 @@ class SubmissionPage extends StatelessWidget {
     final addressBloc = AddressBloc();
     return Scaffold(
       backgroundColor: CustomColor.background,
-      appBar: CustomAppbar(appbarText: 'Pengajuan Budidaya'),
+      appBar: const CustomAppbar(appbarText: 'Pengajuan Budidaya'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            const SizedBox(height: 32),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
                 label: 'Pemilik Budidaya',
                 hint: 'Masukkan Nama',
               ),
             ),
-            SizedBox(height: 26),
+            const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: StreamDropdown(
@@ -37,7 +37,7 @@ class SubmissionPage extends StatelessWidget {
                 selected: addressBloc.country,
               ),
             ),
-            SizedBox(height: 26),
+            const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: StreamDropdown(
@@ -47,7 +47,7 @@ class SubmissionPage extends StatelessWidget {
                 selected: addressBloc.province,
               ),
             ),
-            SizedBox(height: 26),
+            const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: StreamDropdown(
@@ -57,7 +57,7 @@ class SubmissionPage extends StatelessWidget {
                 selected: addressBloc.city,
               ),
             ),
-            SizedBox(height: 26),
+            const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: StreamDropdown(
@@ -67,29 +67,37 @@ class SubmissionPage extends StatelessWidget {
                 selected: addressBloc.district,
               ),
             ),
-            SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            const SizedBox(height: 26),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
                 label: 'Detail Alamat',
                 hint: 'Masukkan Detail Alamat',
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 26),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: CustomButton(
+                textButton: 'Submit',
+                onTap: () async {},
+              ),
+            ),
+            const SizedBox(height: 32),
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 16,
-        ),
-        color: CustomColor.white,
-        child: CustomButton(
-          textButton: 'Submit',
-          onTap: () async {},
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   padding: EdgeInsets.symmetric(
+      //     horizontal: 24,
+      //     vertical: 16,
+      //   ),
+      //   color: CustomColor.white,
+      //   child: CustomButton(
+      //     textButton: 'Submit',
+      //     onTap: () async {},
+      //   ),
+      // ),
     );
   }
 }

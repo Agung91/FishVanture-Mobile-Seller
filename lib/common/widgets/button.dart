@@ -140,7 +140,7 @@ class _CustomButtonState extends State<CustomButton> {
                           : CustomColor.primary,
                       fontWeight: FontWeight.w600,
                       fontSize: widget.smallButton ? 10 : 12.0,
-                      letterSpacing: 1.25 / 100 * 12,
+                      letterSpacing: 0.9,
                     ),
                   ),
             if (widget.suffixIcon != null || onLoading)
@@ -157,7 +157,7 @@ class _CustomButtonState extends State<CustomButton> {
         ),
       ),
     );
-   }
+  }
 }
 
 class _DisabledButton extends StatelessWidget {
