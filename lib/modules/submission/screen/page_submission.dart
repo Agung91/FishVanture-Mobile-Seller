@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import 'package:seller/common/widgets/appbar.dart';
@@ -12,6 +13,9 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/address/bloc/bloc_address.dart';
 import 'package:seller/modules/address/repo/repo_address.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/pool/widget/w_pool.dart';
+import 'package:seller/modules/submission/bloc/bloc_submission.dart';
+import 'package:seller/modules/submission/repo/repo_submission.dart';
 import 'package:seller/modules/submission/widget/w_submission_pool.dart';
 
 class SubmissionPage extends StatelessWidget {
@@ -19,8 +23,12 @@ class SubmissionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addressBloc = AddressBloc(AddressHttpRepo());
-    final pondBloc = context.read<PondBloc>();
+    // final addressBloc = AddressBloc(AddressHttpRepo());
+    // final pondBloc = context.read<PondBloc>();
+    final submissionBloc = SubmissionBloc(
+      SubmissionHttpRepo(),
+      AddressHttpRepo(),
+    );
     return Scaffold(
       backgroundColor: CustomColor.background,
       appBar: const CustomAppbar(appbarText: 'Pengajuan Budidaya'),
@@ -29,9 +37,10 @@ class SubmissionPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 32),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
+                sStream: submissionBloc.name,
                 label: 'Pemilik Budidaya',
                 hint: 'Masukkan Nama',
               ),
@@ -42,8 +51,8 @@ class SubmissionPage extends StatelessWidget {
               child: StreamDropdown(
                 label: 'Negara',
                 hint: 'Pilih Negara',
-                listItem: addressBloc.countrys,
-                selected: addressBloc.country,
+                listItem: submissionBloc.countrys,
+                selected: submissionBloc.country,
               ),
             ),
             const SizedBox(height: 26),
@@ -52,8 +61,8 @@ class SubmissionPage extends StatelessWidget {
               child: StreamDropdown(
                 label: 'Provinsi',
                 hint: 'Pilih Provinsi',
-                listItem: addressBloc.provinces,
-                selected: addressBloc.province,
+                listItem: submissionBloc.provinces,
+                selected: submissionBloc.province,
               ),
             ),
             const SizedBox(height: 26),
@@ -62,8 +71,8 @@ class SubmissionPage extends StatelessWidget {
               child: StreamDropdown(
                 label: 'Kabupaten/Kota',
                 hint: 'Pilih Kabupaten/Kota',
-                listItem: addressBloc.citys,
-                selected: addressBloc.city,
+                listItem: submissionBloc.citys,
+                selected: submissionBloc.city,
               ),
             ),
             const SizedBox(height: 26),
@@ -72,17 +81,103 @@ class SubmissionPage extends StatelessWidget {
               child: StreamDropdown(
                 label: 'Kecamatan',
                 hint: 'Pilih Kecamatan',
-                listItem: addressBloc.districts,
-                selected: addressBloc.district,
+                listItem: submissionBloc.districts,
+                selected: submissionBloc.district,
+              ),
+            ),
+            const SizedBox(height: 26),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: TextInput(
+                sStream: submissionBloc.detailAddres,
+                label: 'Detail Alamat',
+                hint: 'Masukkan Detail Alamat',
               ),
             ),
             const SizedBox(height: 26),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
-                label: 'Detail Alamat',
-                hint: 'Masukkan Detail Alamat',
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                  'Catatan : Tekan "Ambil Lokasi" untuk mengambil lokasi saat ini. Pastikan Anda berada di area yang akan didaftarkan.'),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: StreamBuilder<LocationData?>(
+                  stream: submissionBloc.initialKoordinat.stream,
+                  initialData: submissionBloc.initialKoordinat.value,
+                  builder: (context, snapshot) {
+                    final dataKoordinat = snapshot.data;
+                    if (dataKoordinat == null) {
+                      return TextButton(
+                        onPressed: () async {
+                          Location location = Location();
+
+                          // late bool _serviceEnabled;
+                          // late PermissionStatus _permissionGranted;
+                          // late LocationData _locationData;
+
+                          var _serviceEnabled = await location.serviceEnabled();
+                          if (!_serviceEnabled) {
+                            _serviceEnabled = await location.requestService();
+                            if (!_serviceEnabled) {
+                              return;
+                            }
+                          }
+
+                          var _permissionGranted =
+                              await location.hasPermission();
+                          if (_permissionGranted == PermissionStatus.denied) {
+                            _permissionGranted =
+                                await location.requestPermission();
+                            if (_permissionGranted !=
+                                PermissionStatus.granted) {
+                              return;
+                            }
+                          }
+
+                          var _locationData = await location.getLocation();
+                          submissionBloc.initialKoordinat.add(_locationData);
+
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //     content: Text(
+                          //         'latitude = ${_locationData.latitude}, longitude = ${_locationData.longitude}'),
+                          //     action: SnackBarAction(
+                          //       label: 'Salin',
+                          //       onPressed: () {
+                          //         // Clipboard.setData(ClipboardData(
+                          //         //     text: '${_locationData.latitude} ${_locationData.longitude}'));
+                          //         Clipboard.getData(
+                          //             '${_locationData.latitude} ${_locationData.longitude}');
+                          //       },
+                          //     ),
+                          //   ),
+                          // );
+                          print(_locationData);
+                          print(_locationData.accuracy);
+                          print(_locationData.altitude);
+                        },
+                        child: const Text('Ambil Lokasi.'),
+                      );
+                    }
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: CustomColor.fadedGrey,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Text(
+                        'Koordinat: ${dataKoordinat.latitude}, ${dataKoordinat.longitude}',
+                      ),
+                    );
+                  }),
             ),
             const SizedBox(height: 26),
             Padding(
@@ -96,7 +191,7 @@ class SubmissionPage extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          RouteBloc().push(RoutePool());
+                          RouteBloc().push(RoutePool(submissionBloc));
                         },
                         child: Text(
                           'Tambah Kolam',
@@ -177,7 +272,7 @@ class SubmissionPage extends StatelessWidget {
               child: CustomButton(
                 textButton: 'Submit',
                 onTap: () async {
-                  pondBloc.getPond();
+                  // pondBloc.getPond();
                   // RouteBloc().pop();
                 },
               ),

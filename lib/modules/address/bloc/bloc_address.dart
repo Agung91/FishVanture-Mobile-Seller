@@ -60,7 +60,4 @@ class AddressBloc {
 
   final name = ''.stream;
   final detailAddres = ''.stream;
-
-  final listPool = SStream<List<PoolModel>>([]);
-  final pool = SStream<PoolModel?>(null);
 }

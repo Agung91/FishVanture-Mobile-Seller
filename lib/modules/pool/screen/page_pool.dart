@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/text_input.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 
 class PoolPage extends StatelessWidget {
-  const PoolPage({super.key});
+  const PoolPage({
+    Key? key,
+    required this.submissionBloc,
+  }) : super(key: key);
+
+  final SubmissionBloc submissionBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +25,28 @@ class PoolPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 32),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
+                sStream: submissionBloc.poolName,
                 label: 'Nama Kolam',
                 hint: 'Masukkan Nama',
               ),
             ),
             const SizedBox(height: 26),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
+                sStream: submissionBloc.poolLength,
                 label: 'Pajang Kolam (dalam satuan meter)',
                 hint: 'Masukkan Panjang',
               ),
             ),
             const SizedBox(height: 26),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
+                sStream: submissionBloc.poolWidth,
                 label: 'Pajang Kolam (dalam satuan meter)',
                 hint: 'Masukkan Lebar',
               ),

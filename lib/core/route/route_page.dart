@@ -9,6 +9,7 @@ import 'package:seller/modules/pool/screen/page_pool.dart';
 import 'package:seller/modules/profile/screen/page_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
+import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 import 'package:seller/modules/submission/screen/page_submission.dart';
 
 abstract class RoutePage {
@@ -107,9 +108,9 @@ class RouteListPool extends RoutePage {
 }
 
 class RoutePool extends RoutePage {
-  RoutePool()
+  RoutePool(SubmissionBloc submissionBloc)
       : super(
-          const MaterialPage(child: PoolPage()),
+           MaterialPage(child: PoolPage(submissionBloc: submissionBloc,)),
           'pool',
         );
 }

@@ -23,7 +23,9 @@ class EditProfilePage extends StatelessWidget {
                 builder: (context, snapshot) {
                   final data = snapshot.data;
                   if (data == null) {
-                    return const SizedBox();
+                    return const SizedBox(
+                      height: 100,
+                    );
                   }
                   return SizedBox(
                     height: 276,
