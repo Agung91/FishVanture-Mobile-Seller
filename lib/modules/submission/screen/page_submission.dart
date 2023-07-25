@@ -218,54 +218,7 @@ class SubmissionPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 26),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-              decoration: BoxDecoration(
-                color: CustomColor.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Jelalahi File',
-                          style: CustomTextStyle.body1SemiBold,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Mohon untuk mengunggah file dengan ukuran kurang dari 2 MB',
-                          style: CustomTextStyle.body2Regular,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 24),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: CustomColor.primary,
-                      ),
-                      child: Text(
-                        'Upload',
-                        style: CustomTextStyle.body1Medium
-                            .copyWith(color: CustomColor.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            _WUploadFile(),
             const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -292,6 +245,64 @@ class SubmissionPage extends StatelessWidget {
       //     onTap: () async {},
       //   ),
       // ),
+    );
+  }
+}
+
+class _WUploadFile extends StatelessWidget {
+  const _WUploadFile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+      decoration: BoxDecoration(
+        color: CustomColor.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Jelalahi File',
+                  style: CustomTextStyle.body1SemiBold,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Mohon untuk mengunggah file dengan ukuran kurang dari 2 MB',
+                  style: CustomTextStyle.body2Regular,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 24),
+          InkWell(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 12,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: CustomColor.primary,
+              ),
+              child: Text(
+                'Upload',
+                style: CustomTextStyle.body1Medium
+                    .copyWith(color: CustomColor.white),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

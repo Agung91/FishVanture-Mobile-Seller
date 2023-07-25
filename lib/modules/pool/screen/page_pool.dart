@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:seller/common/image_picker/bloc_upload_image.dart';
+import 'package:seller/common/image_picker/repo_upload_image.dart';
 
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
@@ -76,6 +79,7 @@ class _WPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocImage = ImageUploaderBloc(UploadImageHttpRepo());
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24.0),
       padding: const EdgeInsets.all(18),
@@ -100,15 +104,20 @@ class _WPhoto extends StatelessWidget {
           const SizedBox(height: 8),
           AspectRatio(
             aspectRatio: 16 / 9,
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: CustomColor.fadedGrey),
-                  color: CustomColor.fadedGrey.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(8)),
-              child: Center(
-                child: Text(
-                  'Pilih Gambar',
-                  style: CustomTextStyle.body2SemiBold,
+            child: InkWell(
+              onTap: () {
+                blocImage.upload(ImageSource.camera);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: CustomColor.fadedGrey),
+                    color: CustomColor.fadedGrey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Center(
+                  child: Text(
+                    'Pilih Gambar',
+                    style: CustomTextStyle.body2SemiBold,
+                  ),
                 ),
               ),
             ),
