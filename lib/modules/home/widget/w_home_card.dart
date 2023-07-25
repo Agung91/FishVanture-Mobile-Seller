@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,13 @@ class WHomeCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.0),
               child: FadeInImage(
                 height: 118,
+                width: 168,
                 fit: BoxFit.cover,
                 placeholder: AssetImage('assets/load_img.png'),
-                image: AssetImage('assets/ikan.png'),
+                image: CachedNetworkImageProvider(
+                    'https://picsum.photos/500/500?random=1'),
               ),
+              // child: CachedNetworkImage(imageUrl: imageUrl),
             ),
             SizedBox(height: 4),
             Text(

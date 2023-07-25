@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:seller/config/colors.dart';
@@ -23,8 +24,10 @@ class WPool extends StatelessWidget {
             child: const FadeInImage(
               height: 60,
               width: 100,
+              fit: BoxFit.cover,
               placeholder: AssetImage('assets/load_img.png'),
-              image: AssetImage('assets/ikan.png'),
+              image: CachedNetworkImageProvider(
+                  'https://picsum.photos/500/500?random=1'),
             ),
           ),
           const SizedBox(width: 12.0),

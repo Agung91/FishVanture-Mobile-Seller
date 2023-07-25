@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -112,7 +113,7 @@ class ItemOrder extends StatelessWidget {
                   height: 60,
                   width: 80,
                   placeholder: AssetImage('assets/load_img.png'),
-                  image: AssetImage('assets/ikan.png'),
+                  image: CachedNetworkImageProvider('https://picsum.photos/500/500?random=1'),
                 ),
               ),
               const SizedBox(width: 12),
