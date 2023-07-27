@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:seller/common/image_picker/bloc_upload_image.dart';
 import 'package:seller/common/image_picker/repo_upload_image.dart';
-
+import 'package:seller/common/snackbar/snackbar_popup.dart';
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/text_input.dart';
@@ -55,7 +58,7 @@ class PoolPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 26),
-            const _WPhoto(),
+            _WPhoto(submissionBloc: submissionBloc),
             const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -74,8 +77,10 @@ class PoolPage extends StatelessWidget {
 
 class _WPhoto extends StatelessWidget {
   const _WPhoto({
-    super.key,
-  });
+    Key? key,
+    required this.submissionBloc,
+  }) : super(key: key);
+  final SubmissionBloc submissionBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -106,20 +111,96 @@ class _WPhoto extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: InkWell(
               onTap: () {
-                blocImage.upload(ImageSource.camera);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: CustomColor.fadedGrey),
-                    color: CustomColor.fadedGrey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Center(
-                  child: Text(
-                    'Pilih Gambar',
-                    style: CustomTextStyle.body2SemiBold,
+                showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
                   ),
-                ),
-              ),
+                  // isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 12,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            dense: true,
+                            title: Text(
+                              'Ambil foto dengan kamera',
+                              style: CustomTextStyle.body1Regular,
+                            ),
+                            leading: const Icon(
+                              IconlyBold.camera,
+                              color: CustomColor.primary,
+                              size: 24,
+                            ),
+                            onTap: () async {
+                              final a =
+                                  await blocImage.upload(ImageSource.camera);
+                              submissionBloc.poolImage.add(a.url);
+                              Navigator.pop(context);
+                              snackbarPopup(context);
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              'Ambil foto dari album',
+                              style: CustomTextStyle.body1Regular,
+                            ),
+                            leading: const Icon(
+                              IconlyBold.image,
+                              color: CustomColor.primary,
+                              size: 24,
+                            ),
+                            onTap: () async {
+                              final a =
+                                  await blocImage.upload(ImageSource.gallery);
+                              submissionBloc.poolImage.add(a.url);
+                              Navigator.pop(context);
+                              snackbarPopup(context);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              child: StreamBuilder<String>(
+                  stream: submissionBloc.poolImage.stream,
+                  initialData: submissionBloc.poolImage.value,
+                  builder: (context, snapshot) {
+                    final data = snapshot.data;
+                    if (data == null) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: CustomColor.fadedGrey),
+                            color: CustomColor.fadedGrey.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: Text(
+                            'Pilih Gambar',
+                            style: CustomTextStyle.body2SemiBold,
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(data),
+                              fit: BoxFit.cover),
+                          border: Border.all(color: CustomColor.fadedGrey),
+                          color: CustomColor.fadedGrey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(8)),
+                    );
+                  }),
             ),
           )
         ],

@@ -29,7 +29,7 @@ class WHomeCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 placeholder: AssetImage('assets/load_img.png'),
                 image: CachedNetworkImageProvider(
-                    'https://picsum.photos/500/500?random=1'),
+                    'https://picsum.photos/500/500?random='),
               ),
               // child: CachedNetworkImage(imageUrl: imageUrl),
             ),

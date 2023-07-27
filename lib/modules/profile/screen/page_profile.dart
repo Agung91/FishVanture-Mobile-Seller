@@ -31,7 +31,10 @@ class EditProfilePage extends StatelessWidget {
                     height: 276,
                     child: Stack(
                       children: [
-                        Image.asset('assets/bg_profile.png'),
+                        Image.asset(
+                          'assets/bg_profile.png',
+                          width: double.infinity,
+                        ),
                         Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -18,16 +18,16 @@ class WSubmissionPool extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
         color: CustomColor.white,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
             child: const FadeInImage(
               height: 120,
               width: 200,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               placeholder: AssetImage('assets/load_img.png'),
               image: CachedNetworkImageProvider(
                   'https://picsum.photos/500/500?random=1'),

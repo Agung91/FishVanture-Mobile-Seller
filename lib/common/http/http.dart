@@ -8,7 +8,6 @@ import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:dio/dio.dart';
 
 abstract class HttpService {
-  final dio = Dio();
   Future<dynamic> get(String path, {int? timeOut}) async {
     final token = AuthBloc().getToken();
     final options = BaseOptions(

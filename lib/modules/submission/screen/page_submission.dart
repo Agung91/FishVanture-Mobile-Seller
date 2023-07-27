@@ -13,6 +13,8 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/address/bloc/bloc_address.dart';
 import 'package:seller/modules/address/repo/repo_address.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/pond/model/model_pond.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:seller/modules/pool/widget/w_pool.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 import 'package:seller/modules/submission/repo/repo_submission.dart';
@@ -204,18 +206,35 @@ class SubmissionPage extends StatelessWidget {
             const SizedBox(height: 4),
             SizedBox(
               height: 180,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return WSubmissionPool();
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(width: 8);
-                },
-                itemCount: 8,
-              ),
+              child: StreamBuilder<List<PoolModel>>(
+                  stream: submissionBloc.listPool.stream,
+                  initialData: submissionBloc.listPool.value,
+                  builder: (context, snapshot) {
+                    final listPool = snapshot.data;
+                    if (listPool == null || listPool.isEmpty) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: CustomColor.white,
+                        ),
+                        child: Center(
+                          child: Text('Saat ini belum ada data terkait kolam.'),
+                        ),
+                      );
+                    }
+                    return ListView.separated(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return WSubmissionPool();
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(width: 8);
+                      },
+                      itemCount: 8,
+                    );
+                  }),
             ),
             const SizedBox(height: 26),
             _WUploadFile(),
@@ -225,7 +244,7 @@ class SubmissionPage extends StatelessWidget {
               child: CustomButton(
                 textButton: 'Submit',
                 onTap: () async {
-                  // pondBloc.getPond();
+                  context.read<PondBloc>().getPond();
                   // RouteBloc().pop();
                 },
               ),

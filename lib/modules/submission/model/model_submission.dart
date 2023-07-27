@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:seller/modules/pond/model/model_pond.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:seller/modules/submission/model/model_file.dart';
 
 class SubmissionModel {

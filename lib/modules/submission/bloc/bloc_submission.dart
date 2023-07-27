@@ -1,7 +1,7 @@
 import 'package:location/location.dart';
 import 'package:seller/modules/address/model/model_address.dart';
 import 'package:seller/modules/address/repo/repo_address.dart';
-import 'package:seller/modules/pond/model/model_pond.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:seller/modules/submission/repo/repo_submission.dart';
 import 'package:sstream/sstream.dart';
 

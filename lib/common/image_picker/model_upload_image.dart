@@ -7,6 +7,7 @@ class ImageModel {
     required this.name,
     required this.url,
   });
+  
 
   ImageModel copyWith({
     String? name,
@@ -34,17 +35,18 @@ class ImageModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ImageModel.fromJson(String source) =>
-      ImageModel.fromMap(json.decode(source));
+  factory ImageModel.fromJson(String source) => ImageModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'PoolImage(name: $name, url: $url)';
+  String toString() => 'ImageModel(name: $name, url: $url)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
-    return other is ImageModel && other.name == name && other.url == url;
+  
+    return other is ImageModel &&
+      other.name == name &&
+      other.url == url;
   }
 
   @override
