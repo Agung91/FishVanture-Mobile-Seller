@@ -22,6 +22,7 @@ import 'package:seller/modules/pool/widget/w_pool.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 import 'package:seller/modules/submission/repo/repo_submission.dart';
 import 'package:seller/modules/submission/widget/w_submission_pool.dart';
+import 'package:sstream/sstream.dart';
 
 class SubmissionPage extends StatelessWidget {
   const SubmissionPage({super.key});
@@ -39,7 +40,7 @@ class SubmissionPage extends StatelessWidget {
       builder: (context, child) {
         final submissionBloc = context.read<SubmissionBloc>();
         return Scaffold(
-          backgroundColor: CustomColor.background,
+          backgroundColor: CustomColors.background,
           appBar: const CustomAppbar(appbarText: 'Pengajuan Budidaya'),
           body: SingleChildScrollView(
             child: Column(
@@ -181,7 +182,7 @@ class SubmissionPage extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: CustomColor.fadedGrey,
+                              color: CustomColors.fadedGrey,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -209,7 +210,7 @@ class SubmissionPage extends StatelessWidget {
                             child: Text(
                               'Tambah Kolam',
                               style: CustomTextStyle.body2Medium.copyWith(
-                                color: CustomColor.primary,
+                                color: CustomColors.primary,
                               ),
                             ))
                       ],
@@ -226,7 +227,7 @@ class SubmissionPage extends StatelessWidget {
                           return DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: CustomColor.white,
+                              color: CustomColors.white,
                             ),
                             child: const Center(
                               child: Text(
@@ -296,7 +297,7 @@ class _WUploadFile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
       decoration: BoxDecoration(
-        color: CustomColor.white,
+        color: CustomColors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -319,27 +320,62 @@ class _WUploadFile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 24),
-          InkWell(
-            onTap: () {
-              print('haahaaaa');
-              uploadFileBloc.pickFile();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 12,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: CustomColor.primary,
-              ),
-              child: Text(
-                'Upload',
-                style: CustomTextStyle.body1Medium
-                    .copyWith(color: CustomColor.white),
-              ),
-            ),
-          )
+          StreamBuilder<double>(
+              stream: uploadFileBloc.uploadProgress.stream,
+              builder: (context, snapshot) {
+                final dataProgress = snapshot.data;
+                if (dataProgress == 0.0 || dataProgress == null) {
+                  return InkWell(
+                    onTap: () {
+                      uploadFileBloc.pickFile();
+                    },
+                    child: StreamBuilder<String>(
+                        stream: uploadFileBloc.name.stream,
+                        initialData: uploadFileBloc.name.value,
+                        builder: (context, snapshot) {
+                          final dataName = snapshot.data;
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: (dataName == 'Success')
+                                  ? CustomColors.green
+                                  : CustomColors.primary,
+                            ),
+                            child: Text(
+                              dataName ?? 'Upload',
+                              style: CustomTextStyle.body1Medium
+                                  .copyWith(color: CustomColors.white),
+                            ),
+                          );
+                        }),
+                  );
+                }
+                return SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            backgroundColor: CustomColors.fadedGrey,
+                            color: CustomColors.primary,
+                            value: dataProgress,
+                            strokeWidth: 6,
+                          ),
+                        ),
+                      ),
+                      Center(child: Text('${(dataProgress * 100).toInt()}%'))
+                    ],
+                  ),
+                );
+              })
         ],
       ),
     );

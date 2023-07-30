@@ -14,7 +14,7 @@ class WPool extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: CustomColor.white,
+        color: CustomColors.white,
       ),
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 14),
       child: Row(
@@ -55,7 +55,7 @@ class WPool extends StatelessWidget {
               width: 40,
               child: Icon(
                 Iconsax.trash,
-                color: CustomColor.red,
+                color: CustomColors.red,
               ),
             ),
           )

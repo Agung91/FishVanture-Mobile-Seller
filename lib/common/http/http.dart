@@ -79,13 +79,14 @@ abstract class HttpService {
     }
   }
 
-  Future<Responses> postImage(String path, {dynamic body}) async {
+  Future<dynamic> postImage(String path,
+      {dynamic body, Function(int, int)? onSendProgress}) async {
     try {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
         baseUrl: uploadfile,
-        // connectTimeout: const Duration(milliseconds: 3000),
-        // receiveTimeout: const Duration(milliseconds: 3000),
+        connectTimeout: const Duration(milliseconds: 3000),
+        receiveTimeout: const Duration(milliseconds: 3000),
         method: "POST",
         headers: {
           'accept': 'application/json',
@@ -95,10 +96,7 @@ abstract class HttpService {
       final response = await Dio(options).post(
         path,
         data: body,
-        onSendProgress: (count, total) {
-          print(count);
-          print(total);
-        },
+        onSendProgress: onSendProgress
       );
 
       final result = Responses.fromMap(response.data);

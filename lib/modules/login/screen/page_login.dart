@@ -82,7 +82,7 @@ class LoginPage extends StatelessWidget {
                   child: Text(
                     ' Daftar',
                     style: CustomTextStyle.body2SemiBold.copyWith(
-                      color: CustomColor.primary,
+                      color: CustomColors.primary,
                     ),
                   ),
                 ),

@@ -42,7 +42,7 @@ class WHomeCard extends StatelessWidget {
             Text(
               'Desa Jatiadi, Kec. Gending - Probolinggo',
               style: CustomTextStyle.body3Regular.copyWith(
-                color: CustomColor.grey,
+                color: CustomColors.grey,
               ),
             ),
             SizedBox(height: 8),
@@ -52,13 +52,13 @@ class WHomeCard extends StatelessWidget {
                 Icon(
                   IconlyBold.time_circle,
                   size: 16,
-                  color: CustomColor.primary,
+                  color: CustomColors.primary,
                 ),
                 SizedBox(width: 4),
                 Text(
                   '123 Hari',
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColor.primary,
+                    color: CustomColors.primary,
                   ),
                 ),
               ],
@@ -67,7 +67,7 @@ class WHomeCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: CustomColor.white,
+          color: CustomColors.white,
         ),
       ),
     );

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColor.background,
+      backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                       child: Text(
                         'Lihat Semua',
                         style: CustomTextStyle.body2SemiBold.copyWith(
-                          color: CustomColor.primary,
+                          color: CustomColors.primary,
                         ),
                       ),
                     ),
@@ -89,12 +89,12 @@ class _SubmisionInfo extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          color: CustomColor.yellow,
+          color: CustomColors.yellow,
           child: Text(
             'Silakan isi formulir pengajuan terlebih dahulu agar akun dapat digunakan.',
             textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
+            style: CustomTextStyle.body2Regular
+                .copyWith(color: CustomColors.white),
           ),
         ));
   }
@@ -112,12 +112,12 @@ class _SubmisionInfoInReview extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          color: CustomColor.green,
+          color: CustomColors.green,
           child: Text(
             'Saat ini, formulir pengajuan sedang dalam proses peninjauan.',
             textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
+            style: CustomTextStyle.body2Regular
+                .copyWith(color: CustomColors.white),
           ),
         ));
   }
@@ -135,12 +135,12 @@ class _SubmisionInfoRejected extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
           width: double.infinity,
-          color: CustomColor.red,
+          color: CustomColors.red,
           child: Text(
             'Maaf, formulir pengajuan Anda ditolak ',
             textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
+            style: CustomTextStyle.body2Regular
+                .copyWith(color: CustomColors.white),
           ),
         ));
   }
@@ -155,7 +155,7 @@ class _WCategori extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      color: CustomColor.white,
+      color: CustomColors.white,
       child: Column(
         children: [
           _ItemCategori(
@@ -214,7 +214,7 @@ class _ItemCategori extends StatelessWidget {
               padding: const EdgeInsets.all(4),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: CustomColor.background,
+                color: CustomColors.background,
               ),
               child: ShaderMask(
                 blendMode: BlendMode.srcIn,
@@ -223,8 +223,8 @@ class _ItemCategori extends StatelessWidget {
                     center: Alignment.bottomRight,
                     radius: 3,
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
@@ -247,7 +247,7 @@ class _ItemCategori extends StatelessWidget {
                 Text(
                   subText,
                   style: CustomTextStyle.body3Medium
-                      .copyWith(color: CustomColor.fadedGrey),
+                      .copyWith(color: CustomColors.fadedGrey),
                 ),
               ],
             ),
@@ -259,17 +259,17 @@ class _ItemCategori extends StatelessWidget {
                 child: Text(
                   '2',
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColor.white,
+                    color: CustomColors.white,
                   ),
                 ),
                 decoration: const BoxDecoration(
-                    color: CustomColor.red, shape: BoxShape.circle),
+                    color: CustomColors.red, shape: BoxShape.circle),
               ),
             ),
             const SizedBox(width: 8.0),
             const Icon(
               IconlyLight.arrow_right_2,
-              color: CustomColor.grey,
+              color: CustomColors.grey,
             )
           ],
         ),
@@ -312,7 +312,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
       },
       child: Container(
         height: 101,
-        color: CustomColor.primary,
+        color: CustomColors.primary,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -321,7 +321,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
                 // Icon(IconlyLight.arrow_left),
                 const CircleAvatar(
                   radius: 20,
-                  backgroundColor: CustomColor.grey,
+                  backgroundColor: CustomColors.grey,
                   backgroundImage: AssetImage('assets/default_profile.png'),
                 ),
                 const SizedBox(width: 12.0),
@@ -332,13 +332,13 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
                     Text(
                       'Selamat Datang,',
                       style: CustomTextStyle.body3Regular
-                          .copyWith(color: CustomColor.white),
+                          .copyWith(color: CustomColors.white),
                     ),
                     const SizedBox(height: 2.0),
                     Text(
                       'Agung Nurcahyo Rosiandana',
                       style: CustomTextStyle.body1Medium
-                          .copyWith(color: CustomColor.white),
+                          .copyWith(color: CustomColors.white),
                     ),
                   ],
                 ),

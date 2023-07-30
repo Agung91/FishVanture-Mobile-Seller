@@ -15,8 +15,9 @@ class UploadFileHttpRepo extends HttpService implements UploadFileService {
     );
     try {
       final response = await postImage(
-        '$uploadfile/upload-pond-photo',
+        '$uploadfile/upload-file',
         body: data,
+        onSendProgress: progress,
       );
       return FileModel.fromMap(response.data);
     } catch (e) {

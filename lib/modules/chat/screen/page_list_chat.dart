@@ -13,7 +13,7 @@ class ListChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: CustomColor.background,
+        backgroundColor: CustomColors.background,
         appBar: const CustomAppbar(appbarText: 'Pesan'),
         body: ListView.separated(
           itemBuilder: (context, index) {
@@ -23,7 +23,7 @@ class ListChatPage extends StatelessWidget {
             return Divider(
               height: 0,
               thickness: 0.5,
-              color: CustomColor.fadedGrey,
+              color: CustomColors.fadedGrey,
             );
           },
           itemCount: 12,
@@ -43,7 +43,7 @@ class _WChat extends StatelessWidget {
         RouteBloc().push(RouteChat());
       },
       child: Container(
-        color: CustomColor.white,
+        color: CustomColors.white,
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 16,

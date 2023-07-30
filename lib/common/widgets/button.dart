@@ -57,7 +57,7 @@ class _CustomButtonState extends State<CustomButton> {
       // fillColor: widget.isPrimary ? CustomColor.primary : CustomColor.secondary,
       splashColor: Colors.transparent,
       highlightColor:
-          widget.isPrimary ? CustomColor.border : const Color(0x005F4141),
+          widget.isPrimary ? CustomColors.border : const Color(0x005F4141),
       elevation: 0,
       highlightElevation: widget.grafity ? 2.0 : 0,
       onPressed: onLoading
@@ -109,15 +109,15 @@ class _CustomButtonState extends State<CustomButton> {
             border: widget.isPrimary
                 ? null
                 : Border.all(
-                    color: CustomColor.primary,
+                    color: CustomColors.primary,
                     width: 1.5,
                   ),
             borderRadius: _bordeRadius,
             gradient: widget.isPrimary
                 ? const LinearGradient(
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.secondary,
+                      CustomColors.primary,
+                      CustomColors.secondary,
                     ],
                     begin: Alignment.bottomRight,
                     end: Alignment.topLeft,
@@ -136,8 +136,8 @@ class _CustomButtonState extends State<CustomButton> {
                     widget.textButton,
                     style: TextStyle(
                       color: widget.isPrimary
-                          ? CustomColor.white
-                          : CustomColor.primary,
+                          ? CustomColors.white
+                          : CustomColors.primary,
                       fontWeight: FontWeight.w600,
                       fontSize: widget.smallButton ? 10 : 12.0,
                       letterSpacing: 0.9,
@@ -151,7 +151,7 @@ class _CustomButtonState extends State<CustomButton> {
               Icon(
                 widget.suffixIcon,
                 size: 18,
-                color: CustomColor.primary,
+                color: CustomColors.primary,
               ),
           ],
         ),
@@ -182,7 +182,7 @@ class _DisabledButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: CustomColor.defaultBorder,
+        color: CustomColors.defaultBorder,
       ),
       child: (suffixIcon != null)
           ? Row(
@@ -191,7 +191,8 @@ class _DisabledButton extends StatelessWidget {
                 Text(
                   textButton,
                   style: TextStyle(
-                    color: isPrimary ? CustomColor.white : CustomColor.primary,
+                    color:
+                        isPrimary ? CustomColors.white : CustomColors.primary,
                     fontWeight: FontWeight.w600,
                     fontSize: smallButton ? 10 : 12.0,
                     letterSpacing: 1.25 / 100 * 12,
@@ -203,7 +204,7 @@ class _DisabledButton extends StatelessWidget {
                 Icon(
                   suffixIcon,
                   size: 18,
-                  color: CustomColor.primary,
+                  color: CustomColors.primary,
                 ),
               ],
             )
@@ -211,7 +212,7 @@ class _DisabledButton extends StatelessWidget {
               child: Text(
                 textButton,
                 style: TextStyle(
-                  color: CustomColor.dark,
+                  color: CustomColors.dark,
                   fontWeight: FontWeight.w600,
                   fontSize: smallButton ? 10 : 12.0,
                   letterSpacing: 1.25 / 100 * 12,

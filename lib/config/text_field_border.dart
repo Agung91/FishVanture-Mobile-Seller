@@ -9,31 +9,31 @@ class CustomBorder {
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(6.0),
       borderSide: const BorderSide(
-        color: CustomColor.border,
+        color: CustomColors.border,
       ),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(6.0),
       borderSide: const BorderSide(
-        color: CustomColor.defaultBorder,
+        color: CustomColors.defaultBorder,
       ),
     ),
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(6.0),
       borderSide: const BorderSide(
-        color: CustomColor.defaultBorder,
+        color: CustomColors.defaultBorder,
       ),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(6.0),
       borderSide: const BorderSide(
-        color: CustomColor.red,
+        color: CustomColors.red,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(6.0),
       borderSide: const BorderSide(
-        color: CustomColor.red,
+        color: CustomColors.red,
       ),
     ),
   );

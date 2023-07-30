@@ -24,7 +24,7 @@ class WSubmissionPool extends StatelessWidget {
       // height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: CustomColor.white,
+        color: CustomColors.white,
       ),
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -70,7 +70,7 @@ class WSubmissionPool extends StatelessWidget {
                     width: 30,
                     child: Icon(
                       Iconsax.trash,
-                      color: CustomColor.red,
+                      color: CustomColors.red,
                     ),
                   ),
                 )

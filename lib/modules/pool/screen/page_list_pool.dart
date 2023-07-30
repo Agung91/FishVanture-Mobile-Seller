@@ -13,7 +13,7 @@ class ListPoolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColor.background,
+      backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Kolam'),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 12),
@@ -27,7 +27,7 @@ class ListPoolPage extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        color: CustomColor.white,
+        color: CustomColors.white,
         child: CustomButton(
           textButton: 'Tambah Kolam',
           onTap: () async {

@@ -41,7 +41,7 @@ class EditProfilePage extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 59,
-                                backgroundColor: CustomColor.grey,
+                                backgroundColor: CustomColors.grey,
                                 backgroundImage:
                                     AssetImage('assets/default_profile.png'),
                               ),
@@ -49,14 +49,14 @@ class EditProfilePage extends StatelessWidget {
                               Text(
                                 data.name ?? '-',
                                 style: CustomTextStyle.body1Medium.copyWith(
-                                  color: CustomColor.white,
+                                  color: CustomColors.white,
                                 ),
                               ),
                               SizedBox(height: 2),
                               Text(
                                 data.email ?? '-',
                                 style: CustomTextStyle.body2Regular.copyWith(
-                                  color: CustomColor.white,
+                                  color: CustomColors.white,
                                 ),
                               )
                             ],

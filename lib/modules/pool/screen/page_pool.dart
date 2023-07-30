@@ -25,7 +25,7 @@ class PoolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColor.background,
+      backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Tambah Kolam'),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -95,21 +95,21 @@ class _WPhoto extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 24.0),
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-          color: CustomColor.white, borderRadius: BorderRadius.circular(12)),
+          color: CustomColors.white, borderRadius: BorderRadius.circular(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Foto Kolam',
             style: CustomTextStyle.body2SemiBold.copyWith(
-              color: CustomColor.primary,
+              color: CustomColors.primary,
             ),
           ),
           const Divider(),
           Text(
             'Silahkan upload Foto Kolam dengan cara menyentuh area/foto dibawah ini :',
             style: CustomTextStyle.body2Regular.copyWith(
-              color: CustomColor.grey,
+              color: CustomColors.grey,
             ),
           ),
           const SizedBox(height: 8),
@@ -143,7 +143,7 @@ class _WPhoto extends StatelessWidget {
                             ),
                             leading: const Icon(
                               IconlyBold.camera,
-                              color: CustomColor.primary,
+                              color: CustomColors.primary,
                               size: 24,
                             ),
                             onTap: () async {
@@ -161,7 +161,7 @@ class _WPhoto extends StatelessWidget {
                             ),
                             leading: const Icon(
                               IconlyBold.image,
-                              color: CustomColor.primary,
+                              color: CustomColors.primary,
                               size: 24,
                             ),
                             onTap: () async {
@@ -186,8 +186,8 @@ class _WPhoto extends StatelessWidget {
                     if (data == null) {
                       return Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: CustomColor.fadedGrey),
-                            color: CustomColor.fadedGrey.withOpacity(0.3),
+                            border: Border.all(color: CustomColors.fadedGrey),
+                            color: CustomColors.fadedGrey.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(8)),
                         child: Center(
                           child: Text(
@@ -202,8 +202,8 @@ class _WPhoto extends StatelessWidget {
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(data),
                               fit: BoxFit.cover),
-                          border: Border.all(color: CustomColor.fadedGrey),
-                          color: CustomColor.fadedGrey.withOpacity(0.3),
+                          border: Border.all(color: CustomColors.fadedGrey),
+                          color: CustomColors.fadedGrey.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(8)),
                     );
                   }),

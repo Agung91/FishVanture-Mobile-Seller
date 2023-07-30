@@ -99,7 +99,7 @@ class RegisterPage extends StatelessWidget {
                     child: Text(
                       'Login',
                       style: CustomTextStyle.body2SemiBold.copyWith(
-                        color: CustomColor.primary,
+                        color: CustomColors.primary,
                       ),
                     ),
                   ),
