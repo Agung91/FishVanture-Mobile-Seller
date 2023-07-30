@@ -105,4 +105,10 @@ class SubmissionBloc {
     poolImage.add('');
     listPool.add(listPoolVal);
   }
+
+  void deletePool(String name) {
+    final listPoolVal = listPool.value;
+    listPoolVal.removeWhere((element) => element.name == name);
+    listPool.add(listPoolVal);
+  }
 }

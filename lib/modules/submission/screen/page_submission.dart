@@ -27,243 +27,256 @@ class SubmissionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final addressBloc = AddressBloc(AddressHttpRepo());
     // final pondBloc = context.read<PondBloc>();
-    final submissionBloc = SubmissionBloc(
-      SubmissionHttpRepo(),
-      AddressHttpRepo(),
-    );
-    return Scaffold(
-      backgroundColor: CustomColor.background,
-      appBar: const CustomAppbar(appbarText: 'Pengajuan Budidaya'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
-                sStream: submissionBloc.name,
-                label: 'Pemilik Budidaya',
-                hint: 'Masukkan Nama',
-              ),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: StreamDropdown(
-                label: 'Negara',
-                hint: 'Pilih Negara',
-                listItem: submissionBloc.countrys,
-                selected: submissionBloc.country,
-              ),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: StreamDropdown(
-                label: 'Provinsi',
-                hint: 'Pilih Provinsi',
-                listItem: submissionBloc.provinces,
-                selected: submissionBloc.province,
-              ),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: StreamDropdown(
-                label: 'Kabupaten/Kota',
-                hint: 'Pilih Kabupaten/Kota',
-                listItem: submissionBloc.citys,
-                selected: submissionBloc.city,
-              ),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: StreamDropdown(
-                label: 'Kecamatan',
-                hint: 'Pilih Kecamatan',
-                listItem: submissionBloc.districts,
-                selected: submissionBloc.district,
-              ),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
-                sStream: submissionBloc.detailAddres,
-                label: 'Detail Alamat',
-                hint: 'Masukkan Detail Alamat',
-              ),
-            ),
-            const SizedBox(height: 26),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                  'Catatan : Tekan "Ambil Lokasi" untuk mengambil lokasi saat ini. Pastikan Anda berada di area yang akan didaftarkan.'),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: StreamBuilder<LocationData?>(
-                  stream: submissionBloc.initialKoordinat.stream,
-                  initialData: submissionBloc.initialKoordinat.value,
-                  builder: (context, snapshot) {
-                    final dataKoordinat = snapshot.data;
-                    if (dataKoordinat == null) {
-                      return TextButton(
-                        onPressed: () async {
-                          Location location = Location();
 
-                          // late bool _serviceEnabled;
-                          // late PermissionStatus _permissionGranted;
-                          // late LocationData _locationData;
-
-                          var _serviceEnabled = await location.serviceEnabled();
-                          if (!_serviceEnabled) {
-                            _serviceEnabled = await location.requestService();
-                            if (!_serviceEnabled) {
-                              return;
-                            }
-                          }
-
-                          var _permissionGranted =
-                              await location.hasPermission();
-                          if (_permissionGranted == PermissionStatus.denied) {
-                            _permissionGranted =
-                                await location.requestPermission();
-                            if (_permissionGranted !=
-                                PermissionStatus.granted) {
-                              return;
-                            }
-                          }
-
-                          var _locationData = await location.getLocation();
-                          submissionBloc.initialKoordinat.add(_locationData);
-
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //     content: Text(
-                          //         'latitude = ${_locationData.latitude}, longitude = ${_locationData.longitude}'),
-                          //     action: SnackBarAction(
-                          //       label: 'Salin',
-                          //       onPressed: () {
-                          //         // Clipboard.setData(ClipboardData(
-                          //         //     text: '${_locationData.latitude} ${_locationData.longitude}'));
-                          //         Clipboard.getData(
-                          //             '${_locationData.latitude} ${_locationData.longitude}');
-                          //       },
-                          //     ),
-                          //   ),
-                          // );
-                          print(_locationData);
-                          print(_locationData.accuracy);
-                          print(_locationData.altitude);
-                        },
-                        child: const Text('Ambil Lokasi.'),
-                      );
-                    }
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: CustomColor.fadedGrey,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Text(
-                        'Koordinat: ${dataKoordinat.latitude}, ${dataKoordinat.longitude}',
-                      ),
-                    );
-                  }),
-            ),
-            const SizedBox(height: 26),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'List Kolam',
-                      style: CustomTextStyle.body2SemiBold,
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          RouteBloc().push(RoutePool(submissionBloc));
-                        },
-                        child: Text(
-                          'Tambah Kolam',
-                          style: CustomTextStyle.body2Medium.copyWith(
-                            color: CustomColor.primary,
-                          ),
-                        ))
-                  ],
-                )),
-            const SizedBox(height: 4),
-            SizedBox(
-              height: 180,
-              child: StreamBuilder<List<PoolModel>>(
-                  stream: submissionBloc.listPool.stream,
-                  initialData: submissionBloc.listPool.value,
-                  builder: (context, snapshot) {
-                    final listPool = snapshot.data;
-                    if (listPool == null || listPool.isEmpty) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: CustomColor.white,
-                        ),
-                        child: Center(
-                          child: Text('Saat ini belum ada data terkait kolam.'),
-                        ),
-                      );
-                    }
-                    return ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return WSubmissionPool();
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(width: 8);
-                      },
-                      itemCount: 8,
-                    );
-                  }),
-            ),
-            const SizedBox(height: 26),
-            _WUploadFile(),
-            const SizedBox(height: 26),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: CustomButton(
-                textButton: 'Submit',
-                onTap: () async {
-                  context.read<PondBloc>().getPond();
-                  // RouteBloc().pop();
-                },
-              ),
-            ),
-            const SizedBox(height: 32),
-          ],
-        ),
+    return Provider(
+      create: (context) => SubmissionBloc(
+        SubmissionHttpRepo(),
+        AddressHttpRepo(),
       ),
-      // bottomNavigationBar: Container(
-      //   padding: EdgeInsets.symmetric(
-      //     horizontal: 24,
-      //     vertical: 16,
-      //   ),
-      //   color: CustomColor.white,
-      //   child: CustomButton(
-      //     textButton: 'Submit',
-      //     onTap: () async {},
-      //   ),
-      // ),
+      builder: (context, child) {
+        final submissionBloc = context.read<SubmissionBloc>();
+        return Scaffold(
+          backgroundColor: CustomColor.background,
+          appBar: const CustomAppbar(appbarText: 'Pengajuan Budidaya'),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: TextInput(
+                    sStream: submissionBloc.name,
+                    label: 'Pemilik Budidaya',
+                    hint: 'Masukkan Nama',
+                  ),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: StreamDropdown(
+                    label: 'Negara',
+                    hint: 'Pilih Negara',
+                    listItem: submissionBloc.countrys,
+                    selected: submissionBloc.country,
+                  ),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: StreamDropdown(
+                    label: 'Provinsi',
+                    hint: 'Pilih Provinsi',
+                    listItem: submissionBloc.provinces,
+                    selected: submissionBloc.province,
+                  ),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: StreamDropdown(
+                    label: 'Kabupaten/Kota',
+                    hint: 'Pilih Kabupaten/Kota',
+                    listItem: submissionBloc.citys,
+                    selected: submissionBloc.city,
+                  ),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: StreamDropdown(
+                    label: 'Kecamatan',
+                    hint: 'Pilih Kecamatan',
+                    listItem: submissionBloc.districts,
+                    selected: submissionBloc.district,
+                  ),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: TextInput(
+                    sStream: submissionBloc.detailAddres,
+                    label: 'Detail Alamat',
+                    hint: 'Masukkan Detail Alamat',
+                  ),
+                ),
+                const SizedBox(height: 26),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                      'Catatan : Tekan "Ambil Lokasi" untuk mengambil lokasi saat ini. Pastikan Anda berada di area yang akan didaftarkan.'),
+                ),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: StreamBuilder<LocationData?>(
+                      stream: submissionBloc.initialKoordinat.stream,
+                      initialData: submissionBloc.initialKoordinat.value,
+                      builder: (context, snapshot) {
+                        final dataKoordinat = snapshot.data;
+                        if (dataKoordinat == null) {
+                          return TextButton(
+                            onPressed: () async {
+                              Location location = Location();
+
+                              // late bool _serviceEnabled;
+                              // late PermissionStatus _permissionGranted;
+                              // late LocationData _locationData;
+
+                              var _serviceEnabled =
+                                  await location.serviceEnabled();
+                              if (!_serviceEnabled) {
+                                _serviceEnabled =
+                                    await location.requestService();
+                                if (!_serviceEnabled) {
+                                  return;
+                                }
+                              }
+
+                              var _permissionGranted =
+                                  await location.hasPermission();
+                              if (_permissionGranted ==
+                                  PermissionStatus.denied) {
+                                _permissionGranted =
+                                    await location.requestPermission();
+                                if (_permissionGranted !=
+                                    PermissionStatus.granted) {
+                                  return;
+                                }
+                              }
+
+                              var _locationData = await location.getLocation();
+                              submissionBloc.initialKoordinat
+                                  .add(_locationData);
+
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   SnackBar(
+                              //     content: Text(
+                              //         'latitude = ${_locationData.latitude}, longitude = ${_locationData.longitude}'),
+                              //     action: SnackBarAction(
+                              //       label: 'Salin',
+                              //       onPressed: () {
+                              //         // Clipboard.setData(ClipboardData(
+                              //         //     text: '${_locationData.latitude} ${_locationData.longitude}'));
+                              //         Clipboard.getData(
+                              //             '${_locationData.latitude} ${_locationData.longitude}');
+                              //       },
+                              //     ),
+                              //   ),
+                              // );
+                              print(_locationData);
+                              print(_locationData.accuracy);
+                              print(_locationData.altitude);
+                            },
+                            child: const Text('Ambil Lokasi.'),
+                          );
+                        }
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: CustomColor.fadedGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Text(
+                            'Koordinat: ${dataKoordinat.latitude}, ${dataKoordinat.longitude}',
+                          ),
+                        );
+                      }),
+                ),
+                const SizedBox(height: 26),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'List Kolam',
+                          style: CustomTextStyle.body2SemiBold,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              RouteBloc().push(RoutePool(submissionBloc));
+                            },
+                            child: Text(
+                              'Tambah Kolam',
+                              style: CustomTextStyle.body2Medium.copyWith(
+                                color: CustomColor.primary,
+                              ),
+                            ))
+                      ],
+                    )),
+                const SizedBox(height: 4),
+                SizedBox(
+                  height: 180,
+                  child: StreamBuilder<List<PoolModel>>(
+                      stream: submissionBloc.listPool.stream,
+                      initialData: submissionBloc.listPool.value,
+                      builder: (context, snapshot) {
+                        final listPool = snapshot.data;
+                        if (listPool == null || listPool.isEmpty) {
+                          return DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: CustomColor.white,
+                            ),
+                            child: const Center(
+                              child: Text(
+                                  'Saat ini belum ada data terkait kolam.'),
+                            ),
+                          );
+                        }
+                        return ListView.separated(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return WSubmissionPool(
+                              pool: listPool[index],
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 8);
+                          },
+                          itemCount: listPool.length,
+                        );
+                      }),
+                ),
+                const SizedBox(height: 26),
+                _WUploadFile(),
+                const SizedBox(height: 26),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: CustomButton(
+                    textButton: 'Submit',
+                    onTap: () async {
+                      context.read<PondBloc>().getPond();
+                      // RouteBloc().pop();
+                    },
+                  ),
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
+          ),
+          // bottomNavigationBar: Container(
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 24,
+          //     vertical: 16,
+          //   ),
+          //   color: CustomColor.white,
+          //   child: CustomButton(
+          //     textButton: 'Submit',
+          //     onTap: () async {},
+          //   ),
+          // ),
+        );
+      },
     );
   }
 }

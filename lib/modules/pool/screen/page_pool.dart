@@ -11,6 +11,7 @@ import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/text_input.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 
 class PoolPage extends StatelessWidget {
@@ -44,7 +45,8 @@ class PoolPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
                 sStream: submissionBloc.poolLength,
-                label: 'Pajang Kolam (dalam satuan meter)',
+                label: 'Panjang Kolam (dalam satuan meter)',
+                keyboardType: TextInputType.number,
                 hint: 'Masukkan Panjang',
               ),
             ),
@@ -53,7 +55,8 @@ class PoolPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
                 sStream: submissionBloc.poolWidth,
-                label: 'Pajang Kolam (dalam satuan meter)',
+                keyboardType: TextInputType.number,
+                label: 'Lebar Kolam (dalam satuan meter)',
                 hint: 'Masukkan Lebar',
               ),
             ),
@@ -64,7 +67,10 @@ class PoolPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: CustomButton(
                 textButton: 'Tambah',
-                onTap: () async {},
+                onTap: () async {
+                  submissionBloc.addPool();
+                  RouteBloc().pop();
+                },
               ),
             ),
             const SizedBox(height: 32),

@@ -1,16 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
+import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 
 class WSubmissionPool extends StatelessWidget {
   const WSubmissionPool({
-    super.key,
-  });
+    Key? key,
+    required this.pool,
+  }) : super(key: key);
+
+  final PoolModel pool;
 
   @override
   Widget build(BuildContext context) {
+    final submissionBloc = context.read<SubmissionBloc>();
     return Container(
       width: 200,
       // height: 120,
@@ -24,13 +32,12 @@ class WSubmissionPool extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: const FadeInImage(
+            child: FadeInImage(
               height: 120,
               width: 200,
               fit: BoxFit.cover,
-              placeholder: AssetImage('assets/load_img.png'),
-              image: CachedNetworkImageProvider(
-                  'https://picsum.photos/500/500?random=1'),
+              placeholder: const AssetImage('assets/load_img.png'),
+              image: CachedNetworkImageProvider(pool.image),
             ),
           ),
           const SizedBox(height: 12.0),
@@ -44,18 +51,20 @@ class WSubmissionPool extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Kolam 1',
+                      pool.name,
                       style: CustomTextStyle.body2SemiBold,
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      '2m x 2m',
+                      '${pool.long}m x ${pool.wide}m',
                       style: CustomTextStyle.body2Medium,
                     ),
                   ],
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    submissionBloc.deletePool(pool.name);
+                  },
                   child: const SizedBox(
                     height: 30,
                     width: 30,

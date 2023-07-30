@@ -16,12 +16,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.background,
-      appBar: _AppbarHome(),
+      appBar: const _AppbarHome(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            _SubmisionInfo(),
+            const _SubmisionInfo(),
             // _SubmisionInfoInReview(),
             // _SubmisionInfoRejected(),
             const SizedBox(height: 8),
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 itemBuilder: (context, index) {
-                  return WHomeCard();
+                  return const WHomeCard();
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(width: 8.0);
@@ -212,10 +212,14 @@ class _ItemCategori extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: CustomColor.background,
+              ),
               child: ShaderMask(
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (Rect bounds) {
-                  return RadialGradient(
+                  return const RadialGradient(
                     center: Alignment.bottomRight,
                     radius: 3,
                     colors: [
@@ -230,12 +234,8 @@ class _ItemCategori extends StatelessWidget {
                   size: 40,
                 ),
               ),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: CustomColor.background,
-              ),
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -243,7 +243,7 @@ class _ItemCategori extends StatelessWidget {
                   text,
                   style: CustomTextStyle.body1Medium,
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
                   subText,
                   style: CustomTextStyle.body3Medium
@@ -251,23 +251,23 @@ class _ItemCategori extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Visibility(
               visible: false,
               child: Container(
-                padding: EdgeInsets.all(6),
+                padding: const EdgeInsets.all(6),
                 child: Text(
                   '2',
                   style: CustomTextStyle.body2Medium.copyWith(
                     color: CustomColor.white,
                   ),
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: CustomColor.red, shape: BoxShape.circle),
               ),
             ),
-            SizedBox(width: 8.0),
-            Icon(
+            const SizedBox(width: 8.0),
+            const Icon(
               IconlyLight.arrow_right_2,
               color: CustomColor.grey,
             )
@@ -289,7 +289,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   void show(BuildContext context) {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
       content: const Text('Error message text'),
-      leading: CircleAvatar(child: Icon(Icons.delete)),
+      leading: const CircleAvatar(child: Icon(Icons.delete)),
       actions: [
         TextButton(
           child: const Text('ACTION 1'),
@@ -319,7 +319,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               children: [
                 // Icon(IconlyLight.arrow_left),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 20,
                   backgroundColor: CustomColor.grey,
                   backgroundImage: AssetImage('assets/default_profile.png'),
