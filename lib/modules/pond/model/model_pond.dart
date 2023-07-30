@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:seller/common/file_picker/model_upload_file.dart';
 
+import 'package:seller/common/file_picker/model_upload_file.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
 
 class PondModel {
@@ -14,12 +14,13 @@ class PondModel {
   final String detailAddress;
   final String noteAddress;
   final String type;
+  final String url;
   final double latitude;
   final double longitude;
   final String teamID;
   final String image;
-  final List<PoolModel> listPool;
-  final FileModel berkas;
+  final List<PoolModel>? listPool;
+  final List<FileModel>? berkas;
   PondModel({
     required this.name,
     required this.countryID,
@@ -29,12 +30,13 @@ class PondModel {
     required this.detailAddress,
     required this.noteAddress,
     required this.type,
+    required this.url,
     required this.latitude,
     required this.longitude,
     required this.teamID,
     required this.image,
-    required this.listPool,
-    required this.berkas,
+    this.listPool,
+    this.berkas,
   });
 
   PondModel copyWith({
@@ -46,12 +48,13 @@ class PondModel {
     String? detailAddress,
     String? noteAddress,
     String? type,
+    String? url,
     double? latitude,
     double? longitude,
     String? teamID,
     String? image,
     List<PoolModel>? listPool,
-    FileModel? berkas,
+    List<FileModel>? berkas,
   }) {
     return PondModel(
       name: name ?? this.name,
@@ -62,6 +65,7 @@ class PondModel {
       detailAddress: detailAddress ?? this.detailAddress,
       noteAddress: noteAddress ?? this.noteAddress,
       type: type ?? this.type,
+      url: url ?? this.url,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       teamID: teamID ?? this.teamID,
@@ -81,12 +85,13 @@ class PondModel {
       'detailAddress': detailAddress,
       'noteAddress': noteAddress,
       'type': type,
+      'url': url,
       'latitude': latitude,
       'longitude': longitude,
       'teamID': teamID,
       'image': image,
-      'listPool': listPool.map((x) => x.toMap()).toList(),
-      'berkas': berkas.toMap(),
+      'listPool': listPool?.map((x) => x.toMap()).toList(),
+      'berkas': berkas?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -100,13 +105,19 @@ class PondModel {
       detailAddress: map['detailAddress'] ?? '',
       noteAddress: map['noteAddress'] ?? '',
       type: map['type'] ?? '',
+      url: map['url'] ?? '',
       latitude: map['latitude']?.toDouble() ?? 0.0,
       longitude: map['longitude']?.toDouble() ?? 0.0,
       teamID: map['teamID'] ?? '',
       image: map['image'] ?? '',
-      listPool: List<PoolModel>.from(
-          map['listPool']?.map((x) => PoolModel.fromMap(x))),
-      berkas: FileModel.fromMap(map['berkas']),
+      listPool: map['listPool'] != null
+          ? List<PoolModel>.from(
+              map['listPool']?.map((x) => PoolModel.fromMap(x)))
+          : null,
+      berkas: map['berkas'] != null
+          ? List<FileModel>.from(
+              map['berkas']?.map((x) => FileModel.fromMap(x)))
+          : null,
     );
   }
 
@@ -117,7 +128,7 @@ class PondModel {
 
   @override
   String toString() {
-    return 'PondModel(name: $name, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, berkas: $berkas)';
+    return 'PondModel(name: $name, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, url: $url, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, berkas: $berkas)';
   }
 
   @override
@@ -133,12 +144,13 @@ class PondModel {
         other.detailAddress == detailAddress &&
         other.noteAddress == noteAddress &&
         other.type == type &&
+        other.url == url &&
         other.latitude == latitude &&
         other.longitude == longitude &&
         other.teamID == teamID &&
         other.image == image &&
         listEquals(other.listPool, listPool) &&
-        other.berkas == berkas;
+        listEquals(other.berkas, berkas);
   }
 
   @override
@@ -151,6 +163,7 @@ class PondModel {
         detailAddress.hashCode ^
         noteAddress.hashCode ^
         type.hashCode ^
+        url.hashCode ^
         latitude.hashCode ^
         longitude.hashCode ^
         teamID.hashCode ^
