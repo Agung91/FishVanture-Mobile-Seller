@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
@@ -285,6 +288,16 @@ class _WUploadFile extends StatelessWidget {
   const _WUploadFile({
     super.key,
   });
+
+  void pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files, result.files.single.path ?? '');
+    } else {
+      // User canceled the picker
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
