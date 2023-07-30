@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class UploadFileModel {
+class FileModel {
   final String name;
   final String file;
-  UploadFileModel({
+  FileModel({
     required this.name,
     required this.file,
   });
 
-  UploadFileModel copyWith({
+  FileModel copyWith({
     String? name,
     String? file,
   }) {
-    return UploadFileModel(
+    return FileModel(
       name: name ?? this.name,
       file: file ?? this.file,
     );
@@ -25,8 +25,8 @@ class UploadFileModel {
     };
   }
 
-  factory UploadFileModel.fromMap(Map<String, dynamic> map) {
-    return UploadFileModel(
+  factory FileModel.fromMap(Map<String, dynamic> map) {
+    return FileModel(
       name: map['name'] ?? '',
       file: map['file'] ?? '',
     );
@@ -34,7 +34,8 @@ class UploadFileModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UploadFileModel.fromJson(String source) => UploadFileModel.fromMap(json.decode(source));
+  factory FileModel.fromJson(String source) =>
+      FileModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'UploadFileModel(name: $name, file: $file)';
@@ -42,10 +43,8 @@ class UploadFileModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is UploadFileModel &&
-      other.name == name &&
-      other.file == file;
+
+    return other is FileModel && other.name == name && other.file == file;
   }
 
   @override

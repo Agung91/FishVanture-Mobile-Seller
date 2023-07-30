@@ -84,8 +84,8 @@ abstract class HttpService {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
         baseUrl: uploadfile,
-        connectTimeout: const Duration(milliseconds: 3000),
-        receiveTimeout: const Duration(milliseconds: 3000),
+        // connectTimeout: const Duration(milliseconds: 3000),
+        // receiveTimeout: const Duration(milliseconds: 3000),
         method: "POST",
         headers: {
           'accept': 'application/json',
@@ -95,6 +95,10 @@ abstract class HttpService {
       final response = await Dio(options).post(
         path,
         data: body,
+        onSendProgress: (count, total) {
+          print(count);
+          print(total);
+        },
       );
 
       final result = Responses.fromMap(response.data);

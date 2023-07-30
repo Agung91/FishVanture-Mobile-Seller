@@ -18,7 +18,32 @@ class ImageUploaderBloc {
   Stream<ImageUploaderState> get stream => _stream.stream;
   ImageUploaderState get value => _stream.value;
 
-  
+  Future<ImageModel> upload(ImageSource imageSource) async {
+    try {
+      //  pick image
+      final file = await _picker.pickImage(
+        source: imageSource,
+      );
+
+      if (file != null) {
+        // compress image
+        final compressPath = await _compressFilePath(file.path);
+        // add image to db
+        final ImageModel result = await _repo.sendImage(path: compressPath);
+        if (kDebugMode) {
+          print('haaaaaaaaaaaaaaaaaaaaaaaaaa = ${result.url}');
+        }
+        return result;
+      }
+      throw 'Error meesage = Error select file';
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
   Future<String> _compressFilePath(String path) async {
     final filename = basename(path);
     final temp = await path_provider.getTemporaryDirectory();

@@ -1,9 +1,9 @@
-import 'dart:html';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:seller/common/file_picker/bloc_upload_file.dart';
+import 'package:seller/common/file_picker/repo_upload_file.dart';
 
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
@@ -289,18 +289,9 @@ class _WUploadFile extends StatelessWidget {
     super.key,
   });
 
-  void pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      File file = File(result.files, result.files.single.path ?? '');
-    } else {
-      // User canceled the picker
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final uploadFileBloc = UploadFileBloc(UploadFileHttpRepo());
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
@@ -329,7 +320,10 @@ class _WUploadFile extends StatelessWidget {
           ),
           const SizedBox(width: 24),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              print('haahaaaa');
+              uploadFileBloc.pickFile();
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 18,
