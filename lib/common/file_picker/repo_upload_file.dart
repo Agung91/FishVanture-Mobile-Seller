@@ -10,7 +10,7 @@ class UploadFileHttpRepo extends HttpService implements UploadFileService {
       {required String path, Function(int p1, int p2)? progress}) async {
     FormData data = FormData.fromMap(
       {
-        "image": await MultipartFile.fromFile(path),
+        "file": await MultipartFile.fromFile(path),
       },
     );
     try {
@@ -19,7 +19,8 @@ class UploadFileHttpRepo extends HttpService implements UploadFileService {
         body: data,
         onSendProgress: progress,
       );
-      return FileModel.fromMap(response.data);
+      final a = FileModelResponse.fromMap(response.data);
+      return FileModel(name: a.name, file: a.url);
     } catch (e) {
       rethrow;
     }

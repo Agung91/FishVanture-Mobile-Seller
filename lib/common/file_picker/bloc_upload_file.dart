@@ -26,8 +26,6 @@ class UploadFileBloc {
             uploadProgress.add(percen);
           },
         );
-        print(response.file);
-        print(response.name);
         name.add('Success');
         uploadProgress.add(0.0);
         return response;

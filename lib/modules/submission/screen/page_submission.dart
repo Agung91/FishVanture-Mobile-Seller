@@ -1,10 +1,9 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+
 import 'package:seller/common/file_picker/bloc_upload_file.dart';
 import 'package:seller/common/file_picker/repo_upload_file.dart';
-
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/dropdown/stream_dropdown.dart';
@@ -13,16 +12,12 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
-import 'package:seller/modules/address/bloc/bloc_address.dart';
 import 'package:seller/modules/address/repo/repo_address.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
-import 'package:seller/modules/pond/model/model_pond.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
-import 'package:seller/modules/pool/widget/w_pool.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 import 'package:seller/modules/submission/repo/repo_submission.dart';
 import 'package:seller/modules/submission/widget/w_submission_pool.dart';
-import 'package:sstream/sstream.dart';
 
 class SubmissionPage extends StatelessWidget {
   const SubmissionPage({super.key});
@@ -252,7 +247,7 @@ class SubmissionPage extends StatelessWidget {
                       }),
                 ),
                 const SizedBox(height: 26),
-                _WUploadFile(),
+                _WUploadFile(submissionBloc: submissionBloc),
                 const SizedBox(height: 26),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -287,8 +282,11 @@ class SubmissionPage extends StatelessWidget {
 
 class _WUploadFile extends StatelessWidget {
   const _WUploadFile({
-    super.key,
-  });
+    Key? key,
+    required this.submissionBloc,
+  }) : super(key: key);
+
+  final SubmissionBloc submissionBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -326,8 +324,8 @@ class _WUploadFile extends StatelessWidget {
                 final dataProgress = snapshot.data;
                 if (dataProgress == 0.0 || dataProgress == null) {
                   return InkWell(
-                    onTap: () {
-                      uploadFileBloc.pickFile();
+                    onTap: () async {
+                      final response = await uploadFileBloc.pickFile();
                     },
                     child: StreamBuilder<String>(
                         stream: uploadFileBloc.name.stream,

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:location/location.dart';
+import 'package:seller/common/file_picker/model_upload_file.dart';
 import 'package:seller/modules/address/model/model_address.dart';
 import 'package:seller/modules/address/repo/repo_address.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
@@ -111,4 +114,9 @@ class SubmissionBloc {
     listPoolVal.removeWhere((element) => element.name == name);
     listPool.add(listPoolVal);
   }
+
+// ========= FILE ===========
+
+  final file = SStream<FileModel?>(null);
+
 }
