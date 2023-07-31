@@ -29,11 +29,13 @@ class EditProfilePage extends StatelessWidget {
                   }
                   return SizedBox(
                     height: 276,
+                    width: double.infinity,
                     child: Stack(
                       children: [
                         Image.asset(
                           'assets/bg_profile.png',
                           width: double.infinity,
+                          fit: BoxFit.fill,
                         ),
                         Center(
                           child: Column(
