@@ -9,11 +9,13 @@ class PondBloc {
   final PondHttpRepo _repo;
 
   final ponds = SStream<PondModel?>(null);
+  final status = ''.stream;
 
   Future<void> getPond() async {
     try {
       final response = await _repo.getPond();
       ponds.add(response);
+      status.add(response?.status ?? '');
     } catch (e) {
       rethrow;
     }

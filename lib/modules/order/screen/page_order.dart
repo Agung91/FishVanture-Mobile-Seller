@@ -147,7 +147,7 @@ class ItemOrder extends StatelessWidget {
           CustomButton(
             isPrimary: false,
             textButton: 'Transaksi Selesai',
-            onTap: () {},
+            onTap: () async {},
           ),
         ],
       ),

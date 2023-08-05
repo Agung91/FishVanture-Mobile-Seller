@@ -6,7 +6,9 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/home/model/model_status.dart';
 import 'package:seller/modules/home/widget/w_home_card.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/profile/bloc/bloc_profile.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,6 +16,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocPond = context.read<PondBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
@@ -21,7 +24,19 @@ class HomePage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const _SubmisionInfo(),
+            StreamBuilder<String>(
+                stream: blocPond.status.stream,
+                initialData: blocPond.status.value,
+                builder: (context, snapshot) {
+                  final data = snapshot.data;
+                  if (data == null || data == '') {
+                    return const _SubmisionInfo();
+                  }
+                  if (data == StatusSubmission.actived) {
+                    return const SizedBox();
+                  }
+                  return _SubmisionInfoInReview(status: data);
+                }),
             // _SubmisionInfoInReview(),
             // _SubmisionInfoRejected(),
             const SizedBox(height: 8),
@@ -102,42 +117,25 @@ class _SubmisionInfo extends StatelessWidget {
 
 class _SubmisionInfoInReview extends StatelessWidget {
   const _SubmisionInfoInReview({
-    super.key,
-  });
+    Key? key,
+    required this.status,
+  }) : super(key: key);
+
+  final String status;
 
   @override
   Widget build(BuildContext context) {
+    final blocPond = context.read<PondBloc>();
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          blocPond.getPond();
+        },
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          color: CustomColors.green,
+          color: StatusSubmission.statusColor(status),
           child: Text(
-            'Saat ini, formulir pengajuan sedang dalam proses peninjauan.',
-            textAlign: TextAlign.center,
-            style: CustomTextStyle.body2Regular
-                .copyWith(color: CustomColors.white),
-          ),
-        ));
-  }
-}
-
-class _SubmisionInfoRejected extends StatelessWidget {
-  const _SubmisionInfoRejected({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {},
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          width: double.infinity,
-          color: CustomColors.red,
-          child: Text(
-            'Maaf, formulir pengajuan Anda ditolak ',
+            StatusSubmission.statusInfo(status),
             textAlign: TextAlign.center,
             style: CustomTextStyle.body2Regular
                 .copyWith(color: CustomColors.white),

@@ -140,7 +140,7 @@ class _CustomButtonState extends State<CustomButton> {
                           : CustomColors.primary,
                       fontWeight: FontWeight.w600,
                       fontSize: widget.smallButton ? 10 : 12.0,
-                      letterSpacing: 0.9,
+                      letterSpacing: 0.5,
                     ),
                   ),
             if (widget.suffixIcon != null || onLoading)

@@ -27,7 +27,16 @@ class ImageUploaderBloc {
 
       if (file != null) {
         // compress image
+
+        // final byte = await file.readAsBytes();
+        // final length = byte.length;
+        // check byte
+        // if (length >= 5000000) {
         final compressPath = await _compressFilePath(file.path);
+        // } else {
+        //   compressPath = file.path;
+        // }
+
         // add image to db
         final ImageModel result = await _repo.sendImage(path: compressPath);
         if (kDebugMode) {
