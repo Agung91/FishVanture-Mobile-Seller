@@ -8,8 +8,8 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/pond/repo/repo_pond.dart';
-import 'package:seller/modules/profile/bloc/bloc_profile.dart';
-import 'package:seller/modules/profile/repo/repo_profile.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/repo/repo_edit_profile.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -53,7 +53,7 @@ class _AppState extends State<App> {
           lazy: false,
         ),
         Provider(
-          create: (_) => ProfileBloc(ProfileHttpRepo()),
+          create: (_) => EditProfileBloc(ProfileHttpRepo()),
         ),
         Provider(
           create: (_) => PondBloc(PondHttpRepo()),

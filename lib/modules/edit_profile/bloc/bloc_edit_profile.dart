@@ -1,10 +1,12 @@
 import 'package:seller/core/auth/bloc/authenticated.dart';
-import 'package:seller/modules/profile/model/model_profile.dart';
-import 'package:seller/modules/profile/repo/repo_profile.dart';
+import 'package:seller/modules/edit_profile/model/model_profile.dart';
+import 'package:seller/modules/edit_profile/repo/repo_edit_profile.dart';
 import 'package:sstream/sstream.dart';
 
-class ProfileBloc extends Authenticated {
-  ProfileBloc(this._repo);
+class EditProfileBloc extends Authenticated {
+  EditProfileBloc(this._repo) {
+    getProfile();
+  }
 
   final ProfileHttpRepo _repo;
 

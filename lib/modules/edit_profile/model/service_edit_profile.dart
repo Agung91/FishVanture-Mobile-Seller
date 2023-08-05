@@ -1,5 +1,5 @@
 import 'model_profile.dart';
 
-abstract class ProfileService {
+abstract class EditProfileService {
   Future<ProfileModel> getProfile();
 }

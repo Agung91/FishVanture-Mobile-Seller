@@ -2,8 +2,8 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:seller/core/auth/bloc/event.dart';
-import 'package:seller/modules/profile/bloc/bloc_profile.dart';
-import 'package:seller/modules/profile/model/model_profile.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/model/model_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocProfile = context.read<ProfileBloc>();
+    final blocProfile = context.read<EditProfileBloc>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

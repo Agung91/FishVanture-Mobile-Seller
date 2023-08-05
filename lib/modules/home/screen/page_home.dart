@@ -9,7 +9,8 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/home/model/model_status.dart';
 import 'package:seller/modules/home/widget/w_home_card.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
-import 'package:seller/modules/profile/bloc/bloc_profile.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/model/model_profile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,70 +21,64 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            StreamBuilder<String>(
-                stream: blocPond.status.stream,
-                initialData: blocPond.status.value,
-                builder: (context, snapshot) {
-                  final data = snapshot.data;
-                  if (data == null || data == '') {
-                    return const _SubmisionInfo();
-                  }
-                  if (data == StatusSubmission.actived) {
-                    return const SizedBox();
-                  }
-                  return _SubmisionInfoInReview(status: data);
-                }),
-            // _SubmisionInfoInReview(),
-            // _SubmisionInfoRejected(),
-            const SizedBox(height: 8),
-            const _WCategori(),
-            const SizedBox(height: 12.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Produk Anda',
-                    style: CustomTextStyle.body2SemiBold,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        'Lihat Semua',
-                        style: CustomTextStyle.body2SemiBold.copyWith(
-                          color: CustomColors.primary,
+      body: RefreshIndicator(
+        onRefresh: () => blocPond.getPond().catchError((e) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(e.message)));
+        }),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              // _SubmisionInfoInReview(),
+              // _SubmisionInfoRejected(),
+              const SizedBox(height: 8),
+              const _WCategori(),
+              const SizedBox(height: 12.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Produk Anda',
+                      style: CustomTextStyle.body2SemiBold,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Text(
+                          'Lihat Semua',
+                          style: CustomTextStyle.body2SemiBold.copyWith(
+                            color: CustomColors.primary,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              height: 208,
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                itemBuilder: (context, index) {
-                  return const WHomeCard();
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(width: 8.0);
-                },
-                itemCount: 5,
+              const SizedBox(height: 2),
+              SizedBox(
+                height: 208,
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  itemBuilder: (context, index) {
+                    return const WHomeCard();
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(width: 8.0);
+                  },
+                  itemCount: 5,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -178,7 +173,7 @@ class _WCategori extends StatelessWidget {
             text: 'Profile',
             subText: 'Atur profile Anda',
             iconData: IconlyBold.profile,
-            onTap: () {},
+            onTap: () => RouteBloc().push(RouteEditProfile()),
           ),
         ],
       ),
@@ -282,7 +277,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size(double.infinity, 101);
+  Size get preferredSize => const Size(double.infinity, 119);
 
   void show(BuildContext context) {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
@@ -303,48 +298,74 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileBloc = context.read<ProfileBloc>();
-    return InkWell(
-      onTap: () {
-        RouteBloc().push(RouteEditProfile());
-      },
-      child: Container(
-        height: 101,
-        color: CustomColors.primary,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: [
-                // Icon(IconlyLight.arrow_left),
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: CustomColors.grey,
-                  backgroundImage: AssetImage('assets/default_profile.png'),
-                ),
-                const SizedBox(width: 12.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Selamat Datang,',
-                      style: CustomTextStyle.body3Regular
-                          .copyWith(color: CustomColors.white),
-                    ),
-                    const SizedBox(height: 2.0),
-                    Text(
-                      'Agung Nurcahyo Rosiandana',
-                      style: CustomTextStyle.body1Medium
-                          .copyWith(color: CustomColors.white),
-                    ),
-                  ],
-                ),
-              ],
+    final blocProfile = context.read<EditProfileBloc>();
+    final blocPond = context.read<PondBloc>();
+    return Column(
+      children: [
+        Container(
+          height: 101,
+          color: CustomColors.primary,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                children: [
+                  // Icon(IconlyLight.arrow_left),
+                  const CircleAvatar(
+                    radius: 20,
+                    backgroundColor: CustomColors.grey,
+                    backgroundImage: AssetImage('assets/default_profile.png'),
+                  ),
+                  const SizedBox(width: 12.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Selamat Datang,',
+                        style: CustomTextStyle.body3Regular
+                            .copyWith(color: CustomColors.white),
+                      ),
+                      const SizedBox(height: 2.0),
+                      StreamBuilder<ProfileModel?>(
+                          stream: blocProfile.profile.stream,
+                          initialData: blocProfile.profile.value,
+                          builder: (context, snapshot) {
+                            final data = snapshot.data;
+                            if (data == null) {
+                              return Text(
+                                '-',
+                                style: CustomTextStyle.body1Medium
+                                    .copyWith(color: CustomColors.white),
+                              );
+                            }
+                            return Text(
+                              data.name ?? '-',
+                              style: CustomTextStyle.body1Medium
+                                  .copyWith(color: CustomColors.white),
+                            );
+                          }),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+        StreamBuilder<String>(
+            stream: blocPond.status.stream,
+            initialData: blocPond.status.value,
+            builder: (context, snapshot) {
+              final data = snapshot.data;
+              if (data == null || data == '') {
+                return const _SubmisionInfo();
+              }
+              if (data == StatusSubmission.actived) {
+                return const SizedBox();
+              }
+              return _SubmisionInfoInReview(status: data);
+            }),
+      ],
     );
   }
 }

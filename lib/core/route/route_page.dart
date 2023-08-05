@@ -6,7 +6,7 @@ import 'package:seller/modules/order/screen/page_order.dart';
 import 'package:seller/modules/pond/screen/page_pond.dart';
 import 'package:seller/modules/pool/screen/page_list_pool.dart';
 import 'package:seller/modules/pool/screen/page_pool.dart';
-import 'package:seller/modules/profile/screen/page_profile.dart';
+import 'package:seller/modules/edit_profile/screen/page_edit_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';

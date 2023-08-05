@@ -105,8 +105,8 @@ class PondModel {
       'longitude': longitude,
       'teamID': teamID,
       'image': image,
-      'listPool': listPool?.map((x) => x?.toMap())?.toList(),
-      'berkas': berkas?.map((x) => x?.toMap())?.toList(),
+      'listPool': listPool?.map((x) => x.toMap()).toList(),
+      'berkas': berkas?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -128,8 +128,14 @@ class PondModel {
       longitude: map['longitude']?.toDouble(),
       teamID: map['teamID'],
       image: map['image'] ?? '',
-      listPool: map['listPool'] != null ? List<PoolModel>.from(map['listPool']?.map((x) => PoolModel.fromMap(x))) : null,
-      berkas: map['berkas'] != null ? List<FileModel>.from(map['berkas']?.map((x) => FileModel.fromMap(x))) : null,
+      listPool: map['listPool'] != null
+          ? List<PoolModel>.from(
+              map['listPool']?.map((x) => PoolModel.fromMap(x)))
+          : null,
+      berkas: map['berkas'] != null
+          ? List<FileModel>.from(
+              map['berkas']?.map((x) => FileModel.fromMap(x)))
+          : null,
     );
   }
 
@@ -146,48 +152,48 @@ class PondModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is PondModel &&
-      other.name == name &&
-      other.userID == userID &&
-      other.user == user &&
-      other.countryID == countryID &&
-      other.provinceID == provinceID &&
-      other.cityID == cityID &&
-      other.districtID == districtID &&
-      other.detailAddress == detailAddress &&
-      other.noteAddress == noteAddress &&
-      other.type == type &&
-      other.url == url &&
-      other.status == status &&
-      other.latitude == latitude &&
-      other.longitude == longitude &&
-      other.teamID == teamID &&
-      other.image == image &&
-      listEquals(other.listPool, listPool) &&
-      listEquals(other.berkas, berkas);
+        other.name == name &&
+        other.userID == userID &&
+        other.user == user &&
+        other.countryID == countryID &&
+        other.provinceID == provinceID &&
+        other.cityID == cityID &&
+        other.districtID == districtID &&
+        other.detailAddress == detailAddress &&
+        other.noteAddress == noteAddress &&
+        other.type == type &&
+        other.url == url &&
+        other.status == status &&
+        other.latitude == latitude &&
+        other.longitude == longitude &&
+        other.teamID == teamID &&
+        other.image == image &&
+        listEquals(other.listPool, listPool) &&
+        listEquals(other.berkas, berkas);
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      userID.hashCode ^
-      user.hashCode ^
-      countryID.hashCode ^
-      provinceID.hashCode ^
-      cityID.hashCode ^
-      districtID.hashCode ^
-      detailAddress.hashCode ^
-      noteAddress.hashCode ^
-      type.hashCode ^
-      url.hashCode ^
-      status.hashCode ^
-      latitude.hashCode ^
-      longitude.hashCode ^
-      teamID.hashCode ^
-      image.hashCode ^
-      listPool.hashCode ^
-      berkas.hashCode;
+        userID.hashCode ^
+        user.hashCode ^
+        countryID.hashCode ^
+        provinceID.hashCode ^
+        cityID.hashCode ^
+        districtID.hashCode ^
+        detailAddress.hashCode ^
+        noteAddress.hashCode ^
+        type.hashCode ^
+        url.hashCode ^
+        status.hashCode ^
+        latitude.hashCode ^
+        longitude.hashCode ^
+        teamID.hashCode ^
+        image.hashCode ^
+        listPool.hashCode ^
+        berkas.hashCode;
   }
 }
 
