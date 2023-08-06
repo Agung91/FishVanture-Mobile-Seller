@@ -28,7 +28,8 @@ class HomePage extends StatelessWidget {
               .showSnackBar(SnackBar(content: Text(e.message)));
         }),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics()),
           child: Column(
             children: [
               // _SubmisionInfoInReview(),
