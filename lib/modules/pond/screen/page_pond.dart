@@ -21,7 +21,7 @@ class ProductSettingPage extends StatelessWidget {
       appBar: const CustomAppbar(appbarText: 'Pengaturan Produk'),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        color: CustomColor.white,
+        color: CustomColors.white,
         child: Column(
           children: [
             _ItemCategori(
@@ -77,7 +77,7 @@ class _ItemCategori extends StatelessWidget {
                 Text(
                   subText,
                   style: CustomTextStyle.body3Medium
-                      .copyWith(color: CustomColor.fadedGrey),
+                      .copyWith(color: CustomColors.fadedGrey),
                 ),
               ],
             ),
@@ -89,17 +89,17 @@ class _ItemCategori extends StatelessWidget {
                 child: Text(
                   '2',
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColor.white,
+                    color: CustomColors.white,
                   ),
                 ),
                 decoration: BoxDecoration(
-                    color: CustomColor.red, shape: BoxShape.circle),
+                    color: CustomColors.red, shape: BoxShape.circle),
               ),
             ),
             SizedBox(width: 8.0),
             Icon(
               IconlyLight.arrow_right_2,
-              color: CustomColor.grey,
+              color: CustomColors.grey,
             )
           ],
         ),

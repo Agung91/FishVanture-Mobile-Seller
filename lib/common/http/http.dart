@@ -8,7 +8,6 @@ import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:dio/dio.dart';
 
 abstract class HttpService {
-  final dio = Dio();
   Future<dynamic> get(String path, {int? timeOut}) async {
     final token = AuthBloc().getToken();
     final options = BaseOptions(
@@ -80,7 +79,8 @@ abstract class HttpService {
     }
   }
 
-  Future<Responses> postImage(String path, {dynamic body}) async {
+  Future<dynamic> postImage(String path,
+      {dynamic body, Function(int, int)? onSendProgress}) async {
     try {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
@@ -96,6 +96,7 @@ abstract class HttpService {
       final response = await Dio(options).post(
         path,
         data: body,
+        onSendProgress: onSendProgress
       );
 
       final result = Responses.fromMap(response.data);

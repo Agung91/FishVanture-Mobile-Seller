@@ -6,69 +6,79 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/home/model/model_status.dart';
 import 'package:seller/modules/home/widget/w_home_card.dart';
-import 'package:seller/modules/profile/bloc/bloc_profile.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/model/model_profile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final blocPond = context.read<PondBloc>();
     return Scaffold(
-      backgroundColor: CustomColor.background,
-      appBar: _AppbarHome(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            _SubmisionInfo(),
-            // _SubmisionInfoInReview(),
-            // _SubmisionInfoRejected(),
-            const SizedBox(height: 8),
-            const _WCategori(),
-            const SizedBox(height: 12.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Produk Anda',
-                    style: CustomTextStyle.body2SemiBold,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        'Lihat Semua',
-                        style: CustomTextStyle.body2SemiBold.copyWith(
-                          color: CustomColor.primary,
+      backgroundColor: CustomColors.background,
+      appBar: const _AppbarHome(),
+      body: RefreshIndicator(
+        onRefresh: () => blocPond.getPond().catchError((e) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(e.message)));
+        }),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              // _SubmisionInfoInReview(),
+              // _SubmisionInfoRejected(),
+              const SizedBox(height: 8),
+              const _WCategori(),
+              const SizedBox(height: 12.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Produk Anda',
+                      style: CustomTextStyle.body2SemiBold,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Text(
+                          'Lihat Semua',
+                          style: CustomTextStyle.body2SemiBold.copyWith(
+                            color: CustomColors.primary,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              height: 208,
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                itemBuilder: (context, index) {
-                  return WHomeCard();
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(width: 8.0);
-                },
-                itemCount: 5,
+              const SizedBox(height: 2),
+              SizedBox(
+                height: 208,
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  itemBuilder: (context, index) {
+                    return const WHomeCard();
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(width: 8.0);
+                  },
+                  itemCount: 5,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -89,12 +99,12 @@ class _SubmisionInfo extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          color: CustomColor.yellow,
+          color: CustomColors.yellow,
           child: Text(
             'Silakan isi formulir pengajuan terlebih dahulu agar akun dapat digunakan.',
             textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
+            style: CustomTextStyle.body2Regular
+                .copyWith(color: CustomColors.white),
           ),
         ));
   }
@@ -102,45 +112,28 @@ class _SubmisionInfo extends StatelessWidget {
 
 class _SubmisionInfoInReview extends StatelessWidget {
   const _SubmisionInfoInReview({
-    super.key,
-  });
+    Key? key,
+    required this.status,
+  }) : super(key: key);
+
+  final String status;
 
   @override
   Widget build(BuildContext context) {
+    final blocPond = context.read<PondBloc>();
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          blocPond.getPond();
+        },
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          color: CustomColor.green,
+          color: StatusSubmission.statusColor(status),
           child: Text(
-            'Saat ini, formulir pengajuan sedang dalam proses peninjauan.',
+            StatusSubmission.statusInfo(status),
             textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
-          ),
-        ));
-  }
-}
-
-class _SubmisionInfoRejected extends StatelessWidget {
-  const _SubmisionInfoRejected({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {},
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 26),
-          width: double.infinity,
-          color: CustomColor.red,
-          child: Text(
-            'Maaf, formulir pengajuan Anda ditolak ',
-            textAlign: TextAlign.center,
-            style:
-                CustomTextStyle.body2Regular.copyWith(color: CustomColor.white),
+            style: CustomTextStyle.body2Regular
+                .copyWith(color: CustomColors.white),
           ),
         ));
   }
@@ -155,7 +148,7 @@ class _WCategori extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      color: CustomColor.white,
+      color: CustomColors.white,
       child: Column(
         children: [
           _ItemCategori(
@@ -180,7 +173,7 @@ class _WCategori extends StatelessWidget {
             text: 'Profile',
             subText: 'Atur profile Anda',
             iconData: IconlyBold.profile,
-            onTap: () {},
+            onTap: () => RouteBloc().push(RouteEditProfile()),
           ),
         ],
       ),
@@ -212,15 +205,19 @@ class _ItemCategori extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: CustomColors.background,
+              ),
               child: ShaderMask(
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (Rect bounds) {
-                  return RadialGradient(
+                  return const RadialGradient(
                     center: Alignment.bottomRight,
                     radius: 3,
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
@@ -230,12 +227,8 @@ class _ItemCategori extends StatelessWidget {
                   size: 40,
                 ),
               ),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: CustomColor.background,
-              ),
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -243,33 +236,33 @@ class _ItemCategori extends StatelessWidget {
                   text,
                   style: CustomTextStyle.body1Medium,
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
                   subText,
                   style: CustomTextStyle.body3Medium
-                      .copyWith(color: CustomColor.fadedGrey),
+                      .copyWith(color: CustomColors.fadedGrey),
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Visibility(
               visible: false,
               child: Container(
-                padding: EdgeInsets.all(6),
+                padding: const EdgeInsets.all(6),
                 child: Text(
                   '2',
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColor.white,
+                    color: CustomColors.white,
                   ),
                 ),
-                decoration: BoxDecoration(
-                    color: CustomColor.red, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                    color: CustomColors.red, shape: BoxShape.circle),
               ),
             ),
-            SizedBox(width: 8.0),
-            Icon(
+            const SizedBox(width: 8.0),
+            const Icon(
               IconlyLight.arrow_right_2,
-              color: CustomColor.grey,
+              color: CustomColors.grey,
             )
           ],
         ),
@@ -284,12 +277,12 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size(double.infinity, 101);
+  Size get preferredSize => const Size(double.infinity, 119);
 
   void show(BuildContext context) {
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
       content: const Text('Error message text'),
-      leading: CircleAvatar(child: Icon(Icons.delete)),
+      leading: const CircleAvatar(child: Icon(Icons.delete)),
       actions: [
         TextButton(
           child: const Text('ACTION 1'),
@@ -305,48 +298,74 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileBloc = context.read<ProfileBloc>();
-    return InkWell(
-      onTap: () {
-        RouteBloc().push(RouteEditProfile());
-      },
-      child: Container(
-        height: 101,
-        color: CustomColor.primary,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: [
-                // Icon(IconlyLight.arrow_left),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: CustomColor.grey,
-                  backgroundImage: AssetImage('assets/default_profile.png'),
-                ),
-                const SizedBox(width: 12.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Selamat Datang,',
-                      style: CustomTextStyle.body3Regular
-                          .copyWith(color: CustomColor.white),
-                    ),
-                    const SizedBox(height: 2.0),
-                    Text(
-                      'Agung Nurcahyo Rosiandana',
-                      style: CustomTextStyle.body1Medium
-                          .copyWith(color: CustomColor.white),
-                    ),
-                  ],
-                ),
-              ],
+    final blocProfile = context.read<EditProfileBloc>();
+    final blocPond = context.read<PondBloc>();
+    return Column(
+      children: [
+        Container(
+          height: 101,
+          color: CustomColors.primary,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                children: [
+                  // Icon(IconlyLight.arrow_left),
+                  const CircleAvatar(
+                    radius: 20,
+                    backgroundColor: CustomColors.grey,
+                    backgroundImage: AssetImage('assets/default_profile.png'),
+                  ),
+                  const SizedBox(width: 12.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Selamat Datang,',
+                        style: CustomTextStyle.body3Regular
+                            .copyWith(color: CustomColors.white),
+                      ),
+                      const SizedBox(height: 2.0),
+                      StreamBuilder<ProfileModel?>(
+                          stream: blocProfile.profile.stream,
+                          initialData: blocProfile.profile.value,
+                          builder: (context, snapshot) {
+                            final data = snapshot.data;
+                            if (data == null) {
+                              return Text(
+                                '-',
+                                style: CustomTextStyle.body1Medium
+                                    .copyWith(color: CustomColors.white),
+                              );
+                            }
+                            return Text(
+                              data.name ?? '-',
+                              style: CustomTextStyle.body1Medium
+                                  .copyWith(color: CustomColors.white),
+                            );
+                          }),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+        StreamBuilder<String>(
+            stream: blocPond.status.stream,
+            initialData: blocPond.status.value,
+            builder: (context, snapshot) {
+              final data = snapshot.data;
+              if (data == null || data == '') {
+                return const _SubmisionInfo();
+              }
+              if (data == StatusSubmission.actived) {
+                return const SizedBox();
+              }
+              return _SubmisionInfoInReview(status: data);
+            }),
+      ],
     );
   }
 }

@@ -34,7 +34,7 @@ class _CustomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
-      color: CustomColor.primary,
+      color: CustomColors.primary,
       height: 88,
       child: SafeArea(
         child: Row(
@@ -51,7 +51,7 @@ class _CustomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
                   // color: Colors.amber,
                   child: const Icon(
                     IconlyLight.arrow_left,
-                    color: CustomColor.white,
+                    color: CustomColors.white,
                   )),
             ),
             const SizedBox(width: 4),
@@ -63,7 +63,7 @@ class _CustomChatAppbar extends StatelessWidget implements PreferredSizeWidget {
             Text(
               appbarText,
               style: CustomTextStyle.body1Medium.copyWith(
-                color: CustomColor.white,
+                color: CustomColors.white,
               ),
             ),
           ],

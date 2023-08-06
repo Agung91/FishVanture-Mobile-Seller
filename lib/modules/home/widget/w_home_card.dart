@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,13 @@ class WHomeCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.0),
               child: FadeInImage(
                 height: 118,
+                width: 168,
                 fit: BoxFit.cover,
                 placeholder: AssetImage('assets/load_img.png'),
-                image: AssetImage('assets/ikan.png'),
+                image: CachedNetworkImageProvider(
+                    'https://picsum.photos/500/500?random='),
               ),
+              // child: CachedNetworkImage(imageUrl: imageUrl),
             ),
             SizedBox(height: 4),
             Text(
@@ -38,7 +42,7 @@ class WHomeCard extends StatelessWidget {
             Text(
               'Desa Jatiadi, Kec. Gending - Probolinggo',
               style: CustomTextStyle.body3Regular.copyWith(
-                color: CustomColor.grey,
+                color: CustomColors.grey,
               ),
             ),
             SizedBox(height: 8),
@@ -48,13 +52,13 @@ class WHomeCard extends StatelessWidget {
                 Icon(
                   IconlyBold.time_circle,
                   size: 16,
-                  color: CustomColor.primary,
+                  color: CustomColors.primary,
                 ),
                 SizedBox(width: 4),
                 Text(
                   '123 Hari',
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColor.primary,
+                    color: CustomColors.primary,
                   ),
                 ),
               ],
@@ -63,7 +67,7 @@ class WHomeCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: CustomColor.white,
+          color: CustomColors.white,
         ),
       ),
     );

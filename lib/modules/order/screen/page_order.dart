@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,10 +21,10 @@ class OrderPage extends StatelessWidget {
         body: Column(
           children: [
             Container(
-              color: CustomColor.white,
+              color: CustomColors.white,
               child: TabBar(
-                unselectedLabelColor: CustomColor.fadedGrey,
-                labelColor: CustomColor.primary,
+                unselectedLabelColor: CustomColors.fadedGrey,
+                labelColor: CustomColors.primary,
                 tabs: [
                   Tab(
                     text: 'Berlangsung',
@@ -78,7 +79,7 @@ class ItemOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      color: CustomColor.white,
+      color: CustomColors.white,
       child: Column(
         children: [
           Row(
@@ -87,13 +88,13 @@ class ItemOrder extends StatelessWidget {
               Text(
                 'DRM00000123',
                 style: CustomTextStyle.body2Medium.copyWith(
-                  color: CustomColor.grey,
+                  color: CustomColors.grey,
                 ),
               ),
               Text(
                 '17 November 2022 - 16:47 WIB',
                 style: CustomTextStyle.body3Regular.copyWith(
-                  color: CustomColor.grey,
+                  color: CustomColors.grey,
                 ),
               ),
             ],
@@ -107,12 +108,14 @@ class ItemOrder extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
                   height: 60,
+                  fit: BoxFit.cover,
                   width: 80,
                   placeholder: AssetImage('assets/load_img.png'),
-                  image: AssetImage('assets/ikan.png'),
+                  image: CachedNetworkImageProvider(
+                      'https://picsum.photos/500/500?random=1'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -127,7 +130,7 @@ class ItemOrder extends StatelessWidget {
                   Text(
                     '20 kg',
                     style: CustomTextStyle.body2Regular.copyWith(
-                      color: CustomColor.grey,
+                      color: CustomColors.grey,
                     ),
                   ),
                 ],
@@ -145,7 +148,7 @@ class ItemOrder extends StatelessWidget {
           CustomButton(
             isPrimary: false,
             textButton: 'Transaksi Selesai',
-            onTap: () {},
+            onTap: () async {},
           ),
         ],
       ),
@@ -167,12 +170,12 @@ class StatusOrder extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
-          color: CustomColor.fadedBlue,
+          color: CustomColors.fadedBlue,
         ),
         child: Text(
           status,
           style: CustomTextStyle.body3Regular.copyWith(
-            color: CustomColor.primary,
+            color: CustomColors.primary,
           ),
         ));
   }

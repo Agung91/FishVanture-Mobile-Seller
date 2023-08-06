@@ -34,6 +34,6 @@ class LocalAuth extends Authenticated {
 
   @override
   Future<void> onLogout() async {
-    // LocalStorage().removeToken();
+    LocalStorage().removeToken();
   }
 }

@@ -22,7 +22,7 @@ class CustomDropdown<T extends DropItem> extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
         border: Border.all(
-          color: CustomColor.fadedGrey,
+          color: CustomColors.fadedGrey,
         ),
         borderRadius: BorderRadius.circular(6.0),
       ),
@@ -53,7 +53,7 @@ class CustomDropdown<T extends DropItem> extends StatelessWidget {
           icon: const Icon(
             IconlyLight.arrow_down_2,
             size: 16.0,
-            color: CustomColor.dark,
+            color: CustomColors.dark,
           ),
           // isDense: true,
         ),
