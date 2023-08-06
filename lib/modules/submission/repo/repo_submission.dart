@@ -8,7 +8,7 @@ class SubmissionHttpRepo extends HttpService implements SubmissionService {
   Future<String?> createPond(SubmissionModel input) async {
     try {
       final response = await post(
-        '/$host/create-pond',
+        '$host/create-pond',
         body: input.toMap(),
       );
       return response.id;

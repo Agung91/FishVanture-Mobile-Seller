@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:seller/common/file_picker/model_upload_file.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
 
-class SubmissionModel {
+class SubmissionInput {
   final String name;
   final String countryID;
   final String provinceID;
@@ -17,10 +16,12 @@ class SubmissionModel {
   final String type;
   final double latitude;
   final double longitude;
+  final String teamID;
   final String image;
   final List<PoolModel> listPool;
   final List<FileModel> listBerkas;
-  SubmissionModel({
+
+  SubmissionInput({
     required this.name,
     required this.countryID,
     required this.provinceID,
@@ -31,12 +32,13 @@ class SubmissionModel {
     required this.type,
     required this.latitude,
     required this.longitude,
+    required this.teamID,
     required this.image,
     required this.listPool,
     required this.listBerkas,
   });
 
-  SubmissionModel copyWith({
+  SubmissionInput copyWith({
     String? name,
     String? countryID,
     String? provinceID,
@@ -47,11 +49,12 @@ class SubmissionModel {
     String? type,
     double? latitude,
     double? longitude,
+    String? teamID,
     String? image,
     List<PoolModel>? listPool,
     List<FileModel>? listBerkas,
   }) {
-    return SubmissionModel(
+    return SubmissionInput(
       name: name ?? this.name,
       countryID: countryID ?? this.countryID,
       provinceID: provinceID ?? this.provinceID,
@@ -62,6 +65,7 @@ class SubmissionModel {
       type: type ?? this.type,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      teamID: teamID ?? this.teamID,
       image: image ?? this.image,
       listPool: listPool ?? this.listPool,
       listBerkas: listBerkas ?? this.listBerkas,
@@ -80,14 +84,15 @@ class SubmissionModel {
       'type': type,
       'latitude': latitude,
       'longitude': longitude,
+      'teamID': teamID,
       'image': image,
       'listPool': listPool.map((x) => x.toMap()).toList(),
       'listBerkas': listBerkas.map((x) => x.toMap()).toList(),
     };
   }
 
-  factory SubmissionModel.fromMap(Map<String, dynamic> map) {
-    return SubmissionModel(
+  factory SubmissionInput.fromMap(Map<String, dynamic> map) {
+    return SubmissionInput(
       name: map['name'] ?? '',
       countryID: map['countryID'] ?? '',
       provinceID: map['provinceID'] ?? '',
@@ -98,57 +103,62 @@ class SubmissionModel {
       type: map['type'] ?? '',
       latitude: map['latitude']?.toDouble() ?? 0.0,
       longitude: map['longitude']?.toDouble() ?? 0.0,
+      teamID: map['teamID'] ?? '',
       image: map['image'] ?? '',
-      listPool: List<PoolModel>.from(map['listPool']?.map((x) => PoolModel.fromMap(x))),
-      listBerkas: List<FileModel>.from(map['listBerkas']?.map((x) => FileModel.fromMap(x))),
+      listPool: List<PoolModel>.from(
+          map['listPool']?.map((x) => PoolModel.fromMap(x))),
+      listBerkas: List<FileModel>.from(
+          map['listBerkas']?.map((x) => FileModel.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory SubmissionModel.fromJson(String source) =>
-      SubmissionModel.fromMap(json.decode(source));
+  factory SubmissionInput.fromJson(String source) =>
+      SubmissionInput.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'SubmissionModel(name: $name, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, latitude: $latitude, longitude: $longitude, image: $image, listPool: $listPool, listBerkas: $listBerkas)';
+    return 'SubmissionInput(name: $name, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, listBerkas: $listBerkas)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
-    return other is SubmissionModel &&
-      other.name == name &&
-      other.countryID == countryID &&
-      other.provinceID == provinceID &&
-      other.cityID == cityID &&
-      other.districtID == districtID &&
-      other.detailAddress == detailAddress &&
-      other.noteAddress == noteAddress &&
-      other.type == type &&
-      other.latitude == latitude &&
-      other.longitude == longitude &&
-      other.image == image &&
-      listEquals(other.listPool, listPool) &&
-      listEquals(other.listBerkas, listBerkas);
+
+    return other is SubmissionInput &&
+        other.name == name &&
+        other.countryID == countryID &&
+        other.provinceID == provinceID &&
+        other.cityID == cityID &&
+        other.districtID == districtID &&
+        other.detailAddress == detailAddress &&
+        other.noteAddress == noteAddress &&
+        other.type == type &&
+        other.latitude == latitude &&
+        other.longitude == longitude &&
+        other.teamID == teamID &&
+        other.image == image &&
+        listEquals(other.listPool, listPool) &&
+        listEquals(other.listBerkas, listBerkas);
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      countryID.hashCode ^
-      provinceID.hashCode ^
-      cityID.hashCode ^
-      districtID.hashCode ^
-      detailAddress.hashCode ^
-      noteAddress.hashCode ^
-      type.hashCode ^
-      latitude.hashCode ^
-      longitude.hashCode ^
-      image.hashCode ^
-      listPool.hashCode ^
-      listBerkas.hashCode;
+        countryID.hashCode ^
+        provinceID.hashCode ^
+        cityID.hashCode ^
+        districtID.hashCode ^
+        detailAddress.hashCode ^
+        noteAddress.hashCode ^
+        type.hashCode ^
+        latitude.hashCode ^
+        longitude.hashCode ^
+        teamID.hashCode ^
+        image.hashCode ^
+        listPool.hashCode ^
+        listBerkas.hashCode;
   }
 }

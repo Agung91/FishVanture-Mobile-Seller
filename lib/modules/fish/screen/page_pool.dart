@@ -151,10 +151,7 @@ class _WPhoto extends StatelessWidget {
                                   await blocImage.upload(ImageSource.camera);
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
-                              snacBarPopUp(context,
-                                  text: 'Berhasil upload gambar',
-                                  color: CustomColors.green,
-                                  icon: IconlyBold.tick_square);
+                              // snackbarPopup(context);
                             },
                           ),
                           ListTile(
@@ -172,10 +169,7 @@ class _WPhoto extends StatelessWidget {
                                   await blocImage.upload(ImageSource.gallery);
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
-                              snacBarPopUp(context,
-                                  text: 'Berhasil upload gambar',
-                                  color: CustomColors.green,
-                                  icon: IconlyBold.tick_square);
+                              // snackbarPopup(context);
                             },
                           )
                         ],
@@ -189,7 +183,7 @@ class _WPhoto extends StatelessWidget {
                   initialData: submissionBloc.poolImage.value,
                   builder: (context, snapshot) {
                     final data = snapshot.data;
-                    if (data == null|| data == '') {
+                    if (data == null || data == '') {
                       return Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: CustomColors.fadedGrey),

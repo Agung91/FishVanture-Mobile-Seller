@@ -108,9 +108,10 @@ class ItemOrder extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
                   height: 60,
+                  fit: BoxFit.cover,
                   width: 80,
                   placeholder: AssetImage('assets/load_img.png'),
                   image: CachedNetworkImageProvider(

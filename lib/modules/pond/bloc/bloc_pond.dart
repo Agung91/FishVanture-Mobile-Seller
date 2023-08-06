@@ -4,9 +4,7 @@ import 'package:seller/modules/pond/repo/repo_pond.dart';
 import 'package:sstream/sstream.dart';
 
 class PondBloc extends Authenticated {
-  PondBloc(this._repo) {
-    getPond();
-  }
+  PondBloc(this._repo);
   final PondHttpRepo _repo;
 
   final ponds = SStream<PondModel?>(null);
