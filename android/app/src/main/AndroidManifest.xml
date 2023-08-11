@@ -2,7 +2,7 @@
     package="com.eFish.seller">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="seller"
+        android:label="Fish Seller"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

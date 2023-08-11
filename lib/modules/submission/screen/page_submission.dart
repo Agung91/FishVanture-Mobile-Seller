@@ -197,7 +197,7 @@ class SubmissionPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'List Kolam',
+                          'Daftar Kolam',
                           style: CustomTextStyle.body2SemiBold,
                         ),
                         TextButton(
