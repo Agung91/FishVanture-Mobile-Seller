@@ -27,7 +27,7 @@ class ProductSettingPage extends StatelessWidget {
             _ItemCategori(
               text: 'Jenis Ikan',
               subText: 'Daftar jenis ikan yang Anda kelola',
-              onTap: () {},
+              onTap: () => RouteBloc().push(RouteListFish()),
             ),
             _ItemCategori(
               text: 'Budidaya',

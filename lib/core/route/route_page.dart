@@ -1,5 +1,6 @@
 import 'package:seller/modules/chat/screen/page_chat.dart';
 import 'package:seller/modules/chat/screen/page_list_chat.dart';
+import 'package:seller/modules/fish/screen/page_list_fish.dart';
 import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/order/screen/page_order.dart';
@@ -114,6 +115,16 @@ class RoutePool extends RoutePage {
               child: CreatePoolPage(
             submissionBloc: submissionBloc,
           )),
-          'pool',
+          'create-pool',
+        );
+}
+
+class RouteListFish extends RoutePage {
+  RouteListFish()
+      : super(
+          const MaterialPage(
+            child: ListFishPage(),
+          ),
+          'list-fish',
         );
 }

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:seller/core/auth/bloc/local_auth.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/fish/bloc/bloc_fish.dart';
+import 'package:seller/modules/fish/repo/repo_fish.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/pond/repo/repo_pond.dart';
@@ -62,6 +64,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => PoolBloc(PoolHttpRepo()),
+        ),
+        Provider(
+          create: (_) => FishBloc(FishHttpRepo()),
         ),
       ],
       child: MaterialApp(
