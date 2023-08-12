@@ -6,11 +6,11 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/model/model_profile.dart';
 import 'package:seller/modules/home/model/model_status.dart';
 import 'package:seller/modules/home/widget/w_home_card.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
-import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
-import 'package:seller/modules/edit_profile/model/model_profile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     final blocPond = context.read<PondBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: const _AppbarHome(),
+      appBar: _AppbarHome(pondBloc: blocPond),
       body: RefreshIndicator(
         onRefresh: () => blocPond.getPond().catchError((e) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -274,33 +274,20 @@ class _ItemCategori extends StatelessWidget {
 
 class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   const _AppbarHome({
-    super.key,
-  });
+    Key? key,
+    required this.pondBloc,
+  }) : super(key: key);
 
+  final PondBloc pondBloc;
+
+// 101
   @override
-  Size get preferredSize => const Size(double.infinity, 119);
-
-  void show(BuildContext context) {
-    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-      content: const Text('Error message text'),
-      leading: const CircleAvatar(child: Icon(Icons.delete)),
-      actions: [
-        TextButton(
-          child: const Text('ACTION 1'),
-          onPressed: () {},
-        ),
-        TextButton(
-          child: const Text('ACTION 2'),
-          onPressed: () {},
-        ),
-      ],
-    ));
-  }
+  Size get preferredSize => Size(double.infinity,
+      (pondBloc.status.value == StatusSubmission.actived) ? 80 : 119);
 
   @override
   Widget build(BuildContext context) {
     final blocProfile = context.read<EditProfileBloc>();
-    final blocPond = context.read<PondBloc>();
     return Column(
       children: [
         Container(
@@ -354,8 +341,8 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         StreamBuilder<String>(
-            stream: blocPond.status.stream,
-            initialData: blocPond.status.value,
+            stream: pondBloc.status.stream,
+            initialData: pondBloc.status.value,
             builder: (context, snapshot) {
               final data = snapshot.data;
               if (data == null || data == '') {
