@@ -14,8 +14,8 @@ import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 
-class PoolPage extends StatelessWidget {
-  const PoolPage({
+class CreatePoolPage extends StatelessWidget {
+  const CreatePoolPage({
     Key? key,
     required this.submissionBloc,
   }) : super(key: key);
@@ -151,7 +151,10 @@ class _WPhoto extends StatelessWidget {
                                   await blocImage.upload(ImageSource.camera);
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
-                              // snackbarPopup(context);
+                              snacBarPopUp(context,
+                                  text: 'Berhasil upload gambar',
+                                  color: CustomColors.green,
+                                  icon: IconlyBold.tick_square);
                             },
                           ),
                           ListTile(
@@ -169,7 +172,10 @@ class _WPhoto extends StatelessWidget {
                                   await blocImage.upload(ImageSource.gallery);
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
-                              // snackbarPopup(context);
+                              snacBarPopUp(context,
+                                  text: 'Berhasil upload gambar',
+                                  color: CustomColors.green,
+                                  icon: IconlyBold.tick_square);
                             },
                           )
                         ],

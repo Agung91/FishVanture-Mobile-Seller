@@ -10,6 +10,8 @@ import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/pond/repo/repo_pond.dart';
 import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
 import 'package:seller/modules/edit_profile/repo/repo_edit_profile.dart';
+import 'package:seller/modules/pool/bloc/bloc_pool.dart';
+import 'package:seller/modules/pool/repo/repo_pool.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -57,6 +59,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => PondBloc(PondHttpRepo()),
+        ),
+        Provider(
+          create: (_) => PoolBloc(PoolHttpRepo()),
         ),
       ],
       child: MaterialApp(

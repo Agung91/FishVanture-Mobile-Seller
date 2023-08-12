@@ -6,6 +6,7 @@ import 'package:seller/common/file_picker/model_upload_file.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
 
 class PondModel {
+  final String id;
   final String name;
   final String userID;
   final UserPond? user;
@@ -25,6 +26,7 @@ class PondModel {
   final List<PoolModel>? listPool;
   final List<FileModel>? berkas;
   PondModel({
+    required this.id,
     required this.name,
     required this.userID,
     required this.user,
@@ -46,6 +48,7 @@ class PondModel {
   });
 
   PondModel copyWith({
+    String? id,
     String? name,
     String? userID,
     UserPond? user,
@@ -66,6 +69,7 @@ class PondModel {
     List<FileModel>? berkas,
   }) {
     return PondModel(
+      id: id ?? this.id,
       name: name ?? this.name,
       userID: userID ?? this.userID,
       user: user ?? this.user,
@@ -89,6 +93,7 @@ class PondModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'userID': userID,
       'user': user?.toMap(),
@@ -112,6 +117,7 @@ class PondModel {
 
   factory PondModel.fromMap(Map<String, dynamic> map) {
     return PondModel(
+      id: map['id'] ?? '',
       name: map['name'] ?? '',
       userID: map['userID'] ?? '',
       user: map['user'] != null ? UserPond.fromMap(map['user']) : null,
@@ -146,7 +152,7 @@ class PondModel {
 
   @override
   String toString() {
-    return 'PondModel(name: $name, userID: $userID, user: $user, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, url: $url, status: $status, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, berkas: $berkas)';
+    return 'PondModel(id: $id, name: $name, userID: $userID, user: $user, countryID: $countryID, provinceID: $provinceID, cityID: $cityID, districtID: $districtID, detailAddress: $detailAddress, noteAddress: $noteAddress, type: $type, url: $url, status: $status, latitude: $latitude, longitude: $longitude, teamID: $teamID, image: $image, listPool: $listPool, berkas: $berkas)';
   }
 
   @override
@@ -154,6 +160,7 @@ class PondModel {
     if (identical(this, other)) return true;
 
     return other is PondModel &&
+        other.id == id &&
         other.name == name &&
         other.userID == userID &&
         other.user == user &&
@@ -176,7 +183,8 @@ class PondModel {
 
   @override
   int get hashCode {
-    return name.hashCode ^
+    return id.hashCode ^
+        name.hashCode ^
         userID.hashCode ^
         user.hashCode ^
         countryID.hashCode ^

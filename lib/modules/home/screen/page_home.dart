@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     final blocPond = context.read<PondBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: _AppbarHome(pondBloc: blocPond),
+      appBar: const _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () => blocPond.getPond().catchError((e) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -34,7 +34,15 @@ class HomePage extends StatelessWidget {
             children: [
               // _SubmisionInfoInReview(),
               // _SubmisionInfoRejected(),
-              const SizedBox(height: 8),
+              StreamBuilder<String>(
+                  stream: blocPond.status.stream,
+                  initialData: blocPond.status.value,
+                  builder: (context, snapshot) {
+                    if (snapshot.data != StatusSubmission.actived) {
+                      return const SizedBox(height: 49);
+                    }
+                    return const SizedBox(height: 8);
+                  }),
               const _WCategori(),
               const SizedBox(height: 12.0),
               Padding(
@@ -275,19 +283,16 @@ class _ItemCategori extends StatelessWidget {
 class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   const _AppbarHome({
     Key? key,
-    required this.pondBloc,
   }) : super(key: key);
-
-  final PondBloc pondBloc;
 
 // 101
   @override
-  Size get preferredSize => Size(double.infinity,
-      (pondBloc.status.value == StatusSubmission.actived) ? 80 : 119);
+  Size get preferredSize => const Size(double.infinity, 80);
 
   @override
   Widget build(BuildContext context) {
     final blocProfile = context.read<EditProfileBloc>();
+    final blocPond = context.read<PondBloc>();
     return Column(
       children: [
         Container(
@@ -341,8 +346,8 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         StreamBuilder<String>(
-            stream: pondBloc.status.stream,
-            initialData: pondBloc.status.value,
+            stream: blocPond.status.stream,
+            initialData: blocPond.status.value,
             builder: (context, snapshot) {
               final data = snapshot.data;
               if (data == null || data == '') {
