@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class PoolModel {
+import 'package:seller/common/widgets/dropdown/dropdown.dart';
+
+class PoolModel extends DropItem {
   final String name;
   final double long;
   final double wide;
@@ -68,5 +70,17 @@ class PoolModel {
   @override
   int get hashCode {
     return name.hashCode ^ long.hashCode ^ wide.hashCode ^ image.hashCode;
+  }
+  
+  @override
+  String label() {
+    // TODO: implement label
+    throw UnimplementedError();
+  }
+  
+  @override
+  value() {
+    // TODO: implement value
+    throw UnimplementedError();
   }
 }

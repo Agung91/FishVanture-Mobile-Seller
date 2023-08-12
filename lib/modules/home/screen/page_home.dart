@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:seller/common/custom/empty_data.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/budidaya/bloc/bloc_budidaya.dart';
+import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
 import 'package:seller/modules/edit_profile/model/model_profile.dart';
 import 'package:seller/modules/home/model/model_status.dart';
@@ -18,6 +21,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocPond = context.read<PondBloc>();
+    final blocbudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
@@ -55,7 +59,7 @@ class HomePage extends StatelessWidget {
                       style: CustomTextStyle.body2SemiBold,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => RouteBloc().push(RouteBudidaya()),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Text(
@@ -72,18 +76,32 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 2),
               SizedBox(
                 height: 208,
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  itemBuilder: (context, index) {
-                    return const WBudidayaCard();
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(width: 8.0);
-                  },
-                  itemCount: 5,
-                ),
+                child: StreamBuilder<List<BudidayaModel>>(
+                    stream: blocbudidaya.listBudidaya.stream,
+                    initialData: blocbudidaya.listBudidaya.value,
+                    builder: (context, snapshot) {
+                      final listData = snapshot.data;
+                      if (listData == null || listData.isEmpty) {
+                        return EmptyData(
+                          label: 'Belum ada budidaya',
+                          onRefresh: () async {},
+                        );
+                      }
+                      return ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        itemBuilder: (context, index) {
+                          return WBudidayaCard(
+                            budidayaModel: listData[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 8.0);
+                        },
+                        itemCount: listData.length,
+                      );
+                    }),
               ),
               const SizedBox(height: 20),
             ],
