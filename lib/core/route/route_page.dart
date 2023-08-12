@@ -1,10 +1,11 @@
 import 'package:seller/modules/chat/screen/page_chat.dart';
 import 'package:seller/modules/chat/screen/page_list_chat.dart';
+import 'package:seller/modules/fish/screen/page_create_fish.dart';
 import 'package:seller/modules/fish/screen/page_list_fish.dart';
 import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/order/screen/page_order.dart';
-import 'package:seller/modules/pond/screen/page_pond.dart';
+import 'package:seller/modules/pond/screen/page_pond_setting.dart';
 import 'package:seller/modules/pool/screen/page_list_pool.dart';
 import 'package:seller/modules/pool/screen/page_create_pool.dart';
 import 'package:seller/modules/edit_profile/screen/page_edit_profile.dart';
@@ -126,5 +127,15 @@ class RouteListFish extends RoutePage {
             child: ListFishPage(),
           ),
           'list-fish',
+        );
+}
+
+class RouteCreateFish extends RoutePage {
+  RouteCreateFish()
+      : super(
+          const MaterialPage(
+            child: CreateFishPage(),
+          ),
+          'create-fish',
         );
 }
