@@ -21,39 +21,39 @@ class ListPoolPage extends StatelessWidget {
     final blocPond = context.read<PondBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: const CustomAppbar(appbarText: 'Daftar Kolam'),
-        body: StreamBuilder<List<PoolModel>>(
-            stream: blocPool.listPool.stream,
-            initialData: blocPool.listPool.value,
-            builder: (context, snapshot) {
-              final listData = snapshot.data;
-              if (listData == null || listData.isEmpty) {
-                return EmptyData(
-                  onRefresh: () =>
-                      blocPool.getPools(blocPond.ponds.value?.id ?? ''),
-                );
-              }
-              return RefreshIndicator(
+      appBar: const CustomAppbar(appbarText: 'Kolam'),
+      body: StreamBuilder<List<PoolModel>>(
+          stream: blocPool.listPool.stream,
+          initialData: blocPool.listPool.value,
+          builder: (context, snapshot) {
+            final listData = snapshot.data;
+            if (listData == null || listData.isEmpty) {
+              return EmptyData(
                 onRefresh: () =>
                     blocPool.getPools(blocPond.ponds.value?.id ?? ''),
-                child: ListView.separated(
-                  physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics()),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                  itemBuilder: (context, index) {
-                    return WPool(
-                      poolModel: listData[index],
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 12);
-                  },
-                  itemCount: listData.length,
-                ),
               );
-            }),
-        // bottomNavigationBar: Container(
+            }
+            return RefreshIndicator(
+              onRefresh: () =>
+                  blocPool.getPools(blocPond.ponds.value?.id ?? ''),
+              child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                itemBuilder: (context, index) {
+                  return WPool(
+                    poolModel: listData[index],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 12);
+                },
+                itemCount: listData.length,
+              ),
+            );
+          }),
+      // bottomNavigationBar: Container(
       //   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       //   color: CustomColors.white,
       //   child: CustomButton(

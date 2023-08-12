@@ -3,33 +3,37 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:seller/core/route/bloc_route.dart';
+import 'package:seller/core/route/route_page.dart';
 
-class WHomeCard extends StatelessWidget {
-  const WHomeCard({
+class WBudidayaCard extends StatelessWidget {
+  const WBudidayaCard({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print('hallo');
-      },
+      onTap: () => RouteBloc().push(RouteDetailBudidaya()),
       child: Container(
         padding: const EdgeInsets.all(6.0),
-        width: 168,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: CustomColors.white,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
-              child: FadeInImage(
-                height: 118,
-                width: 168,
-                fit: BoxFit.cover,
-                placeholder: AssetImage('assets/load_img.png'),
-                image: CachedNetworkImageProvider(
-                    'https://picsum.photos/500/500?random='),
+              child: AspectRatio(
+                aspectRatio: 4 / 3,
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  placeholder: AssetImage('assets/load_img.png'),
+                  image: CachedNetworkImageProvider(
+                      'https://picsum.photos/500/500?random='),
+                ),
               ),
               // child: CachedNetworkImage(imageUrl: imageUrl),
             ),
@@ -64,10 +68,6 @@ class WHomeCard extends StatelessWidget {
               ],
             )
           ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: CustomColors.white,
         ),
       ),
     );

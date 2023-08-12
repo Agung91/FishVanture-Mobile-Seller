@@ -9,7 +9,7 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
 import 'package:seller/modules/edit_profile/model/model_profile.dart';
 import 'package:seller/modules/home/model/model_status.dart';
-import 'package:seller/modules/home/widget/w_home_card.dart';
+import 'package:seller/modules/budidaya/widget/w_budidaya_card.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 
 class HomePage extends StatelessWidget {
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   itemBuilder: (context, index) {
-                    return const WHomeCard();
+                    return const WBudidayaCard();
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(width: 8.0);

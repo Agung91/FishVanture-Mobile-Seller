@@ -32,7 +32,7 @@ class ProductSettingPage extends StatelessWidget {
             _ItemCategori(
               text: 'Budidaya',
               subText: 'Tambahkan daftar budidaya saat ini',
-              onTap: () {},
+              onTap: () => RouteBloc().push(RouteBudidaya()),
             ),
           ],
         ),

@@ -1,3 +1,6 @@
+import 'package:seller/modules/budidaya/screen/page_detail_budidaya.dart';
+import 'package:seller/modules/budidaya/screen/page_create_budidaya.dart';
+import 'package:seller/modules/budidaya/screen/page_budidaya.dart';
 import 'package:seller/modules/chat/screen/page_chat.dart';
 import 'package:seller/modules/chat/screen/page_list_chat.dart';
 import 'package:seller/modules/fish/screen/page_create_fish.dart';
@@ -137,5 +140,35 @@ class RouteCreateFish extends RoutePage {
             child: CreateFishPage(),
           ),
           'create-fish',
+        );
+}
+
+class RouteBudidaya extends RoutePage {
+  RouteBudidaya()
+      : super(
+          const MaterialPage(
+            child: BudidayaPage(),
+          ),
+          'budidaya',
+        );
+}
+
+class RouteCreateBudidaya extends RoutePage {
+  RouteCreateBudidaya()
+      : super(
+          const MaterialPage(
+            child: CreateBudidayaPage(),
+          ),
+          'create-budidaya',
+        );
+}
+
+class RouteDetailBudidaya extends RoutePage {
+  RouteDetailBudidaya()
+      : super(
+          const MaterialPage(
+            child: DetailBudidayaPage(),
+          ),
+          'detail-budidaya',
         );
 }
