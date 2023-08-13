@@ -43,7 +43,7 @@ class CreateFishPage extends StatelessWidget {
         color: CustomColors.white,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: CustomButton(
-          textButton: 'Tambah',
+          textButton: 'Submit',
           onTap: () async {
             await blocFish.createFish();
             blocFish.getFishes();

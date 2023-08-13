@@ -19,7 +19,8 @@ class WBudidayaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => RouteBloc().push(RouteDetailBudidaya()),
+      // onTap: () => RouteBloc().push(RouteDetailBudidaya()),
+      onTap: () => RouteBloc().push(RouteCreateProduct(budidayaModel.id)),
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 168,

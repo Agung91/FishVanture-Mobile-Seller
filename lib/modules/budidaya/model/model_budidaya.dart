@@ -14,7 +14,7 @@ class BudidayaModel {
   final FishModel fishSpecies;
   final String? fishSpeciesName;
   final double? estTonase;
-  final DateTime estPanenDate;
+  final DateTime? estPanenDate;
   final int? estPrice;
   final String status;
   final PriceListModel? priceList;
@@ -28,7 +28,7 @@ class BudidayaModel {
     required this.fishSpecies,
     this.fishSpeciesName,
     required this.estTonase,
-    required this.estPanenDate,
+    this.estPanenDate,
     this.estPrice,
     required this.status,
     this.priceList,
@@ -77,7 +77,7 @@ class BudidayaModel {
       'fishSpecies': fishSpecies.toMap(),
       'fishSpeciesName': fishSpeciesName,
       'estTonase': estTonase,
-      'estPanenDate': estPanenDate.millisecondsSinceEpoch,
+      'estPanenDate': estPanenDate?.millisecondsSinceEpoch,
       'estPrice': estPrice,
       'status': status,
       'priceList': priceList?.toMap(),
@@ -95,7 +95,9 @@ class BudidayaModel {
       fishSpecies: FishModel.fromMap(map['fishSpecies']),
       fishSpeciesName: map['fishSpeciesName'],
       estTonase: map['estTonase']?.toDouble(),
-      estPanenDate: DateTime.parse(map['estPanenDate']),
+      estPanenDate: map['estPanenDate'] != null
+          ? DateTime.parse(map['estPanenDate'])
+          : null,
       estPrice: map['estPrice']?.toInt(),
       status: map['status'] ?? '',
       priceList: map['priceList'] != null

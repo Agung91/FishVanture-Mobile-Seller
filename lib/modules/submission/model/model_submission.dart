@@ -99,8 +99,10 @@ class SubmissionModel {
       latitude: map['latitude']?.toDouble() ?? 0.0,
       longitude: map['longitude']?.toDouble() ?? 0.0,
       image: map['image'] ?? '',
-      listPool: List<PoolModel>.from(map['listPool']?.map((x) => PoolModel.fromMap(x))),
-      listBerkas: List<FileModel>.from(map['listBerkas']?.map((x) => FileModel.fromMap(x))),
+      listPool: List<PoolModel>.from(
+          map['listPool']?.map((x) => PoolModel.fromMap(x))),
+      listBerkas: List<FileModel>.from(
+          map['listBerkas']?.map((x) => FileModel.fromMap(x))),
     );
   }
 
@@ -118,37 +120,37 @@ class SubmissionModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
+
     return other is SubmissionModel &&
-      other.name == name &&
-      other.countryID == countryID &&
-      other.provinceID == provinceID &&
-      other.cityID == cityID &&
-      other.districtID == districtID &&
-      other.detailAddress == detailAddress &&
-      other.noteAddress == noteAddress &&
-      other.type == type &&
-      other.latitude == latitude &&
-      other.longitude == longitude &&
-      other.image == image &&
-      listEquals(other.listPool, listPool) &&
-      listEquals(other.listBerkas, listBerkas);
+        other.name == name &&
+        other.countryID == countryID &&
+        other.provinceID == provinceID &&
+        other.cityID == cityID &&
+        other.districtID == districtID &&
+        other.detailAddress == detailAddress &&
+        other.noteAddress == noteAddress &&
+        other.type == type &&
+        other.latitude == latitude &&
+        other.longitude == longitude &&
+        other.image == image &&
+        listEquals(other.listPool, listPool) &&
+        listEquals(other.listBerkas, listBerkas);
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      countryID.hashCode ^
-      provinceID.hashCode ^
-      cityID.hashCode ^
-      districtID.hashCode ^
-      detailAddress.hashCode ^
-      noteAddress.hashCode ^
-      type.hashCode ^
-      latitude.hashCode ^
-      longitude.hashCode ^
-      image.hashCode ^
-      listPool.hashCode ^
-      listBerkas.hashCode;
+        countryID.hashCode ^
+        provinceID.hashCode ^
+        cityID.hashCode ^
+        districtID.hashCode ^
+        detailAddress.hashCode ^
+        noteAddress.hashCode ^
+        type.hashCode ^
+        latitude.hashCode ^
+        longitude.hashCode ^
+        image.hashCode ^
+        listPool.hashCode ^
+        listBerkas.hashCode;
   }
 }

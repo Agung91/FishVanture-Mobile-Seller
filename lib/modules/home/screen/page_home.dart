@@ -24,7 +24,9 @@ class HomePage extends StatelessWidget {
     final blocbudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: const _AppbarHome(),
+
+      // TODO BELUM KONSISTEN
+      appBar: _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {
           blocPond.getPond().catchError((e) {
@@ -45,15 +47,7 @@ class HomePage extends StatelessWidget {
             children: [
               // _SubmisionInfoInReview(),
               // _SubmisionInfoRejected(),
-              StreamBuilder<String>(
-                  stream: blocPond.status.stream,
-                  initialData: blocPond.status.value,
-                  builder: (context, snapshot) {
-                    if (snapshot.data != StatusSubmission.actived) {
-                      return const SizedBox(height: 49);
-                    }
-                    return const SizedBox(height: 8);
-                  }),
+              const SizedBox(height: 8),
               const _WCategori(),
               const SizedBox(height: 12.0),
               Padding(
@@ -312,7 +306,8 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
 // 101
   @override
-  Size get preferredSize => const Size(double.infinity, 80);
+  // Size get preferredSize => const Size(double.infinity, 80);
+  Size get preferredSize => const Size(double.infinity, 124);
 
   @override
   Widget build(BuildContext context) {
