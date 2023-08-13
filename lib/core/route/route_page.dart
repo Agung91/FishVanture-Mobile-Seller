@@ -1,11 +1,16 @@
+import 'package:seller/modules/budidaya/screen/page_detail_budidaya.dart';
+import 'package:seller/modules/budidaya/screen/page_create_budidaya.dart';
+import 'package:seller/modules/budidaya/screen/page_budidaya.dart';
 import 'package:seller/modules/chat/screen/page_chat.dart';
 import 'package:seller/modules/chat/screen/page_list_chat.dart';
+import 'package:seller/modules/fish/screen/page_create_fish.dart';
+import 'package:seller/modules/fish/screen/page_list_fish.dart';
 import 'package:seller/modules/home/screen/page_home.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/order/screen/page_order.dart';
-import 'package:seller/modules/pond/screen/page_pond.dart';
+import 'package:seller/modules/pond/screen/page_pond_setting.dart';
 import 'package:seller/modules/pool/screen/page_list_pool.dart';
-import 'package:seller/modules/pool/screen/page_pool.dart';
+import 'package:seller/modules/pool/screen/page_create_pool.dart';
 import 'package:seller/modules/edit_profile/screen/page_edit_profile.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +115,60 @@ class RouteListPool extends RoutePage {
 class RoutePool extends RoutePage {
   RoutePool(SubmissionBloc submissionBloc)
       : super(
-           MaterialPage(child: PoolPage(submissionBloc: submissionBloc,)),
-          'pool',
+          MaterialPage(
+              child: CreatePoolPage(
+            submissionBloc: submissionBloc,
+          )),
+          'create-pool',
+        );
+}
+
+class RouteListFish extends RoutePage {
+  RouteListFish()
+      : super(
+          const MaterialPage(
+            child: ListFishPage(),
+          ),
+          'list-fish',
+        );
+}
+
+class RouteCreateFish extends RoutePage {
+  RouteCreateFish()
+      : super(
+          const MaterialPage(
+            child: CreateFishPage(),
+          ),
+          'create-fish',
+        );
+}
+
+class RouteBudidaya extends RoutePage {
+  RouteBudidaya()
+      : super(
+          const MaterialPage(
+            child: BudidayaPage(),
+          ),
+          'budidaya',
+        );
+}
+
+class RouteCreateBudidaya extends RoutePage {
+  RouteCreateBudidaya()
+      : super(
+          const MaterialPage(
+            child: CreateBudidayaPage(),
+          ),
+          'create-budidaya',
+        );
+}
+
+class RouteDetailBudidaya extends RoutePage {
+  RouteDetailBudidaya()
+      : super(
+          const MaterialPage(
+            child: DetailBudidayaPage(),
+          ),
+          'detail-budidaya',
         );
 }

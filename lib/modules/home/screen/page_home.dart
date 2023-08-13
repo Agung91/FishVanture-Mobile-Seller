@@ -6,11 +6,11 @@ import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
-import 'package:seller/modules/home/model/model_status.dart';
-import 'package:seller/modules/home/widget/w_home_card.dart';
-import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
 import 'package:seller/modules/edit_profile/model/model_profile.dart';
+import 'package:seller/modules/home/model/model_status.dart';
+import 'package:seller/modules/budidaya/widget/w_budidaya_card.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,7 +34,15 @@ class HomePage extends StatelessWidget {
             children: [
               // _SubmisionInfoInReview(),
               // _SubmisionInfoRejected(),
-              const SizedBox(height: 8),
+              StreamBuilder<String>(
+                  stream: blocPond.status.stream,
+                  initialData: blocPond.status.value,
+                  builder: (context, snapshot) {
+                    if (snapshot.data != StatusSubmission.actived) {
+                      return const SizedBox(height: 49);
+                    }
+                    return const SizedBox(height: 8);
+                  }),
               const _WCategori(),
               const SizedBox(height: 12.0),
               Padding(
@@ -69,7 +77,7 @@ class HomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   itemBuilder: (context, index) {
-                    return const WHomeCard();
+                    return const WBudidayaCard();
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(width: 8.0);
@@ -274,28 +282,12 @@ class _ItemCategori extends StatelessWidget {
 
 class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
   const _AppbarHome({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
+// 101
   @override
-  Size get preferredSize => const Size(double.infinity, 119);
-
-  void show(BuildContext context) {
-    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-      content: const Text('Error message text'),
-      leading: const CircleAvatar(child: Icon(Icons.delete)),
-      actions: [
-        TextButton(
-          child: const Text('ACTION 1'),
-          onPressed: () {},
-        ),
-        TextButton(
-          child: const Text('ACTION 2'),
-          onPressed: () {},
-        ),
-      ],
-    ));
-  }
+  Size get preferredSize => const Size(double.infinity, 80);
 
   @override
   Widget build(BuildContext context) {

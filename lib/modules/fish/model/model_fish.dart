@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class CreatePoolInput {
+class FishModel {
   final String name;
   final String asal;
-  CreatePoolInput({
+  FishModel({
     required this.name,
     required this.asal,
   });
 
-  CreatePoolInput copyWith({
+  FishModel copyWith({
     String? name,
     String? asal,
   }) {
-    return CreatePoolInput(
+    return FishModel(
       name: name ?? this.name,
       asal: asal ?? this.asal,
     );
@@ -25,8 +25,8 @@ class CreatePoolInput {
     };
   }
 
-  factory CreatePoolInput.fromMap(Map<String, dynamic> map) {
-    return CreatePoolInput(
+  factory FishModel.fromMap(Map<String, dynamic> map) {
+    return FishModel(
       name: map['name'] ?? '',
       asal: map['asal'] ?? '',
     );
@@ -34,17 +34,17 @@ class CreatePoolInput {
 
   String toJson() => json.encode(toMap());
 
-  factory CreatePoolInput.fromJson(String source) =>
-      CreatePoolInput.fromMap(json.decode(source));
+  factory FishModel.fromJson(String source) =>
+      FishModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'CreatePoolInput(name: $name, asal: $asal)';
+  String toString() => 'FishModel(name: $name, asal: $asal)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CreatePoolInput && other.name == name && other.asal == asal;
+    return other is FishModel && other.name == name && other.asal == asal;
   }
 
   @override

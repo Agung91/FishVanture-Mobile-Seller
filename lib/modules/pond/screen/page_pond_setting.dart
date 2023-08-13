@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:iconly/iconly.dart';
-import 'package:provider/provider.dart';
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
-import 'package:seller/modules/pond/bloc/bloc_pond.dart';
-import 'package:seller/modules/pond/model/model_pond.dart';
 
 class ProductSettingPage extends StatelessWidget {
   const ProductSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final pondBloc = context.read<PondBloc>();
     return Scaffold(
       appBar: const CustomAppbar(appbarText: 'Pengaturan Produk'),
       body: Container(
@@ -32,12 +27,12 @@ class ProductSettingPage extends StatelessWidget {
             _ItemCategori(
               text: 'Jenis Ikan',
               subText: 'Daftar jenis ikan yang Anda kelola',
-              onTap: () {},
+              onTap: () => RouteBloc().push(RouteListFish()),
             ),
             _ItemCategori(
               text: 'Budidaya',
               subText: 'Tambahkan daftar budidaya saat ini',
-              onTap: () {},
+              onTap: () => RouteBloc().push(RouteBudidaya()),
             ),
           ],
         ),

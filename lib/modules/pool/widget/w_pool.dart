@@ -1,13 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
 
 class WPool extends StatelessWidget {
   const WPool({
-    super.key,
-  });
+    Key? key,
+    required this.poolModel,
+  }) : super(key: key);
+
+  final PoolModel poolModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +26,12 @@ class WPool extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: const FadeInImage(
+            child: FadeInImage(
               height: 60,
               width: 100,
               fit: BoxFit.cover,
-              placeholder: AssetImage('assets/load_img.png'),
-              image: CachedNetworkImageProvider(
-                  'https://picsum.photos/500/500?random=1'),
+              placeholder: const AssetImage('assets/load_img.png'),
+              image: CachedNetworkImageProvider(poolModel.image),
             ),
           ),
           const SizedBox(width: 12.0),
@@ -37,12 +41,12 @@ class WPool extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Kolam 1',
+                poolModel.name,
                 style: CustomTextStyle.body2SemiBold,
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
-                '2m x 2m',
+                '${poolModel.long}m x ${poolModel.wide}m',
                 style: CustomTextStyle.body2Medium,
               ),
             ],
