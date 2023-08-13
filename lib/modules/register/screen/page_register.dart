@@ -92,7 +92,7 @@ class RegisterPage extends StatelessWidget {
                   style: CustomTextStyle.body2Regular,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => RouteBloc().pop(),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 4.0, vertical: 8.0),

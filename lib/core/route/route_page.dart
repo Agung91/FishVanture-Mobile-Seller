@@ -12,6 +12,7 @@ import 'package:seller/modules/pond/screen/page_pond_setting.dart';
 import 'package:seller/modules/pool/screen/page_list_pool.dart';
 import 'package:seller/modules/pool/screen/page_create_pool.dart';
 import 'package:seller/modules/edit_profile/screen/page_edit_profile.dart';
+import 'package:seller/modules/product/screen/page_create_product.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
@@ -170,5 +171,15 @@ class RouteDetailBudidaya extends RoutePage {
             child: DetailBudidayaPage(),
           ),
           'detail-budidaya',
+        );
+}
+
+class RouteCreateProduct extends RoutePage {
+  RouteCreateProduct(String budidayaId)
+      : super(
+          MaterialPage(
+            child: CreateProductPage(budidayaId: budidayaId),
+          ),
+          'create-product',
         );
 }
