@@ -1,15 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:seller/config/colors.dart';
-import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+
+import 'package:seller/config/colors.dart';
+import 'package:seller/config/text_style.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 
 class WBudidayaCard extends StatelessWidget {
   const WBudidayaCard({
-    super.key,
-  });
+    Key? key,
+    required this.budidayaModel,
+  }) : super(key: key);
+
+  final BudidayaModel budidayaModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +22,7 @@ class WBudidayaCard extends StatelessWidget {
       onTap: () => RouteBloc().push(RouteDetailBudidaya()),
       child: Container(
         padding: const EdgeInsets.all(6.0),
+        width: 168,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: CustomColors.white,

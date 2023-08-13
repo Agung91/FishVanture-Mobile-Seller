@@ -12,12 +12,12 @@ class BudidayaModel {
   final DateTime dateOfSeed;
   final String fishSpeciesID;
   final FishModel fishSpecies;
-  final String fishSpeciesName;
-  final double estTonase;
+  final String? fishSpeciesName;
+  final double? estTonase;
   final DateTime estPanenDate;
-  final int estPrice;
+  final int? estPrice;
   final String status;
-  final PriceListModel priceList;
+  final PriceListModel? priceList;
   BudidayaModel({
     required this.id,
     required this.pondID,
@@ -26,12 +26,12 @@ class BudidayaModel {
     required this.dateOfSeed,
     required this.fishSpeciesID,
     required this.fishSpecies,
-    required this.fishSpeciesName,
+    this.fishSpeciesName,
     required this.estTonase,
     required this.estPanenDate,
-    required this.estPrice,
+    this.estPrice,
     required this.status,
-    required this.priceList,
+    this.priceList,
   });
 
   BudidayaModel copyWith({
@@ -80,7 +80,7 @@ class BudidayaModel {
       'estPanenDate': estPanenDate.millisecondsSinceEpoch,
       'estPrice': estPrice,
       'status': status,
-      'priceList': priceList.toMap(),
+      'priceList': priceList?.toMap(),
     };
   }
 
@@ -90,15 +90,17 @@ class BudidayaModel {
       pondID: map['pondID'] ?? '',
       poolID: map['poolID'] ?? '',
       pool: PoolModel.fromMap(map['pool']),
-      dateOfSeed: DateTime.fromMillisecondsSinceEpoch(map['dateOfSeed']),
+      dateOfSeed: DateTime.parse(map['dateOfSeed']),
       fishSpeciesID: map['fishSpeciesID'] ?? '',
       fishSpecies: FishModel.fromMap(map['fishSpecies']),
-      fishSpeciesName: map['fishSpeciesName'] ?? '',
-      estTonase: map['estTonase']?.toDouble() ?? 0.0,
-      estPanenDate: DateTime.fromMillisecondsSinceEpoch(map['estPanenDate']),
-      estPrice: map['estPrice']?.toInt() ?? 0,
+      fishSpeciesName: map['fishSpeciesName'],
+      estTonase: map['estTonase']?.toDouble(),
+      estPanenDate: DateTime.parse(map['estPanenDate']),
+      estPrice: map['estPrice']?.toInt(),
       status: map['status'] ?? '',
-      priceList: PriceListModel.fromMap(map['priceList']),
+      priceList: map['priceList'] != null
+          ? PriceListModel.fromMap(map['priceList'])
+          : null,
     );
   }
 

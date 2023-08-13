@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:seller/core/auth/bloc/local_auth.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
+import 'package:seller/modules/budidaya/bloc/bloc_budidaya.dart';
+import 'package:seller/modules/budidaya/repo/repo_budidaya.dart';
 import 'package:seller/modules/fish/bloc/bloc_fish.dart';
 import 'package:seller/modules/fish/repo/repo_fish.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
@@ -67,6 +69,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => FishBloc(FishHttpRepo()),
+        ),
+        Provider(
+          create: (_) => BudidayaBloc(BudidayaHttpRepo()),
         ),
       ],
       child: MaterialApp(

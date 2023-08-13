@@ -1,5 +1,6 @@
 import 'package:seller/core/auth/bloc/authenticated.dart';
 import 'package:seller/modules/pond/model/model_pond.dart';
+import 'package:seller/modules/pond/model/pond_id.dart';
 import 'package:seller/modules/pond/repo/repo_pond.dart';
 import 'package:sstream/sstream.dart';
 
@@ -15,6 +16,8 @@ class PondBloc extends Authenticated {
       final response = await _repo.getPond();
       ponds.add(response);
       status.add(response?.status ?? '');
+      // save pond id
+      PondID().addId(response?.id);
     } catch (e) {
       rethrow;
     }
@@ -33,5 +36,6 @@ class PondBloc extends Authenticated {
   @override
   Future<void> onLogout() async {
     _makeEmpty();
+    PondID().addId(null);
   }
 }

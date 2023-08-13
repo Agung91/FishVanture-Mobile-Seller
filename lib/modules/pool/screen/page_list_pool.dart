@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'package:seller/common/custom/empty_data.dart';
 import 'package:seller/common/widgets/appbar.dart';
-import 'package:seller/common/widgets/button.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
+import 'package:seller/modules/pond/model/pond_id.dart';
 import 'package:seller/modules/pool/bloc/bloc_pool.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:seller/modules/pool/widget/w_pool.dart';
@@ -18,7 +18,7 @@ class ListPoolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocPool = context.read<PoolBloc>();
-    final blocPond = context.read<PondBloc>();
+    // final blocPond = context.read<PondBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Kolam'),
@@ -29,13 +29,12 @@ class ListPoolPage extends StatelessWidget {
             final listData = snapshot.data;
             if (listData == null || listData.isEmpty) {
               return EmptyData(
-                onRefresh: () =>
-                    blocPool.getPools(blocPond.ponds.value?.id ?? ''),
+                label: 'Belum ada kolam',
+                onRefresh: () => blocPool.getPools(),
               );
             }
             return RefreshIndicator(
-              onRefresh: () =>
-                  blocPool.getPools(blocPond.ponds.value?.id ?? ''),
+              onRefresh: () => blocPool.getPools(),
               child: ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics()),

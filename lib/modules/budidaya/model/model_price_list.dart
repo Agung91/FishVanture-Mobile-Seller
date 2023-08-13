@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class PriceListModel {
-  final String id;
-  final String budidayaID;
-  final String budidaya;
-  final int limit;
-  final int price;
+  final String? id;
+  final String? budidayaID;
+  final String? budidaya;
+  final int? limit;
+  final int? price;
   PriceListModel({
-    required this.id,
+    this.id,
     required this.budidayaID,
     required this.budidaya,
     required this.limit,
@@ -42,11 +42,11 @@ class PriceListModel {
 
   factory PriceListModel.fromMap(Map<String, dynamic> map) {
     return PriceListModel(
-      id: map['id'] ?? '',
-      budidayaID: map['budidayaID'] ?? '',
-      budidaya: map['budidaya'] ?? '',
-      limit: map['limit']?.toInt() ?? 0,
-      price: map['price']?.toInt() ?? 0,
+      id: map['id'],
+      budidayaID: map['budidayaID'],
+      budidaya: map['budidaya'],
+      limit: map['limit']?.toInt(),
+      price: map['price']?.toInt(),
     );
   }
 
