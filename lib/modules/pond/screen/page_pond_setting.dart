@@ -35,6 +35,11 @@ class ProductSettingPage extends StatelessWidget {
               subText: 'Tambahkan daftar budidaya saat ini',
               onTap: () => RouteBloc().push(RouteBudidaya()),
             ),
+            _ItemCategori(
+              text: 'Harga',
+              subText: 'Tambahkan harga ketika budidaya siap dijual',
+              onTap: () => RouteBloc().push(RouteBudidaya()),
+            ),
           ],
         ),
       ),

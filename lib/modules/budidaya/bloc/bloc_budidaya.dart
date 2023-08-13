@@ -6,7 +6,9 @@ import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:sstream/sstream.dart';
 
 class BudidayaBloc {
-  BudidayaBloc(this._repo);
+  BudidayaBloc(this._repo) {
+    getListBudidaya();
+  }
 
   final BudidayaHttpRepo _repo;
 
