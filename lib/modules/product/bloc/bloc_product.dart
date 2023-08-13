@@ -13,6 +13,13 @@ class ProductBloc {
   final weight = ''.stream;
   final date = SStream<DateTime?>(null);
 
+  void makeEmpty() {
+    listPrice.add([]);
+    price.add('');
+    weight.add('');
+    date.add(null);
+  }
+
   addPrice() async {
     final listPriceVal = listPrice.value;
     final priceVal = price.value;
@@ -55,6 +62,7 @@ class ProductBloc {
             estDate: dateVal,
             input: listPrice.value),
       );
+      makeEmpty();
     } catch (e) {
       rethrow;
     }

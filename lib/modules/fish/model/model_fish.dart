@@ -79,7 +79,7 @@ class FishModel extends DropItem {
   }
 
   @override
-  String label() => name;
+  String label() => '$name - $asal';
 
   @override
   value() => id;

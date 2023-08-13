@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
@@ -16,8 +17,19 @@ class WBudidayaCard extends StatelessWidget {
 
   final BudidayaModel budidayaModel;
 
+  int _daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final waktuPanen = _daysBetween(
+        budidayaModel.dateOfSeed, budidayaModel.estPanenDate ?? DateTime.now());
+    // print(waktuPanen);
+    // print('awal  = ${budidayaModel.dateOfSeed}');
+    // print('akhir  = ${budidayaModel.estPanenDate}');
     return GestureDetector(
       // onTap: () => RouteBloc().push(RouteDetailBudidaya()),
       onTap: () => RouteBloc().push(RouteCreateProduct(budidayaModel.id)),
@@ -38,28 +50,33 @@ class WBudidayaCard extends StatelessWidget {
                 child: FadeInImage(
                   fit: BoxFit.cover,
                   placeholder: AssetImage('assets/load_img.png'),
-                  image: CachedNetworkImageProvider(
-                      'https://picsum.photos/500/500?random='),
+                  image: CachedNetworkImageProvider(budidayaModel.pool.image),
                 ),
               ),
               // child: CachedNetworkImage(imageUrl: imageUrl),
             ),
             SizedBox(height: 4),
             Text(
-              'Rahmat Tarihoran',
+              budidayaModel.pool.name,
               style: CustomTextStyle.body2SemiBold,
             ),
             SizedBox(height: 4),
             Text(
-              'Desa Jatiadi, Kec. Gending - Probolinggo',
+              budidayaModel.fishSpecies.name,
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
             ),
             SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Text(
+                  budidayaModel.status.toUpperCase(),
+                  style: CustomTextStyle.body2Medium.copyWith(
+                    color: CustomColors.primary,
+                  ),
+                ),
+                Spacer(),
                 Icon(
                   IconlyBold.time_circle,
                   size: 16,
@@ -67,7 +84,7 @@ class WBudidayaCard extends StatelessWidget {
                 ),
                 SizedBox(width: 4),
                 Text(
-                  '123 Hari',
+                  '$waktuPanen Hari',
                   style: CustomTextStyle.body2Medium.copyWith(
                     color: CustomColors.primary,
                   ),
