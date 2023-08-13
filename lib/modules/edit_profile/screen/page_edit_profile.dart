@@ -1,7 +1,9 @@
+import 'package:iconly/iconly.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
 import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:seller/core/auth/bloc/event.dart';
+import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
 import 'package:seller/modules/edit_profile/model/model_profile.dart';
 import 'package:flutter/material.dart';
@@ -41,20 +43,20 @@ class EditProfilePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 radius: 59,
                                 backgroundColor: CustomColors.grey,
                                 backgroundImage:
                                     AssetImage('assets/default_profile.png'),
                               ),
-                              SizedBox(height: 14),
+                              const SizedBox(height: 14),
                               Text(
                                 data.name ?? '-',
                                 style: CustomTextStyle.body1Medium.copyWith(
                                   color: CustomColors.white,
                                 ),
                               ),
-                              SizedBox(height: 2),
+                              const SizedBox(height: 2),
                               Text(
                                 data.email ?? '-',
                                 style: CustomTextStyle.body2Regular.copyWith(
@@ -63,7 +65,8 @@ class EditProfilePage extends StatelessWidget {
                               )
                             ],
                           ),
-                        )
+                        ),
+                        const _BackButton(),
                       ],
                     ),
                   );
@@ -72,12 +75,46 @@ class EditProfilePage extends StatelessWidget {
               onTap: () {
                 AuthBloc().raise(EventAuthLogout());
               },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text('LOGOUT'),
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BackButton extends StatelessWidget {
+  const _BackButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 48,
+      left: 24,
+      child: InkWell(
+        onTap: () {
+          RouteBloc().pop();
+        },
+        child: SizedBox(
+          height: 40,
+          width: 40,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white30,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              IconlyLight.arrow_left_2,
+              size: 24,
+              color: CustomColors.white,
+            ),
+          ),
         ),
       ),
     );

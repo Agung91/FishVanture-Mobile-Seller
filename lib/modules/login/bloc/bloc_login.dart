@@ -1,5 +1,7 @@
+import 'package:seller/common/errors/errors.dart';
 import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:seller/core/auth/bloc/event.dart';
+import 'package:seller/modules/login/model/error/error_login.dart';
 import 'package:seller/modules/login/model/input/input_login.dart';
 import 'package:seller/modules/login/repo/repo_login.dart';
 import 'package:flutter/foundation.dart';
@@ -24,11 +26,11 @@ class LoginBLoc {
     try {
       final emailVal = email.value;
       if (emailVal == '') {
-        throw 'error';
+        throw LoginError();
       }
       final passVal = password.value;
       if (passVal == '') {
-        throw 'error';
+        throw LoginError();
       }
       final token = await _repo.login(
         LoginInput(

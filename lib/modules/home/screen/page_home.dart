@@ -24,6 +24,8 @@ class HomePage extends StatelessWidget {
     final blocbudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
+
+      // TODO BELUM KONSISTEN
       appBar: _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {

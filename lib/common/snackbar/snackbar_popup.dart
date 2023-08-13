@@ -1,6 +1,5 @@
 import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 void snacBarPopUp(
   BuildContext context, {
