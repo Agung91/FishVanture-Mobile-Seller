@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:seller/modules/budidaya/model/model_price_list.dart';
 import 'package:seller/modules/fish/model/model_fish.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
@@ -17,7 +19,7 @@ class BudidayaModel {
   final DateTime? estPanenDate;
   final int? estPrice;
   final String status;
-  final PriceListModel? priceList;
+  final List<PriceListModel>? priceList;
   BudidayaModel({
     required this.id,
     required this.pondID,
@@ -47,7 +49,7 @@ class BudidayaModel {
     DateTime? estPanenDate,
     int? estPrice,
     String? status,
-    PriceListModel? priceList,
+    List<PriceListModel>? priceList,
   }) {
     return BudidayaModel(
       id: id ?? this.id,
@@ -72,15 +74,15 @@ class BudidayaModel {
       'pondID': pondID,
       'poolID': poolID,
       'pool': pool.toMap(),
-      'dateOfSeed': dateOfSeed.millisecondsSinceEpoch,
+      'dateOfSeed': dateOfSeed.toUtc().toIso8601String(),
       'fishSpeciesID': fishSpeciesID,
       'fishSpecies': fishSpecies.toMap(),
       'fishSpeciesName': fishSpeciesName,
       'estTonase': estTonase,
-      'estPanenDate': estPanenDate?.millisecondsSinceEpoch,
+      'estPanenDate': estPanenDate?.toUtc().toIso8601String(),
       'estPrice': estPrice,
       'status': status,
-      'priceList': priceList?.toMap(),
+      'priceList': priceList?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -101,7 +103,8 @@ class BudidayaModel {
       estPrice: map['estPrice']?.toInt(),
       status: map['status'] ?? '',
       priceList: map['priceList'] != null
-          ? PriceListModel.fromMap(map['priceList'])
+          ? List<PriceListModel>.from(
+              map['priceList']?.map((x) => PriceListModel.fromMap(x)))
           : null,
     );
   }
@@ -133,7 +136,7 @@ class BudidayaModel {
         other.estPanenDate == estPanenDate &&
         other.estPrice == estPrice &&
         other.status == status &&
-        other.priceList == priceList;
+        listEquals(other.priceList, priceList);
   }
 
   @override
