@@ -22,6 +22,7 @@ class WBudidayaCard extends StatelessWidget {
       onTap: () => RouteBloc().push(RouteDetailBudidaya()),
       child: Container(
         padding: const EdgeInsets.all(6.0),
+        width: 168,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: CustomColors.white,

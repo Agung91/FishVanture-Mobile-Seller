@@ -10,7 +10,6 @@ import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 import 'package:seller/modules/budidaya/widget/w_budidaya_card.dart';
-import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 
 class BudidayaPage extends StatelessWidget {
   const BudidayaPage({super.key});
@@ -20,7 +19,9 @@ class BudidayaPage extends StatelessWidget {
     final blocBudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: const CustomAppbar(appbarText: 'Budidaya'),
+      appBar: const CustomAppbar(
+        appbarText: 'Budidaya',
+      ),
       body: StreamBuilder<List<BudidayaModel>>(
           stream: blocBudidaya.listBudidaya.stream,
           initialData: blocBudidaya.listBudidaya.value,
@@ -35,7 +36,8 @@ class BudidayaPage extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: () => blocBudidaya.getListBudidaya(),
               child: MasonryGridView.builder(
-                physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
                 // controller: _controller,
                 padding: const EdgeInsets.all(8),
                 gridDelegate:

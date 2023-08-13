@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconly/iconly.dart';
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/config/colors.dart';
@@ -13,11 +12,13 @@ class ProductSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Pengaturan Produk'),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         color: CustomColors.white,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             _ItemCategori(
               text: 'Kolam',

@@ -25,7 +25,7 @@ class CreateBudidayaInput {
   Map<String, dynamic> toMap() {
     return {
       'poolID': poolID,
-      'dateOfSeed': dateOfSeed.millisecondsSinceEpoch,
+      'dateOfSeed': dateOfSeed.toUtc().toIso8601String(),
       'fishSpeciesID': fishSpeciesID,
     };
   }
@@ -33,7 +33,7 @@ class CreateBudidayaInput {
   factory CreateBudidayaInput.fromMap(Map<String, dynamic> map) {
     return CreateBudidayaInput(
       poolID: map['poolID'] ?? '',
-      dateOfSeed: DateTime.fromMillisecondsSinceEpoch(map['dateOfSeed']),
+      dateOfSeed: DateTime.parse(map['dateOfSeed']),
       fishSpeciesID: map['fishSpeciesID'] ?? '',
     );
   }

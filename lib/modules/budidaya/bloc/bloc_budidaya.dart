@@ -1,6 +1,8 @@
 import 'package:seller/modules/budidaya/model/input_create_budidaya.dart';
 import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 import 'package:seller/modules/budidaya/repo/repo_budidaya.dart';
+import 'package:seller/modules/fish/model/model_fish.dart';
+import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:sstream/sstream.dart';
 
 class BudidayaBloc {
@@ -11,8 +13,14 @@ class BudidayaBloc {
   final listBudidaya = SStream<List<BudidayaModel>>([]);
 
   final date = SStream<DateTime?>(null);
-  final pool = ''.stream;
-  final fish = ''.stream;
+  final pool = SStream<PoolModel?>(null);
+  final fish = SStream<FishModel?>(null);
+
+  void makeEmpty() {
+    date.add(null);
+    pool.add(null);
+    fish.add(null);
+  }
 
   Future<void> getListBudidaya() async {
     try {
@@ -38,10 +46,11 @@ class BudidayaBloc {
     }
     try {
       await _repo.createBudidaya(CreateBudidayaInput(
-        poolID: poolVal,
+        poolID: poolVal.id ?? '',
         dateOfSeed: dateVal,
-        fishSpeciesID: fishVal,
+        fishSpeciesID: fishVal.id,
       ));
+      makeEmpty();
     } catch (e) {
       rethrow;
     }

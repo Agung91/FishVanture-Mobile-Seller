@@ -36,5 +36,6 @@ class PondBloc extends Authenticated {
   @override
   Future<void> onLogout() async {
     _makeEmpty();
+    PondID().addId(null);
   }
 }

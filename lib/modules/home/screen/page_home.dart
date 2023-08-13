@@ -26,11 +26,18 @@ class HomePage extends StatelessWidget {
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
       body: RefreshIndicator(
-        onRefresh: () => blocPond.getPond().catchError((e) {
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(e.message)));
-        }),
+        onRefresh: () async {
+          blocPond.getPond().catchError((e) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(e.message)));
+          });
+          blocbudidaya.getListBudidaya().catchError((e) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(e.message)));
+          });
+        },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics()),
