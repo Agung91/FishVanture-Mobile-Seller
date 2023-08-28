@@ -1,6 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:seller/common/snackbar/snackbar_popup.dart';
+import 'package:seller/config/colors.dart';
 import 'package:seller/core/auth/bloc/authenticated.dart';
+import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:sstream/sstream.dart';
 
 import 'package:seller/core/auth/bloc/bloc_auth.dart';
@@ -25,13 +30,17 @@ class RouteBloc extends Authenticated {
 
   @override
   Future<void> onLogout() async {
-    print(
-        '================ROUTE==========================${_currentPages.length}');
+    if (kDebugMode) {
+      print(
+          '================ROUTE==========================${_currentPages.length}');
+    }
     _currentPages.removeWhere((element) => element.name == RouteLogin().name);
     _currentPages.add(RouteLogin());
     _state();
-    print(
-        '================ROUTE==========================${_currentPages.length}');
+    if (kDebugMode) {
+      print(
+          '================ROUTE==========================${_currentPages.length}');
+    }
   }
 
   _state() {
@@ -39,7 +48,9 @@ class RouteBloc extends Authenticated {
     // print('================ROUTE==========================${_currentPages.length}');
   }
 
-  final _auth = AuthBloc();
+  // final _auth = AuthBloc();
+  final _pond = PondBloc();
+
   final List<RoutePage> _currentPages =
       // List<RoutePage>.filled(1, RouteHome(), growable: true);
       List<RoutePage>.filled(1, RouteLogin(), growable: true);
@@ -48,12 +59,19 @@ class RouteBloc extends Authenticated {
   SStream<List<RoutePage>> get pages => _pageController; //state
 
   push(RoutePage page) {
-    if (page.isProtected && !_auth.isAuthenticated) {
-      _currentPages.add(RouteLogin());
-      _state();
+    // if (page.isProtected && !_auth.isAuthenticated) {
+    final latest = _pageController.value;
+    if (page.isProtected && !_pond.isValidate) {
+      // _currentPages.add(RouteLogin());
+      // _currentPages.add((RouteFormSubmission()));
+      snacBarPopUp(
+          text: 'Harap aktivasi akun terlebih dahulu',
+          color: CustomColors.yellow,
+          icon: Icons.warning_rounded);
+      latest.add(RouteFormSubmission());
+      _pageController.add(latest);
       return;
     }
-    final latest = _pageController.value;
     latest.add(page);
     _pageController.add(latest);
   }

@@ -12,10 +12,10 @@ class LoginBLoc {
     if (kDebugMode) {
       // email.add('saller@gmail.com');
       // password.add('password');
-      email.add('rosiandana91@gmail.com');
-      password.add('rosiandana');
-      // email.add('agungnurcahyo@gmail.com');
-      // password.add('agungnurcahyo');
+      // email.add('rosiandana91@gmail.com');
+      // password.add('rosiandana');
+      email.add('agungnurcahyo@gmail.com');
+      password.add('agungnurcahyo');
     }
   }
 

@@ -20,13 +20,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocPond = PondBloc();
     final blocbudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-
-      // TODO BELUM KONSISTEN
-      appBar: _AppbarHome(),
+      appBar: const _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {
           blocPond.getPond().catchError((e) {
@@ -169,7 +167,7 @@ class _SubmisionInfoInReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocPond = PondBloc();
     return InkWell(
         onTap: () {
           blocPond.getPond();
@@ -195,7 +193,7 @@ class _WCategori extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocPond = PondBloc();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: CustomColors.white,

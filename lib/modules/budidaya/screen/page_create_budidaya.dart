@@ -65,7 +65,7 @@ class CreateBudidayaPage extends StatelessWidget {
           onTap: () async {
             await blocBudidaya.createBudidaya().then((value) {
               blocBudidaya.getListBudidaya();
-              snacBarPopUp(context,
+              snacBarPopUp(
                   color: CustomColors.green,
                   icon: IconlyBold.tick_square,
                   text: 'Berhasil membuat budidaya');
