@@ -14,8 +14,12 @@ class LoginBLoc {
       // password.add('password');
       // email.add('rosiandana91@gmail.com');
       // password.add('rosiandana');
-      email.add('agungnurcahyo@gmail.com');
-      password.add('agungnurcahyo');
+      // email.add('agungnurcahyo@gmail.com');
+      // password.add('agungnurcahyo');
+      // email.add('agungnurcahyo1@gmail.com');
+      // password.add('agungnurcahyo1');
+      email.add('agungnurcahyo11@gmail.com');
+      password.add('agungnurcahyo11');
     }
   }
 
