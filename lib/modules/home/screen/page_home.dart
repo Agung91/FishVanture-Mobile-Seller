@@ -20,13 +20,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocPond = PondBloc();
     final blocbudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
-
-      // TODO BELUM KONSISTEN
-      appBar: _AppbarHome(),
+      appBar: const _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {
           blocPond.getPond().catchError((e) {
@@ -40,73 +38,94 @@ class HomePage extends StatelessWidget {
                 .showSnackBar(SnackBar(content: Text(e.message)));
           });
         },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics()),
-          child: Column(
-            children: [
-              // _SubmisionInfoInReview(),
-              // _SubmisionInfoRejected(),
-              const SizedBox(height: 8),
-              const _WCategori(),
-              const SizedBox(height: 12.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          children: [
+            StreamBuilder<String>(
+                stream: blocPond.status.stream,
+                initialData: blocPond.status.value,
+                builder: (context, snapshot) {
+                  final data = snapshot.data;
+                  if (data == null || data == '') {
+                    return const _SubmisionInfo();
+                  }
+                  if (data == StatusSubmission.actived) {
+                    return const SizedBox();
+                  }
+                  return _SubmisionInfoInReview(status: data);
+                }),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                child: Column(
                   children: [
-                    Text(
-                      'Produk Anda',
-                      style: CustomTextStyle.body2SemiBold,
-                    ),
-                    InkWell(
-                      onTap: () => RouteBloc().push(RouteBudidaya()),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: Text(
-                          'Lihat Semua',
-                          style: CustomTextStyle.body2SemiBold.copyWith(
-                            color: CustomColors.primary,
+                    // _SubmisionInfoInReview(),
+                    // _SubmisionInfoRejected(),
+                    const SizedBox(height: 8),
+                    const _WCategori(),
+                    const SizedBox(height: 12.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Produk Anda',
+                            style: CustomTextStyle.body2SemiBold,
                           ),
-                        ),
+                          InkWell(
+                            onTap: () => RouteBloc().push(RouteBudidaya()),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
+                              child: Text(
+                                'Lihat Semua',
+                                style: CustomTextStyle.body2SemiBold.copyWith(
+                                  color: CustomColors.primary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(height: 2),
+                    SizedBox(
+                      height: 208,
+                      child: StreamBuilder<List<BudidayaModel>>(
+                          stream: blocbudidaya.listBudidaya.stream,
+                          initialData: blocbudidaya.listBudidaya.value,
+                          builder: (context, snapshot) {
+                            final listData = snapshot.data;
+                            if (listData == null || listData.isEmpty) {
+                              return EmptyData(
+                                label: 'Belum ada budidaya',
+                                onRefresh: () async {},
+                              );
+                            }
+                            return ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
+                              itemBuilder: (context, index) {
+                                return WBudidayaCard(
+                                  budidayaModel: listData[index],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(width: 8.0);
+                              },
+                              itemCount: listData.length,
+                            );
+                          }),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
-              const SizedBox(height: 2),
-              SizedBox(
-                height: 208,
-                child: StreamBuilder<List<BudidayaModel>>(
-                    stream: blocbudidaya.listBudidaya.stream,
-                    initialData: blocbudidaya.listBudidaya.value,
-                    builder: (context, snapshot) {
-                      final listData = snapshot.data;
-                      if (listData == null || listData.isEmpty) {
-                        return EmptyData(
-                          label: 'Belum ada budidaya',
-                          onRefresh: () async {},
-                        );
-                      }
-                      return ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        itemBuilder: (context, index) {
-                          return WBudidayaCard(
-                            budidayaModel: listData[index],
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 8.0);
-                        },
-                        itemCount: listData.length,
-                      );
-                    }),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -148,7 +167,7 @@ class _SubmisionInfoInReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocPond = PondBloc();
     return InkWell(
         onTap: () {
           blocPond.getPond();
@@ -174,11 +193,27 @@ class _WCategori extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocPond = PondBloc();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: CustomColors.white,
       child: Column(
         children: [
+          StreamBuilder<String>(
+              stream: blocPond.status.stream,
+              initialData: blocPond.status.value,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (data == null || data == '') {
+                  return _ItemCategori(
+                    text: 'Formulir Pengajuan',
+                    subText: 'Pengajuan Untuk Mengaktifkan Akun',
+                    iconData: IconlyBold.paper,
+                    onTap: () => RouteBloc().push(RouteFormSubmission()),
+                  );
+                }
+                return const SizedBox();
+              }),
           _ItemCategori(
             text: 'Pesanan',
             subText: 'Daftar Pesanan Anda',
@@ -187,19 +222,19 @@ class _WCategori extends StatelessWidget {
           ),
           _ItemCategori(
             text: 'Pesan',
-            subText: 'Pesan pelanggan Anda',
+            subText: 'Pesan Pelanggan Anda',
             iconData: IconlyBold.chat,
             onTap: () => RouteBloc().push(RouteListChat()),
           ),
           _ItemCategori(
             text: 'Pengaturan Produk',
-            subText: 'Atur produk Anda',
+            subText: 'Atur Produk Anda',
             iconData: IconlyBold.setting,
             onTap: () => RouteBloc().push(RouteProductSetting()),
           ),
           _ItemCategori(
             text: 'Profile',
-            subText: 'Atur profile Anda',
+            subText: 'Atur Profile Anda',
             iconData: IconlyBold.profile,
             onTap: () => RouteBloc().push(RouteEditProfile()),
           ),
@@ -306,13 +341,12 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
 // 101
   @override
-  // Size get preferredSize => const Size(double.infinity, 80);
-  Size get preferredSize => const Size(double.infinity, 124);
+  Size get preferredSize => const Size(double.infinity, 78);
+  // Size get preferredSize => const Size(double.infinity, 124);
 
   @override
   Widget build(BuildContext context) {
     final blocProfile = context.read<EditProfileBloc>();
-    final blocPond = context.read<PondBloc>();
     return Column(
       children: [
         Container(
@@ -365,19 +399,6 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
-        StreamBuilder<String>(
-            stream: blocPond.status.stream,
-            initialData: blocPond.status.value,
-            builder: (context, snapshot) {
-              final data = snapshot.data;
-              if (data == null || data == '') {
-                return const _SubmisionInfo();
-              }
-              if (data == StatusSubmission.actived) {
-                return const SizedBox();
-              }
-              return _SubmisionInfoInReview(status: data);
-            }),
       ],
     );
   }

@@ -18,7 +18,7 @@ class ListPoolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocPool = context.read<PoolBloc>();
-    // final blocPond = context.read<PondBloc>();
+    // final blocPond = PondBloc();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Kolam'),

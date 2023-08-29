@@ -78,6 +78,7 @@ class RouteProductSetting extends RoutePage {
       : super(
           const MaterialPage(child: ProductSettingPage()),
           'product-setting',
+          isProtected: true,
         );
 }
 
@@ -86,6 +87,7 @@ class RouteListChat extends RoutePage {
       : super(
           const MaterialPage(child: ListChatPage()),
           'list-chat',
+          isProtected: true,
         );
 }
 
@@ -102,6 +104,7 @@ class RouteOrder extends RoutePage {
       : super(
           const MaterialPage(child: OrderPage()),
           'order',
+          isProtected: true,
         );
 }
 
@@ -151,6 +154,7 @@ class RouteBudidaya extends RoutePage {
             child: BudidayaPage(),
           ),
           'budidaya',
+          isProtected: true,
         );
 }
 

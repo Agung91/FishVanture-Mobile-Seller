@@ -1,14 +1,14 @@
 import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:seller/core/context.dart';
 
-void snacBarPopUp(
-  BuildContext context, {
+void snacBarPopUp({
   required String text,
   required Color color,
   required IconData icon,
 }) {
-  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  snackbarKey.currentState?.removeCurrentSnackBar();
+  snackbarKey.currentState?.showSnackBar(SnackBar(
       duration: const Duration(milliseconds: 1200),
       // duration: const Duration(milliseconds: 10000000),
       backgroundColor: Colors.transparent,

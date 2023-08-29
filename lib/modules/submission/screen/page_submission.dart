@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:iconsax/iconsax.dart';
@@ -32,7 +33,7 @@ class SubmissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final addressBloc = AddressBloc(AddressHttpRepo());
-    final pondBloc = context.read<PondBloc>();
+    final pondBloc = PondBloc();
 
     return Provider(
       create: (context) => SubmissionBloc(
@@ -260,14 +261,13 @@ class SubmissionPage extends StatelessWidget {
                     onTap: () async {
                       await blocSubmission.createPond().catchError((e) {
                         snacBarPopUp(
-                          context,
                           text: e,
                           color: CustomColors.red,
                           icon: Iconsax.close_square5,
                         );
                       });
                       pondBloc.getPond();
-// RouteBloc().pop();
+                      RouteBloc().pop();
                     },
                   ),
                 ),
@@ -397,7 +397,7 @@ class _WUploadFile extends StatelessWidget {
                     onTap: () async {
                       final response =
                           await uploadFileBloc.pickFile().catchError((e) {
-                        snacBarPopUp(context,
+                        snacBarPopUp(
                             text: 'File terlalu besar',
                             color: CustomColors.red,
                             icon: IconlyBold.paper_fail);
@@ -529,7 +529,7 @@ class _WPhoto extends StatelessWidget {
                                   await blocImage.upload(ImageSource.camera);
                               blocSubmission.imagePond.add(a.url);
                               Navigator.pop(context);
-                              snacBarPopUp(context,
+                              snacBarPopUp(
                                   text: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
@@ -549,9 +549,11 @@ class _WPhoto extends StatelessWidget {
                               final a =
                                   await blocImage.upload(ImageSource.gallery);
                               blocSubmission.imagePond.add(a.url);
-                              print(a.url);
+                              if (kDebugMode) {
+                                print(a.url);
+                              }
                               Navigator.pop(context);
-                              snacBarPopUp(context,
+                              snacBarPopUp(
                                   text: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
@@ -564,8 +566,8 @@ class _WPhoto extends StatelessWidget {
                 );
               },
               child: StreamBuilder<String>(
-                  stream: blocSubmission.poolImage.stream,
-                  initialData: blocSubmission.poolImage.value,
+                  stream: blocSubmission.imagePond.stream,
+                  initialData: blocSubmission.imagePond.value,
                   builder: (context, snapshot) {
                     final data = snapshot.data;
                     if (data == null || data == '') {

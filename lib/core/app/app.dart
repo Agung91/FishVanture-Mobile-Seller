@@ -2,18 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
+
 import 'package:seller/core/auth/bloc/local_auth.dart';
+import 'package:seller/core/context.dart';
 import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/core/route/route_page.dart';
 import 'package:seller/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:seller/modules/budidaya/repo/repo_budidaya.dart';
+import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
+import 'package:seller/modules/edit_profile/repo/repo_edit_profile.dart';
 import 'package:seller/modules/fish/bloc/bloc_fish.dart';
 import 'package:seller/modules/fish/repo/repo_fish.dart';
 import 'package:seller/modules/login/screen/page_login.dart';
 import 'package:seller/modules/pond/bloc/bloc_pond.dart';
 import 'package:seller/modules/pond/repo/repo_pond.dart';
-import 'package:seller/modules/edit_profile/bloc/bloc_edit_profile.dart';
-import 'package:seller/modules/edit_profile/repo/repo_edit_profile.dart';
 import 'package:seller/modules/pool/bloc/bloc_pool.dart';
 import 'package:seller/modules/pool/repo/repo_pool.dart';
 import 'package:seller/modules/product/bloc/bloc_product.dart';
@@ -63,9 +65,9 @@ class _AppState extends State<App> {
         Provider(
           create: (_) => EditProfileBloc(ProfileHttpRepo()),
         ),
-        Provider(
-          create: (_) => PondBloc(PondHttpRepo()),
-        ),
+        // Provider(
+        //   create: (_) => PondBloc(PondHttpRepo()),
+        // ),
         Provider(
           create: (_) => PoolBloc(PoolHttpRepo()),
         ),
@@ -80,12 +82,13 @@ class _AppState extends State<App> {
         ),
       ],
       child: MaterialApp(
-        title: 'Aplikasi Seller',
+        title: 'Fish Seller',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         navigatorObservers: [routeObserver],
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        scaffoldMessengerKey: snackbarKey,
         home: AppPage(navigatorKey: _navigatorKey),
       ),
     );
