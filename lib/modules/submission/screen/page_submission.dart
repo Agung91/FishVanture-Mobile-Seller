@@ -566,8 +566,8 @@ class _WPhoto extends StatelessWidget {
                 );
               },
               child: StreamBuilder<String>(
-                  stream: blocSubmission.poolImage.stream,
-                  initialData: blocSubmission.poolImage.value,
+                  stream: blocSubmission.imagePond.stream,
+                  initialData: blocSubmission.imagePond.value,
                   builder: (context, snapshot) {
                     final data = snapshot.data;
                     if (data == null || data == '') {

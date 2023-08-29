@@ -204,15 +204,15 @@ class _WCategori extends StatelessWidget {
               initialData: blocPond.status.value,
               builder: (context, snapshot) {
                 final data = snapshot.data;
-                if (data == StatusSubmission.actived) {
-                  return const SizedBox();
+                if (data == null || data == '') {
+                  return _ItemCategori(
+                    text: 'Formulir Pengajuan',
+                    subText: 'Pengajuan Untuk Mengaktifkan Akun',
+                    iconData: IconlyBold.paper,
+                    onTap: () => RouteBloc().push(RouteFormSubmission()),
+                  );
                 }
-                return _ItemCategori(
-                  text: 'Formulir Pengajuan',
-                  subText: 'Pengajuan Untuk Mengaktifkan Akun',
-                  iconData: IconlyBold.paper,
-                  onTap: () => RouteBloc().push(RouteFormSubmission()),
-                );
+                return const SizedBox();
               }),
           _ItemCategori(
             text: 'Pesanan',
