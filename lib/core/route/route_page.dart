@@ -62,7 +62,6 @@ class RouteEditProfile extends RoutePage {
       : super(
           const MaterialPage(child: EditProfilePage()),
           'edit-profile',
-          isProtected: true,
         );
 }
 

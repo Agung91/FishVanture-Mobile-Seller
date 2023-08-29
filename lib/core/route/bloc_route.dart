@@ -68,7 +68,7 @@ class RouteBloc extends Authenticated {
           text: 'Harap aktivasi akun terlebih dahulu',
           color: CustomColors.yellow,
           icon: Icons.warning_rounded);
-      latest.add(RouteFormSubmission());
+      // latest.add(RouteFormSubmission());
       _pageController.add(latest);
       return;
     }
