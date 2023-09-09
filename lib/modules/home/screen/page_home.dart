@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:seller/common/custom/empty_data.dart';
+import 'package:seller/common/snackbar/snackbar_popup.dart';
 
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
@@ -21,21 +23,30 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocPond = PondBloc();
-    final blocbudidaya = context.read<BudidayaBloc>();
+    final blocBudidaya = context.read<BudidayaBloc>();
+    final blocProfile = context.read<EditProfileBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {
           blocPond.getPond().catchError((e) {
-            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(e.message)));
+            snacBarPopUp(
+                message: e.message,
+                color: CustomColors.error,
+                icon: Iconsax.close_square);
           });
-          blocbudidaya.getListBudidaya().catchError((e) {
-            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(e.message)));
+          blocBudidaya.getListBudidaya().catchError((e) {
+            snacBarPopUp(
+                message: e.message,
+                color: CustomColors.error,
+                icon: Iconsax.close_square);
+          });
+          blocProfile.getProfile().catchError((e) {
+            snacBarPopUp(
+                message: e.message,
+                color: CustomColors.error,
+                icon: Iconsax.close_square);
           });
         },
         child: Column(
@@ -92,8 +103,8 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 208,
                       child: StreamBuilder<List<BudidayaModel>>(
-                          stream: blocbudidaya.listBudidaya.stream,
-                          initialData: blocbudidaya.listBudidaya.value,
+                          stream: blocBudidaya.listBudidaya.stream,
+                          initialData: blocBudidaya.listBudidaya.value,
                           builder: (context, snapshot) {
                             final listData = snapshot.data;
                             if (listData == null || listData.isEmpty) {
