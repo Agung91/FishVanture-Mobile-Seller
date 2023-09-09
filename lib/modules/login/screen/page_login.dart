@@ -1,3 +1,5 @@
+import 'package:iconsax/iconsax.dart';
+import 'package:seller/common/snackbar/snackbar_popup.dart';
 import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/text_input.dart';
 import 'package:seller/config/colors.dart';
@@ -56,10 +58,11 @@ class LoginPage extends StatelessWidget {
               textButton: 'Login',
               onTap: () async {
                 await blocLogin.login();
-                final snackBar = SnackBar(
-                  content: Text('Berhasil Login!!!'),
+                snacBarPopUp(
+                  message: 'Berhasil Login',
+                  color: CustomColors.green,
+                  icon: Iconsax.tick_square,
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
           ),

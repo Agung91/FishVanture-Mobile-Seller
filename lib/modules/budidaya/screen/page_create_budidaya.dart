@@ -68,7 +68,7 @@ class CreateBudidayaPage extends StatelessWidget {
               snacBarPopUp(
                   color: CustomColors.green,
                   icon: IconlyBold.tick_square,
-                  text: 'Berhasil membuat budidaya');
+                  message: 'Berhasil membuat budidaya');
             });
             RouteBloc().pop();
           },

@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:seller/core/context.dart';
 
 void snacBarPopUp({
-  required String text,
+  required String message,
   required Color color,
   required IconData icon,
+  int? duration,
 }) {
   snackbarKey.currentState?.removeCurrentSnackBar();
   snackbarKey.currentState?.showSnackBar(SnackBar(
-      duration: const Duration(milliseconds: 1200),
+      duration: Duration(milliseconds: duration ?? 1200),
       // duration: const Duration(milliseconds: 10000000),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -33,7 +34,7 @@ void snacBarPopUp({
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                text,
+                message,
                 style:
                     CustomTextStyle.body1Medium.copyWith(color: Colors.white),
               ),

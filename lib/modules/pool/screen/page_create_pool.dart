@@ -152,7 +152,7 @@ class _WPhoto extends StatelessWidget {
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
                               snacBarPopUp(
-                                  text: 'Berhasil upload gambar',
+                                  message: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
                             },
@@ -173,7 +173,7 @@ class _WPhoto extends StatelessWidget {
                               submissionBloc.poolImage.add(a.url);
                               Navigator.pop(context);
                               snacBarPopUp(
-                                  text: 'Berhasil upload gambar',
+                                  message: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
                             },

@@ -55,8 +55,7 @@ class HomePage extends StatelessWidget {
                 }),
             Expanded(
               child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics()),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     // _SubmisionInfoInReview(),

@@ -65,7 +65,7 @@ class RouteBloc extends Authenticated {
       // _currentPages.add(RouteLogin());
       // _currentPages.add((RouteFormSubmission()));
       snacBarPopUp(
-          text: 'Harap aktivasi akun terlebih dahulu',
+          message: 'Harap aktivasi akun terlebih dahulu',
           color: CustomColors.yellow,
           icon: Icons.warning_rounded);
       // latest.add(RouteFormSubmission());

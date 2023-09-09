@@ -261,7 +261,7 @@ class SubmissionPage extends StatelessWidget {
                     onTap: () async {
                       await blocSubmission.createPond().catchError((e) {
                         snacBarPopUp(
-                          text: e,
+                          message: e,
                           color: CustomColors.red,
                           icon: Iconsax.close_square5,
                         );
@@ -398,7 +398,7 @@ class _WUploadFile extends StatelessWidget {
                       final response =
                           await uploadFileBloc.pickFile().catchError((e) {
                         snacBarPopUp(
-                            text: 'File terlalu besar',
+                            message: 'File terlalu besar',
                             color: CustomColors.red,
                             icon: IconlyBold.paper_fail);
                       });
@@ -530,7 +530,7 @@ class _WPhoto extends StatelessWidget {
                               blocSubmission.imagePond.add(a.url);
                               Navigator.pop(context);
                               snacBarPopUp(
-                                  text: 'Berhasil upload gambar',
+                                  message: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
                             },
@@ -554,7 +554,7 @@ class _WPhoto extends StatelessWidget {
                               }
                               Navigator.pop(context);
                               snacBarPopUp(
-                                  text: 'Berhasil upload gambar',
+                                  message: 'Berhasil upload gambar',
                                   color: CustomColors.green,
                                   icon: IconlyBold.tick_square);
                             },

@@ -1,25 +1,17 @@
-import 'package:seller/common/errors/errors.dart';
+import 'package:flutter/foundation.dart';
+import 'package:sstream/sstream.dart';
+
 import 'package:seller/core/auth/bloc/bloc_auth.dart';
 import 'package:seller/core/auth/bloc/event.dart';
 import 'package:seller/modules/login/model/error/error_login.dart';
 import 'package:seller/modules/login/model/input/input_login.dart';
 import 'package:seller/modules/login/repo/repo_login.dart';
-import 'package:flutter/foundation.dart';
-import 'package:sstream/sstream.dart';
 
 class LoginBLoc {
   LoginBLoc(this._repo) {
     if (kDebugMode) {
-      // email.add('saller@gmail.com');
-      // password.add('password');
-      // email.add('rosiandana91@gmail.com');
-      // password.add('rosiandana');
-      // email.add('agungnurcahyo@gmail.com');
-      // password.add('agungnurcahyo');
-      // email.add('agungnurcahyo1@gmail.com');
-      // password.add('agungnurcahyo1');
-      email.add('agungnurcahyo11@gmail.com');
-      password.add('agungnurcahyo11');
+      email.add('cobaseller@gmail.com');
+      password.add('cobaseller');
     }
   }
 
