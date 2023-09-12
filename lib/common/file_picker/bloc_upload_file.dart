@@ -9,7 +9,7 @@ class UploadFileBloc {
 
   final UploadFileHttpRepo _repo;
   final uploadProgress = 0.0.stream;
-  final name = 'Upload'.stream;
+  // final name = 'Upload'.stream;
 
   Future<FileModel> pickFile() async {
     final permission = await Permission.mediaLibrary.request();
@@ -26,7 +26,7 @@ class UploadFileBloc {
             uploadProgress.add(percen);
           },
         );
-        name.add('Success');
+        // name.add('Success');
         uploadProgress.add(0.0);
         return response;
       }

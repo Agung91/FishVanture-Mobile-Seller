@@ -6,8 +6,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:seller/common/custom/launch_url.dart';
 
 import 'package:seller/common/file_picker/bloc_upload_file.dart';
+import 'package:seller/common/file_picker/model_upload_file.dart';
 import 'package:seller/common/file_picker/repo_upload_file.dart';
 import 'package:seller/common/image_picker/bloc_upload_image.dart';
 import 'package:seller/common/image_picker/repo_upload_image.dart';
@@ -26,6 +28,7 @@ import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
 import 'package:seller/modules/submission/repo/repo_submission.dart';
 import 'package:seller/modules/submission/widget/w_submission_pool.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SubmissionPage extends StatelessWidget {
   const SubmissionPage({super.key});
@@ -103,7 +106,7 @@ class SubmissionPage extends StatelessWidget {
                         hint: 'Masukkan Catatan Alamat',
                       ),
                       const SizedBox(height: 26),
-                      Text(
+                      const Text(
                           'Catatan : Tekan "Ambil Lokasi" untuk mengambil lokasi saat ini. Pastikan Anda berada di area yang akan didaftarkan.'),
                       const SizedBox(height: 12),
                       StreamBuilder<LocationData?>(
@@ -187,7 +190,7 @@ class SubmissionPage extends StatelessWidget {
                             );
                           }),
                       const SizedBox(height: 26),
-                      _SelectType(),
+                      const _SelectType(),
                     ],
                   ),
                 ),
@@ -251,6 +254,58 @@ class SubmissionPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 26),
                 _WUploadFile(submissionBloc: blocSubmission),
+                const SizedBox(height: 12),
+                StreamBuilder<List<FileModel>>(
+                    stream: blocSubmission.listFile.stream,
+                    initialData: blocSubmission.listFile.value,
+                    builder: (context, snapshot) {
+                      final listData = snapshot.data;
+                      if (listData == null || listData.isEmpty) {
+                        return const SizedBox();
+                      }
+                      return SizedBox(
+                        height: 54,
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () => launchInBrowser(listData[index].url),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                // width: 80,
+                                decoration: BoxDecoration(
+                                    color: CustomColors.white,
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      IconlyBold.document,
+                                      color: CustomColors.primary,
+                                      size: 34,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      // 'File ${index + 1}',
+                                      listData[index].name,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 8);
+                          },
+                          itemCount: listData.length,
+                        ),
+                      );
+                    }),
                 const SizedBox(height: 26),
                 _WPhoto(blocSubmission: blocSubmission),
                 const SizedBox(height: 26),
@@ -259,13 +314,16 @@ class SubmissionPage extends StatelessWidget {
                   child: CustomButton(
                     textButton: 'Submit',
                     onTap: () async {
-                      await blocSubmission.createPond().catchError((e) {
-                        snacBarPopUp(
-                          message: e,
-                          color: CustomColors.red,
-                          icon: Iconsax.close_square5,
-                        );
-                      });
+                      await blocSubmission.createPond().catchError(
+                        (e) {
+                          snacBarPopUp(
+                            message: e,
+                            color: CustomColors.red,
+                            icon: Iconsax.close_square5,
+                          );
+                          throw e;
+                        },
+                      );
                       pondBloc.getPond();
                       RouteBloc().pop();
                     },
@@ -394,41 +452,37 @@ class _WUploadFile extends StatelessWidget {
                 final dataProgress = snapshot.data;
                 if (dataProgress == 0.0 || dataProgress == null) {
                   return InkWell(
-                    onTap: () async {
-                      final response =
-                          await uploadFileBloc.pickFile().catchError((e) {
-                        snacBarPopUp(
-                            message: 'File terlalu besar',
-                            color: CustomColors.red,
-                            icon: IconlyBold.paper_fail);
-                      });
-                      submissionBloc.file.add(response);
-                      submissionBloc.addFile();
-                    },
-                    child: StreamBuilder<String>(
-                        stream: uploadFileBloc.name.stream,
-                        initialData: uploadFileBloc.name.value,
-                        builder: (context, snapshot) {
-                          final dataName = snapshot.data;
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 12,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: (dataName == 'Success')
-                                  ? CustomColors.green
-                                  : CustomColors.primary,
-                            ),
-                            child: Text(
-                              dataName ?? 'Upload',
-                              style: CustomTextStyle.body1Medium
-                                  .copyWith(color: CustomColors.white),
-                            ),
-                          );
-                        }),
-                  );
+                      onTap: () async {
+                        await uploadFileBloc.pickFile().then((value) {
+                          snacBarPopUp(
+                              message: 'Berhasil upload file',
+                              color: CustomColors.green,
+                              icon: IconlyBold.tick_square);
+
+                          submissionBloc.file.add(value);
+                          submissionBloc.addFile();
+                        }).catchError((e) {
+                          snacBarPopUp(
+                              message: e ?? 'File terlalu besar',
+                              color: CustomColors.red,
+                              icon: IconlyBold.paper_fail);
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          color: CustomColors.primary,
+                        ),
+                        child: Text(
+                          'Upload',
+                          style: CustomTextStyle.body1Medium
+                              .copyWith(color: CustomColors.white),
+                        ),
+                      ));
                 }
                 return SizedBox(
                   height: 80,
