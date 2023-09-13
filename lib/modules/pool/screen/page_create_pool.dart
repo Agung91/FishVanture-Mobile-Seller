@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:seller/common/image_picker/bloc_upload_image.dart';
@@ -68,8 +69,15 @@ class CreatePoolPage extends StatelessWidget {
               child: CustomButton(
                 textButton: 'Tambah',
                 onTap: () async {
-                  submissionBloc.addPool();
-                  RouteBloc().pop();
+                  try {
+                    submissionBloc.addPool();
+                    RouteBloc().pop();
+                  } catch (e) {
+                    snacBarPopUp(
+                        message: 'Harap lengkapi semua field',
+                        color: CustomColors.red,
+                        icon: Iconsax.close_square5);
+                  }
                 },
               ),
             ),

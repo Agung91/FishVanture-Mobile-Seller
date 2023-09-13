@@ -29,14 +29,18 @@ void snacBarPopUp({
         ),
 
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                message,
-                style:
-                    CustomTextStyle.body1Medium.copyWith(color: Colors.white),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    message,
+                    style: CustomTextStyle.body1Medium
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 12),

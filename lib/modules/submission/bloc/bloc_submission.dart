@@ -75,35 +75,31 @@ class SubmissionBloc {
   Future<void> createPond() async {
     final nameVal = name.value;
     if (nameVal == '') {
-      throw 'Field tidak boleh kosong';
+      throw 'Field nama tidak boleh kosong';
     }
     final countryVal = country.value;
     if (countryVal == null) {
-      throw 'Field tidak boleh kosong';
+      throw 'Field negara tidak boleh kosong';
     }
     final provinceVal = province.value;
     if (provinceVal == null) {
-      throw 'Field tidak boleh kosong';
+      throw 'Field provinsi tidak boleh kosong';
     }
     final cityVal = city.value;
     if (cityVal == null) {
-      throw 'Field tidak boleh kosong';
+      throw 'Field kota/kabupaten tidak boleh kosong';
     }
     final districtVal = district.value;
     if (districtVal == null) {
-      throw 'Field tidak boleh kosong';
+      throw 'Field kecamatan tidak boleh kosong';
     }
     final detailAddresVal = detailAddres.value;
     if (detailAddresVal == '') {
-      throw 'Field tidak boleh kosong';
+      throw 'Field detail alamat tidak boleh kosong';
     }
     final noteAddresVal = noteAddres.value;
     if (noteAddresVal == '') {
-      throw 'Field tidak boleh kosong';
-    }
-    final imagePondVal = imagePond.value;
-    if (imagePondVal == '') {
-      throw 'Field tidak boleh kosong';
+      throw 'Field catatan tidak boleh kosong';
     }
 
     final initialKoordinatVal = initialKoordinat.value;
@@ -117,6 +113,10 @@ class SubmissionBloc {
     final listFileVal = listFile.value;
     if (listFileVal == null || listFileVal.isEmpty) {
       throw 'Field berkas tidak boleh kosong';
+    }
+    final imagePondVal = imagePond.value;
+    if (imagePondVal == '') {
+      throw 'Field foto tempat budidaya tidak boleh kosong';
     }
     try {
       await _repo.createPond(SubmissionModel(
@@ -203,9 +203,16 @@ class SubmissionBloc {
     }
     try {
       listFileVal.add(fileVal);
+      listFile.add(listFileVal);
       file.add(null);
     } catch (e) {
       rethrow;
     }
+  }
+
+  void removeFile(String url) {
+    final listFileVal = listFile.value;
+    listFileVal.removeWhere((element) => element.url == url);
+    listFile.add(listFileVal);
   }
 }

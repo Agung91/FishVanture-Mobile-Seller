@@ -294,6 +294,19 @@ class SubmissionPage extends StatelessWidget {
                                       listData[index].name,
                                       textAlign: TextAlign.center,
                                     ),
+                                    const SizedBox(width: 8),
+                                    InkWell(
+                                      onTap: () => blocSubmission
+                                          .removeFile(listData[index].url),
+                                      child: SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: Icon(
+                                          Icons.close,
+                                          color: CustomColors.red,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
