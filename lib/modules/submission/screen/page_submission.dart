@@ -298,7 +298,7 @@ class SubmissionPage extends StatelessWidget {
                                     InkWell(
                                       onTap: () => blocSubmission
                                           .removeFile(listData[index].url),
-                                      child: SizedBox(
+                                      child: const SizedBox(
                                         width: 24,
                                         height: 24,
                                         child: Icon(

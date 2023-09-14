@@ -86,7 +86,7 @@ class RegisterPage extends StatelessWidget {
                   // final snackBar = SnackBar(
                   //   content: Text('Berhasil!!!'),
                   // );
-                  // RouteBloc().pop();
+                  RouteBloc().pop();
                   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),

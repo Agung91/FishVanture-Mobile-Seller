@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                 color: CustomColors.error,
                 icon: Iconsax.close_square);
           });
-          blocProfile.getProfile().catchError((e) {
+          await blocProfile.getProfile().catchError((e) {
             snacBarPopUp(
                 message: e.message,
                 color: CustomColors.error,

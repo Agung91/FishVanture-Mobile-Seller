@@ -112,8 +112,8 @@ abstract class HttpService {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
         baseUrl: uploadfile,
-        connectTimeout: const Duration(milliseconds: 3000),
-        receiveTimeout: const Duration(milliseconds: 3000),
+        connectTimeout: const Duration(milliseconds: 10000),
+        receiveTimeout: const Duration(milliseconds: 10000),
         method: "POST",
         headers: {
           'accept': 'application/json',
