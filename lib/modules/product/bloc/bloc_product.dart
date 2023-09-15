@@ -18,6 +18,7 @@ class ProductBloc {
     listPrice.add([]);
     price.add('');
     weight.add('');
+    estTonase.add('');
     date.add(null);
   }
 
@@ -34,6 +35,21 @@ class ProductBloc {
 
     listPriceVal.add(
       PriceModel(limit: int.parse(weightVal), price: int.parse(priceVal)),
+    );
+    listPrice.add(listPriceVal);
+    price.add('');
+    weight.add('');
+  }
+
+  addPriceDefault() async {
+    final listPriceVal = listPrice.value;
+    final priceVal = price.value;
+    if (priceVal == '') {
+      throw ProductError();
+    }
+
+    listPriceVal.add(
+      PriceModel(limit: 1, price: int.parse(priceVal)),
     );
     listPrice.add(listPriceVal);
     price.add('');

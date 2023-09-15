@@ -112,11 +112,11 @@ class DetailBudidayaPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Iconsax.calendar_1,
                       color: CustomColors.primary,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
                       DateFormat('EEEE, dd MMMM yyyy', 'id')
                           .format(budidayaModel.dateOfSeed),
@@ -126,11 +126,11 @@ class DetailBudidayaPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       IconlyLight.time_circle,
                       color: CustomColors.primary,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     if (budidayaModel.estPanenDate != null) ...[
                       Text('$waktuPanen Hari'),
                     ] else ...[
@@ -152,12 +152,20 @@ class DetailBudidayaPage extends StatelessWidget {
       bottomNavigationBar: Container(
         color: CustomColors.white,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        child: CustomButton(
-          textButton: 'Tambah Estimasi Panen',
-          onTap: () async {
-            RouteBloc().push(RouteCreateProduct(budidayaModel.id));
-          },
-        ),
+        child: (budidayaModel.estPanenDate == null)
+            ? CustomButton(
+                textButton: 'Tambah Estimasi Panen',
+                onTap: () async {
+                  RouteBloc().push(RouteCreateProduct(budidayaModel.id));
+                },
+              )
+            : CustomButton(
+                isPrimary: false,
+                textButton: 'Perbaruti Estimasi Panen',
+                onTap: () async {
+                  RouteBloc().push(RouteCreateProduct(budidayaModel.id));
+                },
+              ),
       ),
     );
   }
