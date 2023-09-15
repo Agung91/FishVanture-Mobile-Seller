@@ -1,14 +1,15 @@
-import 'package:seller/common/errors/errors.dart';
-import 'package:seller/config/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sstream/sstream.dart';
 
+import 'package:seller/common/errors/errors.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_field_border.dart';
+import 'package:seller/config/text_style.dart';
 
-class TextInput extends StatefulWidget {
-  const TextInput({
+class StreamTextInput extends StatefulWidget {
+  const StreamTextInput({
     Key? key,
     this.label,
     this.hint,
@@ -16,6 +17,7 @@ class TextInput extends StatefulWidget {
     this.isEnabled = true,
     this.keyboardType,
     this.sStream,
+    this.inputFormatters,
   }) : super(key: key);
 
   final String? label;
@@ -24,12 +26,12 @@ class TextInput extends StatefulWidget {
   final bool isEnabled;
   final TextInputType? keyboardType;
   final SStream<String>? sStream;
-
+  final List<TextInputFormatter>? inputFormatters;
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<StreamTextInput> createState() => _StreamTextInputState();
 }
 
-class _TextInputState extends State<TextInput> {
+class _StreamTextInputState extends State<StreamTextInput> {
   final _controller = TextEditingController();
   bool _obsecureText = true;
 
@@ -62,6 +64,7 @@ class _TextInputState extends State<TextInput> {
               cursorWidth: 1.5,
               cursorColor: CustomColors.primary,
               keyboardType: widget.keyboardType,
+              inputFormatters: widget.inputFormatters,
               decoration: CustomBorder.border.copyWith(
                 hintText: widget.hint,
                 hintStyle: const TextStyle(color: CustomColors.grey),

@@ -35,7 +35,7 @@ class CreatePoolPage extends StatelessWidget {
             const SizedBox(height: 32),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: submissionBloc.poolName,
                 label: 'Nama Kolam',
                 hint: 'Masukkan Nama',
@@ -44,7 +44,7 @@ class CreatePoolPage extends StatelessWidget {
             const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: submissionBloc.poolLength,
                 label: 'Panjang Kolam (dalam satuan meter)',
                 keyboardType: TextInputType.number,
@@ -54,7 +54,7 @@ class CreatePoolPage extends StatelessWidget {
             const SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: submissionBloc.poolWidth,
                 keyboardType: TextInputType.number,
                 label: 'Lebar Kolam (dalam satuan meter)',

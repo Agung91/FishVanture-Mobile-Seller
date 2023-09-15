@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +34,22 @@ class CreateProductPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: DatePicker(
               label: 'Tanggal Estimasi Panen',
+              helpText: 'PILIH TANGGAL ESTIMASI PANEN',
               sStream: blocProduct.date,
             ),
           ),
+          const SizedBox(height: 16),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: StreamTextInput(
+                label: 'Perkiraan Jumlah Panen(Kg)',
+                hint: 'Jumlah Panen',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                ],
+                keyboardType: TextInputType.number,
+                sStream: blocProduct.estTonase,
+              )),
           const SizedBox(height: 16),
           StreamBuilder<List<PriceModel>>(
               stream: blocProduct.listPrice.stream,
@@ -126,7 +140,7 @@ class CreateProductPage extends StatelessWidget {
         child: CustomButton(
           textButton: 'Submit',
           onTap: () async {
-            blocProduct.createProduct(budidayaId);
+            await blocProduct.createProduct(budidayaId);
             RouteBloc().pop();
           },
         ),
@@ -177,7 +191,7 @@ class CreateProductPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                        child: TextInput(
+                        child: StreamTextInput(
                       sStream: blocProduct.weight,
                       label: 'Berat (kg)',
                       hint: 'Berat',
@@ -185,7 +199,7 @@ class CreateProductPage extends StatelessWidget {
                     )),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: TextInput(
+                      child: StreamTextInput(
                         sStream: blocProduct.price,
                         keyboardType: TextInputType.number,
                         label: 'Harga',
@@ -199,7 +213,7 @@ class CreateProductPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: CustomButton(
-                  textButton: 'Tambah',
+                  textButton: 'Submit',
                   isPrimary: false,
                   onTap: () async {
                     await blocProduct.addPrice();

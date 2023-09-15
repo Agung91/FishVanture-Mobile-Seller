@@ -60,7 +60,7 @@ class SubmissionPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 32),
-                      TextInput(
+                      StreamTextInput(
                         sStream: blocSubmission.name,
                         label: 'Pemilik Budidaya',
                         hint: 'Masukkan Nama',
@@ -94,13 +94,13 @@ class SubmissionPage extends StatelessWidget {
                         selected: blocSubmission.district,
                       ),
                       const SizedBox(height: 26),
-                      TextInput(
+                      StreamTextInput(
                         sStream: blocSubmission.detailAddres,
                         label: 'Detail Alamat',
                         hint: 'Masukkan Detail Alamat',
                       ),
                       const SizedBox(height: 26),
-                      TextInput(
+                      StreamTextInput(
                         sStream: blocSubmission.noteAddres,
                         label: 'Catatan Alamat',
                         hint: 'Masukkan Catatan Alamat',

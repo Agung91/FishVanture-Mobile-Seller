@@ -22,7 +22,7 @@ class CreateFishPage extends StatelessWidget {
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: TextInput(
+            child: StreamTextInput(
               sStream: blocFish.name,
               label: 'Nama Ikan',
               hint: 'Nama Ikan',
@@ -31,7 +31,7 @@ class CreateFishPage extends StatelessWidget {
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: TextInput(
+            child: StreamTextInput(
               sStream: blocFish.from,
               label: 'Asal Ikan',
               hint: 'Asal Ikan',

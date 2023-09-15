@@ -10,10 +10,12 @@ class DatePicker extends StatefulWidget {
     Key? key,
     required this.sStream,
     this.label,
+    this.helpText,
   }) : super(key: key);
 
   final SStream<DateTime?> sStream;
   final String? label;
+  final String? helpText;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -48,7 +50,7 @@ class _DatePickerState extends State<DatePicker> {
               initialDate: dateNow,
               firstDate: DateTime(dateNow.year - 1),
               lastDate: DateTime(dateNow.year + 2),
-              helpText: 'PILIH TANGGAL MULAI BUDIDAYA',
+              helpText: widget.helpText ?? 'PILIH TANGGAL MULAI BUDIDAYA',
               cancelText: 'BATAL',
               confirmText: 'SIMPAN',
             );

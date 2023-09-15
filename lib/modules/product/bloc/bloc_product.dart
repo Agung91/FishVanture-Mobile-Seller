@@ -10,6 +10,7 @@ class ProductBloc {
 
   final listPrice = SStream<List<PriceModel>>([]);
   final price = ''.stream;
+  final estTonase = ''.stream;
   final weight = ''.stream;
   final date = SStream<DateTime?>(null);
 
@@ -46,6 +47,10 @@ class ProductBloc {
   }
 
   Future<void> createProduct(String budidayaID) async {
+    final estTonaseVal = estTonase.value;
+    if (estTonaseVal == null || estTonaseVal == '') {
+      throw ProductError();
+    }
     final dateVal = date.value;
     if (dateVal == null) {
       throw ProductError();
@@ -58,7 +63,7 @@ class ProductBloc {
       await _repo.createProduct(
         CreateProductInput(
             budidayaID: budidayaID,
-            estTonase: listPriceVal.first.price,
+            estTonase: int.parse(estTonaseVal),
             estDate: dateVal,
             input: listPrice.value),
       );

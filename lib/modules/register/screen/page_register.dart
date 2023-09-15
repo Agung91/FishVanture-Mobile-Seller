@@ -35,7 +35,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 48.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: blocRegister.name,
                 label: 'Nama',
                 hint: 'Masukkan Nama',
@@ -44,7 +44,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 26.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: blocRegister.email,
                 keyboardType: TextInputType.emailAddress,
                 label: 'Email',
@@ -54,7 +54,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 26.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: blocRegister.password,
                 label: 'Password',
                 hint: 'Masukkan Password',
@@ -64,7 +64,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 26.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: TextInput(
+              child: StreamTextInput(
                 sStream: blocRegister.konfirmPassword,
                 label: 'Konfirmasi Password',
                 hint: 'Masukkan Password',

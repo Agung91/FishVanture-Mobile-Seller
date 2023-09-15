@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 import 'package:seller/core/auth/bloc/local_auth.dart';
@@ -52,6 +53,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     checkForUpdate();
+    initializeDateFormatting();
   }
 
   @override

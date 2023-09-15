@@ -57,14 +57,14 @@ class WBudidayaCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               budidayaModel.pool.name,
-              style: CustomTextStyle.body2SemiBold,
+              style: CustomTextStyle.body3Regular.copyWith(
+                color: CustomColors.grey,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               budidayaModel.fishSpecies.name,
-              style: CustomTextStyle.body3Regular.copyWith(
-                color: CustomColors.grey,
-              ),
+              style: CustomTextStyle.body2SemiBold,
             ),
             const SizedBox(height: 8),
             Row(

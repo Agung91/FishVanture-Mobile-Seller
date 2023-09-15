@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
           const SizedBox(height: 48),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: TextInput(
+            child: StreamTextInput(
               sStream: blocLogin.email,
               keyboardType: TextInputType.emailAddress,
               label: 'Email',
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
           const SizedBox(height: 26),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: TextInput(
+            child: StreamTextInput(
               sStream: blocLogin.password,
               label: 'Password',
               hint: 'Masukkan Password',
