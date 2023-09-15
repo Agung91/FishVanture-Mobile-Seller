@@ -36,6 +36,8 @@ class FishBloc extends Authenticated {
       await _repo.createFish(
         CreateFishInput(name: nameVal, asal: fromVal),
       );
+      name.add('');
+      from.add('');
     } catch (e) {
       rethrow;
     }

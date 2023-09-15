@@ -25,13 +25,16 @@ class CreateProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final blocProduct = context.read<ProductBloc>();
     return Scaffold(
-      appBar: const CustomAppbar(appbarText: 'Tambah Produk'),
+      appBar: const CustomAppbar(appbarText: 'Tambah Estimasi Panen'),
       body: Column(
         children: [
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: DatePicker(sStream: blocProduct.date),
+            child: DatePicker(
+              label: 'Tanggal Estimasi Panen',
+              sStream: blocProduct.date,
+            ),
           ),
           const SizedBox(height: 16),
           StreamBuilder<List<PriceModel>>(

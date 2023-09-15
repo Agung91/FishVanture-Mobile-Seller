@@ -1,3 +1,4 @@
+import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 import 'package:seller/modules/budidaya/screen/page_detail_budidaya.dart';
 import 'package:seller/modules/budidaya/screen/page_create_budidaya.dart';
 import 'package:seller/modules/budidaya/screen/page_budidaya.dart';
@@ -169,10 +170,10 @@ class RouteCreateBudidaya extends RoutePage {
 }
 
 class RouteDetailBudidaya extends RoutePage {
-  RouteDetailBudidaya()
+  RouteDetailBudidaya(BudidayaModel budidayaModel)
       : super(
-          const MaterialPage(
-            child: DetailBudidayaPage(),
+          MaterialPage(
+            child: DetailBudidayaPage(budidayaModel: budidayaModel),
           ),
           'detail-budidaya',
         );

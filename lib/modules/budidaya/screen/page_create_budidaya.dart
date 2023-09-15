@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
-import 'package:seller/common/custom/custom_date_picker.dart';
-import 'package:seller/common/snackbar/snackbar_popup.dart';
-import 'package:seller/core/route/bloc_route.dart';
 import 'package:sstream/sstream.dart';
 
+import 'package:seller/common/custom/custom_date_picker.dart';
+import 'package:seller/common/snackbar/snackbar_popup.dart';
 import 'package:seller/common/widgets/appbar.dart';
+import 'package:seller/common/widgets/button.dart';
 import 'package:seller/common/widgets/dropdown/stream_dropdown.dart';
 import 'package:seller/config/colors.dart';
+import 'package:seller/core/route/bloc_route.dart';
 import 'package:seller/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:seller/modules/fish/bloc/bloc_fish.dart';
 import 'package:seller/modules/pool/bloc/bloc_pool.dart';
-
-import '../../../common/widgets/button.dart';
 
 class CreateBudidayaPage extends StatelessWidget {
   const CreateBudidayaPage({super.key});
@@ -26,7 +25,7 @@ class CreateBudidayaPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: CustomAppbar(
-        appbarText: 'Mulai Budidaya',
+        appbarText: 'Tambah Budidaya',
         onBack: () => blocBudidaya.makeEmpty(),
       ),
       body: Column(

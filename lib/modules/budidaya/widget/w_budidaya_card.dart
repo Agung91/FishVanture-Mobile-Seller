@@ -31,8 +31,7 @@ class WBudidayaCard extends StatelessWidget {
     // print('awal  = ${budidayaModel.dateOfSeed}');
     // print('akhir  = ${budidayaModel.estPanenDate}');
     return GestureDetector(
-      // onTap: () => RouteBloc().push(RouteDetailBudidaya()),
-      onTap: () => RouteBloc().push(RouteCreateProduct(budidayaModel.id)),
+      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidayaModel)),
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 168,
@@ -49,46 +48,49 @@ class WBudidayaCard extends StatelessWidget {
                 aspectRatio: 4 / 3,
                 child: FadeInImage(
                   fit: BoxFit.cover,
-                  placeholder: AssetImage('assets/load_img.png'),
+                  placeholder: const AssetImage('assets/load_img.png'),
                   image: CachedNetworkImageProvider(budidayaModel.pool.image),
                 ),
               ),
               // child: CachedNetworkImage(imageUrl: imageUrl),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               budidayaModel.pool.name,
               style: CustomTextStyle.body2SemiBold,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               budidayaModel.fishSpecies.name,
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
-                Text(
-                  budidayaModel.status.toUpperCase(),
-                  style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColors.primary,
+                Expanded(
+                  child: Text(
+                    budidayaModel.status.toUpperCase(),
+                    style: CustomTextStyle.body2Medium.copyWith(
+                      color: CustomColors.primary,
+                    ),
                   ),
                 ),
-                Spacer(),
-                Icon(
-                  IconlyBold.time_circle,
-                  size: 16,
-                  color: CustomColors.primary,
-                ),
-                SizedBox(width: 4),
-                Text(
-                  '$waktuPanen Hari',
-                  style: CustomTextStyle.body2Medium.copyWith(
+                if (budidayaModel.estPanenDate != null) ...[
+                  const Icon(
+                    IconlyBold.time_circle,
+                    size: 16,
                     color: CustomColors.primary,
                   ),
-                ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '$waktuPanen Hari',
+                    style: CustomTextStyle.body2Medium.copyWith(
+                      color: CustomColors.primary,
+                    ),
+                  ),
+                ]
               ],
             )
           ],

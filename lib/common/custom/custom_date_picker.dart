@@ -9,9 +9,11 @@ class DatePicker extends StatefulWidget {
   const DatePicker({
     Key? key,
     required this.sStream,
+    this.label,
   }) : super(key: key);
 
   final SStream<DateTime?> sStream;
+  final String? label;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -30,9 +32,9 @@ class _DatePickerState extends State<DatePicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Pilih tanggal',
-          style: TextStyle(
+        Text(
+          widget.label ?? 'Tanggal Mulai Budidaya',
+          style: const TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w400,
           ),
@@ -46,7 +48,7 @@ class _DatePickerState extends State<DatePicker> {
               initialDate: dateNow,
               firstDate: DateTime(dateNow.year - 1),
               lastDate: DateTime(dateNow.year + 2),
-              helpText: 'PILIH TANGGAL',
+              helpText: 'PILIH TANGGAL MULAI BUDIDAYA',
               cancelText: 'BATAL',
               confirmText: 'SIMPAN',
             );

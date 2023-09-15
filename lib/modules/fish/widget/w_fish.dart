@@ -24,33 +24,19 @@ class WFish extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 14),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: const FadeInImage(
-              height: 60,
-              width: 100,
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets/load_img.png'),
-              image: CachedNetworkImageProvider(
-                  'https://picsum.photos/500/500?random=1'),
-            ),
+          Text(
+            fishModel.name,
+            style: CustomTextStyle.body2SemiBold,
           ),
-          const SizedBox(width: 12.0),
+          Text(
+            ' - ${fishModel.asal}',
+            style: CustomTextStyle.body2Medium,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                fishModel.name,
-                style: CustomTextStyle.body2SemiBold,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                'Asal : ${fishModel.asal}',
-                style: CustomTextStyle.body2Medium,
-              ),
-            ],
+            children: [],
           ),
           // const Spacer(),
           // InkWell(
