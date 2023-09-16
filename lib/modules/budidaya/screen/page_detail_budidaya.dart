@@ -34,7 +34,12 @@ class DetailBudidayaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final waktuPanen = _daysBetween(
         budidayaModel.dateOfSeed, budidayaModel.estPanenDate ?? DateTime.now());
-
+    final price = budidayaModel.priceList;
+    if (budidayaModel.priceList != null) {
+      price?.sort(
+        (a, b) => a.limit - b.limit,
+      );
+    }
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const CustomAppbar(appbarText: 'Detail Budidaya'),
@@ -140,7 +145,7 @@ class DetailBudidayaPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  budidayaModel.priceList?.first.price?.toIdr() ?? '-' '/Kg',
+                  price?.first.price.toIdr() ?? '-' '/Kg',
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w600),
                 )
@@ -161,9 +166,9 @@ class DetailBudidayaPage extends StatelessWidget {
               )
             : CustomButton(
                 isPrimary: false,
-                textButton: 'Perbaruti Estimasi Panen',
+                textButton: 'Perbarui Estimasi Panen',
                 onTap: () async {
-                  RouteBloc().push(RouteCreateProduct(budidayaModel.id));
+                  RouteBloc().push(RouteUpdateProduct(budidayaModel));
                 },
               ),
       ),

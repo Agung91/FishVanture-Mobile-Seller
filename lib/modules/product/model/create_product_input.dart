@@ -41,7 +41,7 @@ class CreateProductInput {
     return CreateProductInput(
       budidayaID: map['budidayaID'] ?? '',
       estTonase: map['estTonase']?.toInt() ?? 0,
-      estDate: DateTime.parse(map['estDate']),
+      estDate: DateTime.parse(map['estDate']).toLocal(),
       input: List<PriceModel>.from(
           map['input']?.map((x) => PriceModel.fromMap(x))),
     );

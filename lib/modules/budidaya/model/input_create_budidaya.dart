@@ -33,7 +33,7 @@ class CreateBudidayaInput {
   factory CreateBudidayaInput.fromMap(Map<String, dynamic> map) {
     return CreateBudidayaInput(
       poolID: map['poolID'] ?? '',
-      dateOfSeed: DateTime.parse(map['dateOfSeed']),
+      dateOfSeed: DateTime.parse(map['dateOfSeed']).toLocal(),
       fishSpeciesID: map['fishSpeciesID'] ?? '',
     );
   }

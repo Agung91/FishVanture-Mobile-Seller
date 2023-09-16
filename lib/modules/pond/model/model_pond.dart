@@ -239,7 +239,7 @@ class UserPond {
     return UserPond(
       name: map['name'] ?? '',
       varificationCode: map['varificationCode'] ?? '',
-      expVerificationCode: DateTime.parse(map['expVerificationCode']),
+      expVerificationCode: DateTime.parse(map['expVerificationCode']).toLocal(),
     );
   }
 

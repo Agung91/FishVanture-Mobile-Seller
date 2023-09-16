@@ -92,13 +92,13 @@ class BudidayaModel {
       pondID: map['pondID'] ?? '',
       poolID: map['poolID'] ?? '',
       pool: PoolModel.fromMap(map['pool']),
-      dateOfSeed: DateTime.parse(map['dateOfSeed']),
+      dateOfSeed: DateTime.parse(map['dateOfSeed']).toLocal(),
       fishSpeciesID: map['fishSpeciesID'] ?? '',
       fishSpecies: FishModel.fromMap(map['fishSpecies']),
       fishSpeciesName: map['fishSpeciesName'],
       estTonase: map['estTonase']?.toDouble(),
       estPanenDate: map['estPanenDate'] != null
-          ? DateTime.parse(map['estPanenDate'])
+          ? DateTime.parse(map['estPanenDate']).toLocal()
           : null,
       estPrice: map['estPrice']?.toInt(),
       status: map['status'] ?? '',

@@ -14,6 +14,7 @@ import 'package:seller/modules/pool/screen/page_list_pool.dart';
 import 'package:seller/modules/pool/screen/page_create_pool.dart';
 import 'package:seller/modules/edit_profile/screen/page_edit_profile.dart';
 import 'package:seller/modules/product/screen/page_create_product.dart';
+import 'package:seller/modules/product/screen/page_update_product.dart';
 import 'package:seller/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
 import 'package:seller/modules/submission/bloc/bloc_submission.dart';
@@ -180,11 +181,21 @@ class RouteDetailBudidaya extends RoutePage {
 }
 
 class RouteCreateProduct extends RoutePage {
-  RouteCreateProduct(String budidayaId)
+  RouteCreateProduct(String budidayaID)
       : super(
           MaterialPage(
-            child: CreateProductPage(budidayaId: budidayaId),
+            child: CreateProductPage(budidayaID: budidayaID),
           ),
           'create-product',
+        );
+}
+
+class RouteUpdateProduct extends RoutePage {
+  RouteUpdateProduct(BudidayaModel budidayaModel)
+      : super(
+          MaterialPage(
+            child: UpdateProductPage(budidayaModel: budidayaModel),
+          ),
+          'update-product',
         );
 }

@@ -17,20 +17,25 @@ import 'package:seller/modules/budidaya/model/model_price_list.dart';
 import 'package:seller/modules/product/bloc/bloc_product.dart';
 import 'package:seller/modules/product/model/create_product_input.dart';
 
-class CreateProductPage extends StatelessWidget {
-  const CreateProductPage({
+class UpdateProductPage extends StatelessWidget {
+  const UpdateProductPage({
     Key? key,
-    required this.budidayaID,
+    required this.budidayaModel,
   }) : super(key: key);
 
-  final String budidayaID;
+  final BudidayaModel budidayaModel;
 
   @override
   Widget build(BuildContext context) {
     final blocProduct = context.read<ProductBloc>();
     final blocBudidaya = context.read<BudidayaBloc>();
+    blocProduct.listPrice.add(budidayaModel.priceList);
+    if (budidayaModel.estTonase != null) {
+      blocProduct.estTonase.add(budidayaModel.estTonase!.toInt().toString());
+    }
+    blocProduct.date.add(budidayaModel.estPanenDate);
     return Scaffold(
-      appBar: const CustomAppbar(appbarText: 'Tambah Estimasi Panen'),
+      appBar: const CustomAppbar(appbarText: 'Perbarui Estimasi Panen'),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,32 +67,67 @@ class CreateProductPage extends StatelessWidget {
                 builder: (context, snapshot) {
                   final listData = snapshot.data;
                   if (listData == null || listData.isEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: CustomButton(
-                        textButton: 'Tambah Harga Normal',
-                        isPrimary: false,
-                        onTap: () async {
-                          _showAddPriceDefault(context, blocProduct);
-                        },
-                      ),
-                    );
+                    return const SizedBox();
                   }
                   return ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        if (index == listData.length) {
+                        if (index == 0) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: CustomButton(
-                              textButton: 'Tambah Harga',
-                              isPrimary: false,
-                              onTap: () async {
-                                _showAddPrice(context, blocProduct);
-                              },
-                            ),
-                          );
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '${listData[index].limit}Kg',
+                                        style: CustomTextStyle.body1Medium,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          blocProduct
+                                              .currentPrice(listData[index]);
+
+                                          // TODO MENGGUNAKAN TANDA SERU
+                                          _showAddPriceDefault(
+                                            context,
+                                            blocProduct,
+                                            budidayaModel.priceList![index],
+                                          );
+                                        },
+                                        child: const SizedBox(
+                                          height: 24,
+                                          width: 24,
+                                          child: Icon(
+                                            IconlyLight.edit,
+                                            color: CustomColors.yellow,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                            'Harga penjualan dalam ${listData[index].limit}kg keatas'),
+                                      ),
+                                      Expanded(
+                                          child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child:
+                                            Text(listData[index].price.toIdr()),
+                                      )),
+                                    ],
+                                  ),
+                                ],
+                              ));
                         }
                         return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -99,18 +139,27 @@ class CreateProductPage extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Harga ${index + 1}',
+                                      '${listData[index].limit}Kg',
                                       style: CustomTextStyle.body1Medium,
                                     ),
                                     InkWell(
-                                      onTap: () => blocProduct
-                                          .removePrice(listData[index].limit),
+                                      onTap: () {
+                                        blocProduct
+                                            .currentPrice(listData[index]);
+
+                                        // TODO MENGGUNAKAN TANDA SERU
+                                        _showUpdatePrice(
+                                          context,
+                                          blocProduct,
+                                          budidayaModel.priceList![index],
+                                        );
+                                      },
                                       child: const SizedBox(
                                         height: 24,
                                         width: 24,
                                         child: Icon(
-                                          IconlyLight.delete,
-                                          color: CustomColors.red,
+                                          IconlyLight.edit,
+                                          color: CustomColors.yellow,
                                         ),
                                       ),
                                     )
@@ -135,13 +184,11 @@ class CreateProductPage extends StatelessWidget {
                             ));
                       },
                       separatorBuilder: (context, index) {
-                        if (index == listData.length - 1) {
-                          return const SizedBox(height: 24);
-                        }
                         return const SizedBox(height: 16);
                       },
-                      itemCount: listData.length + 1);
-                })
+                      itemCount: listData.length);
+                }),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -151,7 +198,7 @@ class CreateProductPage extends StatelessWidget {
         child: CustomButton(
           textButton: 'Submit',
           onTap: () async {
-            await blocProduct.createProduct(budidayaID);
+            await blocProduct.updateProduct(budidayaModel.id);
             blocBudidaya.getListBudidaya();
             RouteBloc().pop();
             RouteBloc().pop();
@@ -161,7 +208,8 @@ class CreateProductPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _showAddPrice(BuildContext context, ProductBloc blocProduct) {
+  Future<dynamic> _showUpdatePrice(BuildContext context,
+      ProductBloc blocProduct, PriceListModel priceListModel) {
     return showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -191,7 +239,7 @@ class CreateProductPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Tambah Harga',
+                  'Perbarui Harga',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -199,7 +247,7 @@ class CreateProductPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Harga yang diinputkan adalah harga yang berlaku untuk setiap kilogram barang yang akan dibeli',
@@ -239,7 +287,7 @@ class CreateProductPage extends StatelessWidget {
                   textButton: 'Submit',
                   isPrimary: false,
                   onTap: () async {
-                    await blocProduct.addPrice();
+                    blocProduct.updatePrice(priceListModel);
                     Navigator.pop(context);
                   },
                 ),
@@ -253,7 +301,10 @@ class CreateProductPage extends StatelessWidget {
   }
 
   Future<dynamic> _showAddPriceDefault(
-      BuildContext context, ProductBloc blocProduct) {
+    BuildContext context,
+    ProductBloc blocProduct,
+    PriceListModel priceListModel,
+  ) {
     return showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -283,7 +334,7 @@ class CreateProductPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Tambah Harga Normal',
+                  'Perbarui Harga Normal',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -291,7 +342,7 @@ class CreateProductPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'Harga yang diinputkan adalah harga yang berlaku untuk setiap kilogram barang yang akan dibeli',
@@ -309,8 +360,8 @@ class CreateProductPage extends StatelessWidget {
                       child: StreamTextInput(
                         sStream: blocProduct.price,
                         keyboardType: TextInputType.number,
-                        label: 'Harga',
-                        hint: 'Harga',
+                        label: 'Harga Awal',
+                        hint: 'Masukkan Harga Awal',
                       ),
                     ),
                   ],
@@ -323,7 +374,7 @@ class CreateProductPage extends StatelessWidget {
                   textButton: 'Submit',
                   isPrimary: false,
                   onTap: () async {
-                    await blocProduct.addPriceDefault();
+                    blocProduct.updatePriceDefault(priceListModel);
                     Navigator.pop(context);
                   },
                 ),
