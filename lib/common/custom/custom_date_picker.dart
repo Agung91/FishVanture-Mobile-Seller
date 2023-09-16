@@ -42,56 +42,61 @@ class _DatePickerState extends State<DatePicker> {
           ),
         ),
         const SizedBox(height: 9.0),
-        InkWell(
-          onTap: () async {
-            Intl.systemLocale = await findSystemLocale();
-            final data = await showDatePicker(
-              context: context,
-              initialDate: dateNow,
-              firstDate: DateTime(dateNow.year - 1),
-              lastDate: DateTime(dateNow.year + 2),
-              helpText: widget.helpText ?? 'PILIH TANGGAL MULAI BUDIDAYA',
-              cancelText: 'BATAL',
-              confirmText: 'SIMPAN',
-            );
-            if (data != null) {
-              widget.sStream.add(data);
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            height: 48,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                border: Border.all(color: CustomColors.fadedGrey),
-                borderRadius: BorderRadius.circular(4)),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: StreamBuilder<DateTime?>(
-                  stream: widget.sStream.stream,
-                  builder: (context, snapshot) {
-                    final data = snapshot.data;
-                    if (data == null) {
-                      return const Text(
-                        'Pilih tanggal',
-                        style: TextStyle(
-                          color: CustomColors.grey,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      );
-                    }
-                    return Text(
-                      DateFormat('EEEE, dd MMMM yyyy', 'id').format(data),
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    );
-                  }),
-            ),
-          ),
-        ),
+        StreamBuilder<DateTime?>(
+            stream: widget.sStream.stream,
+            initialData: widget.sStream.value,
+            builder: (context, snapshot) {
+              return InkWell(
+                onTap: () async {
+                  Intl.systemLocale = await findSystemLocale();
+                  final data = await showDatePicker(
+                    context: context,
+                    initialDate: snapshot.data ?? dateNow,
+                    firstDate: DateTime(dateNow.year - 1),
+                    lastDate: DateTime(dateNow.year + 2),
+                    helpText: widget.helpText ?? 'PILIH TANGGAL MULAI BUDIDAYA',
+                    cancelText: 'BATAL',
+                    confirmText: 'SIMPAN',
+                  );
+                  if (data != null) {
+                    widget.sStream.add(data);
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  height: 48,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: CustomColors.fadedGrey),
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: StreamBuilder<DateTime?>(
+                        stream: widget.sStream.stream,
+                        builder: (context, snapshot) {
+                          final data = snapshot.data;
+                          if (data == null) {
+                            return const Text(
+                              'Pilih tanggal',
+                              style: TextStyle(
+                                color: CustomColors.grey,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            );
+                          }
+                          return Text(
+                            DateFormat('EEEE, dd MMMM yyyy', 'id').format(data),
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+              );
+            }),
       ],
     );
   }
