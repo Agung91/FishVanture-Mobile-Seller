@@ -26,7 +26,7 @@ class WBudidayaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final waktuPanen = _daysBetween(
-        budidayaModel.dateOfSeed, budidayaModel.estPanenDate ?? DateTime.now());
+        DateTime.now(), budidayaModel.estPanenDate ?? DateTime.now());
     // print(waktuPanen);
     // print('awal  = ${budidayaModel.dateOfSeed}');
     // print('akhir  = ${budidayaModel.estPanenDate}');
@@ -77,7 +77,7 @@ class WBudidayaCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (budidayaModel.estPanenDate != null) ...[
+                if (budidayaModel.estPanenDate != null && waktuPanen >= 0) ...[
                   const Icon(
                     IconlyBold.time_circle,
                     size: 16,

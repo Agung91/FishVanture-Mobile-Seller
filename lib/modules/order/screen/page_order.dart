@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 
 import 'package:seller/common/widgets/appbar.dart';
 import 'package:seller/common/widgets/button.dart';
 import 'package:seller/config/colors.dart';
 import 'package:seller/config/text_style.dart';
+import 'package:seller/modules/order/bloc/bloc_order.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -57,6 +59,7 @@ class WOrderActive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocOrder = context.read<OrderBloc>();
     return ListView.separated(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(vertical: 12),
@@ -77,6 +80,7 @@ class ItemOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocOrder = context.read<OrderBloc>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: CustomColors.white,
@@ -148,7 +152,9 @@ class ItemOrder extends StatelessWidget {
           CustomButton(
             isPrimary: false,
             textButton: 'Transaksi Selesai',
-            onTap: () async {},
+            onTap: () async {
+              blocOrder.order();
+            },
           ),
         ],
       ),

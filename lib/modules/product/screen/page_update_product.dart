@@ -52,7 +52,7 @@ class UpdateProductPage extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: StreamTextInput(
-                  label: 'Perkiraan Jumlah Panen(Kg)',
+                  label: 'Perkiraan Jumlah Panen(kg)',
                   hint: 'Jumlah Panen',
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
@@ -85,7 +85,7 @@ class UpdateProductPage extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        '${listData[index].limit}Kg',
+                                        '${listData[index].limit} kg',
                                         style: CustomTextStyle.body1Medium,
                                       ),
                                       InkWell(
@@ -139,7 +139,7 @@ class UpdateProductPage extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '${listData[index].limit}Kg',
+                                      '${listData[index].limit}kg',
                                       style: CustomTextStyle.body1Medium,
                                     ),
                                     InkWell(

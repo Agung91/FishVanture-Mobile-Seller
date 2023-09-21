@@ -33,7 +33,7 @@ class DetailBudidayaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final waktuPanen = _daysBetween(
-        budidayaModel.dateOfSeed, budidayaModel.estPanenDate ?? DateTime.now());
+        DateTime.now(), budidayaModel.estPanenDate ?? DateTime.now());
     final price = budidayaModel.priceList;
     if (budidayaModel.priceList != null) {
       price?.sort(
@@ -136,7 +136,8 @@ class DetailBudidayaPage extends StatelessWidget {
                       color: CustomColors.primary,
                     ),
                     const SizedBox(width: 4),
-                    if (budidayaModel.estPanenDate != null) ...[
+                    if (budidayaModel.estPanenDate != null &&
+                        waktuPanen >= 0) ...[
                       Text('$waktuPanen Hari'),
                     ] else ...[
                       const Text('-'),

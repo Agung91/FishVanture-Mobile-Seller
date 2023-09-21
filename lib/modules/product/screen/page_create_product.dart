@@ -47,7 +47,7 @@ class CreateProductPage extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: StreamTextInput(
-                  label: 'Perkiraan Jumlah Panen(Kg)',
+                  label: 'Perkiraan Jumlah Panen(kg)',
                   hint: 'Jumlah Panen',
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),

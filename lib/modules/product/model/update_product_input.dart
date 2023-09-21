@@ -34,7 +34,7 @@ class UpdateProductInput {
     return {
       'budidayaID': budidayaID,
       'estTonase': estTonase,
-      'estDate': estDate..toUtc().toIso8601String(),
+      'estDate': estDate.toUtc().toIso8601String(),
       'pricelist': pricelist.map((x) => x.toMap()).toList(),
     };
   }
