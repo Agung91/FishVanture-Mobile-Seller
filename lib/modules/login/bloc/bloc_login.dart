@@ -10,8 +10,10 @@ import 'package:seller/modules/login/repo/repo_login.dart';
 class LoginBLoc {
   LoginBLoc(this._repo) {
     if (kDebugMode) {
-      email.add('cobaseller@gmail.com');
-      password.add('cobaseller');
+      // email.add('cobaseller@gmail.com');
+      // password.add('cobaseller');
+      email.add('cobaseller2@gmail.com');
+      password.add('cobaseller2');
     }
   }
 

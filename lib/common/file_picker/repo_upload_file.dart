@@ -20,7 +20,8 @@ class UploadFileHttpRepo extends HttpService implements UploadFileService {
         onSendProgress: progress,
       );
       final a = FileModelResponse.fromMap(response.data);
-      return FileModel(name: data.files.first.value.filename ?? '', url: a.url);
+      return FileModel(
+          name: data.files.first.value.filename ?? '', file: a.url);
     } catch (e) {
       rethrow;
     }

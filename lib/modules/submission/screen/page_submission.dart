@@ -271,7 +271,8 @@ class SubmissionPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () => launchInBrowser(listData[index].url),
+                              onTap: () =>
+                                  launchInBrowser(listData[index].file),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 12,
@@ -297,7 +298,7 @@ class SubmissionPage extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     InkWell(
                                       onTap: () => blocSubmission
-                                          .removeFile(listData[index].url),
+                                          .removeFile(listData[index].file),
                                       child: const SizedBox(
                                         width: 24,
                                         height: 24,

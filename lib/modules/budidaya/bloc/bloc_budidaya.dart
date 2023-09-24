@@ -1,3 +1,4 @@
+import 'package:seller/core/auth/bloc/authenticated.dart';
 import 'package:seller/modules/budidaya/model/input_create_budidaya.dart';
 import 'package:seller/modules/budidaya/model/model_budidaya.dart';
 import 'package:seller/modules/budidaya/repo/repo_budidaya.dart';
@@ -5,10 +6,8 @@ import 'package:seller/modules/fish/model/model_fish.dart';
 import 'package:seller/modules/pool/model/model_pool.dart';
 import 'package:sstream/sstream.dart';
 
-class BudidayaBloc {
-  BudidayaBloc(this._repo) {
-    getListBudidaya();
-  }
+class BudidayaBloc extends Authenticated {
+  BudidayaBloc(this._repo);
 
   final BudidayaHttpRepo _repo;
 
@@ -56,5 +55,15 @@ class BudidayaBloc {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> onLogin() async {
+    getListBudidaya();
+  }
+
+  @override
+  Future<void> onLogout() async {
+    listBudidaya.add([]);
   }
 }

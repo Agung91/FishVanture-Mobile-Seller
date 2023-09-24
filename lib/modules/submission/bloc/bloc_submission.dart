@@ -212,7 +212,7 @@ class SubmissionBloc {
 
   void removeFile(String url) {
     final listFileVal = listFile.value;
-    listFileVal.removeWhere((element) => element.url == url);
+    listFileVal.removeWhere((element) => element.file == url);
     listFile.add(listFileVal);
   }
 }

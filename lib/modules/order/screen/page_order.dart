@@ -78,7 +78,7 @@ class _WOrderActive extends StatelessWidget {
             onRefresh: () async => await blocOrder.order(),
             child: ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 itemBuilder: (context, index) {
                   return _ItemOrder(
                     orderModel: listData[index],

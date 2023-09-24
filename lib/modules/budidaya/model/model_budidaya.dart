@@ -18,6 +18,8 @@ class BudidayaModel {
   final double? estTonase;
   final DateTime? estPanenDate;
   final int? estPrice;
+  final int? sold;
+  final int? stock;
   final String status;
   final List<PriceListModel>? priceList;
   BudidayaModel({
@@ -32,6 +34,8 @@ class BudidayaModel {
     required this.estTonase,
     this.estPanenDate,
     this.estPrice,
+    this.sold,
+    this.stock,
     required this.status,
     this.priceList,
   });
@@ -48,6 +52,8 @@ class BudidayaModel {
     double? estTonase,
     DateTime? estPanenDate,
     int? estPrice,
+    int? sold,
+    int? stock,
     String? status,
     List<PriceListModel>? priceList,
   }) {
@@ -63,6 +69,8 @@ class BudidayaModel {
       estTonase: estTonase ?? this.estTonase,
       estPanenDate: estPanenDate ?? this.estPanenDate,
       estPrice: estPrice ?? this.estPrice,
+      sold: sold ?? this.sold,
+      stock: stock ?? this.stock,
       status: status ?? this.status,
       priceList: priceList ?? this.priceList,
     );
@@ -81,6 +89,8 @@ class BudidayaModel {
       'estTonase': estTonase,
       'estPanenDate': estPanenDate?.toUtc().toIso8601String(),
       'estPrice': estPrice,
+      'sold': sold,
+      'stock': stock,
       'status': status,
       'priceList': priceList?.map((x) => x.toMap()).toList(),
     };
@@ -101,6 +111,8 @@ class BudidayaModel {
           ? DateTime.parse(map['estPanenDate']).toLocal()
           : null,
       estPrice: map['estPrice']?.toInt(),
+      sold: map['sold']?.toInt(),
+      stock: map['stock']?.toInt(),
       status: map['status'] ?? '',
       priceList: map['priceList'] != null
           ? List<PriceListModel>.from(
@@ -116,7 +128,7 @@ class BudidayaModel {
 
   @override
   String toString() {
-    return 'BudidayaModel(id: $id, pondID: $pondID, poolID: $poolID, pool: $pool, dateOfSeed: $dateOfSeed, fishSpeciesID: $fishSpeciesID, fishSpecies: $fishSpecies, fishSpeciesName: $fishSpeciesName, estTonase: $estTonase, estPanenDate: $estPanenDate, estPrice: $estPrice, status: $status, priceList: $priceList)';
+    return 'BudidayaModel(id: $id, pondID: $pondID, poolID: $poolID, pool: $pool, dateOfSeed: $dateOfSeed, fishSpeciesID: $fishSpeciesID, fishSpecies: $fishSpecies, fishSpeciesName: $fishSpeciesName, estTonase: $estTonase, estPanenDate: $estPanenDate, estPrice: $estPrice, sold: $sold, stock: $stock, status: $status, priceList: $priceList)';
   }
 
   @override
@@ -135,6 +147,8 @@ class BudidayaModel {
         other.estTonase == estTonase &&
         other.estPanenDate == estPanenDate &&
         other.estPrice == estPrice &&
+        other.sold == sold &&
+        other.stock == stock &&
         other.status == status &&
         listEquals(other.priceList, priceList);
   }
@@ -152,6 +166,8 @@ class BudidayaModel {
         estTonase.hashCode ^
         estPanenDate.hashCode ^
         estPrice.hashCode ^
+        sold.hashCode ^
+        stock.hashCode ^
         status.hashCode ^
         priceList.hashCode;
   }
